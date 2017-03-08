@@ -523,72 +523,79 @@ behavior. However, I’ll give you a listing of the optimization:
     </tr>
 	<tr>
 	<td>
-// Calculation of values for the first table.
-for (int i = 0; i &lt; 256; i++)
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .1em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008000">// Calculation of values for the first table.</span>
+<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; 256; i++)
 {
-      r[i] = &lt;actionFunc1R&gt;(i);
-      g[i] = &lt;actionFunc1G&gt;(i);
-      b[i] = &lt;actionFunc1B&gt;(i);
+      r[i] = ActionFunc1R(i);
+      g[i] = ActionFunc1G(i);
+      b[i] = ActionFunc1B(i);
 }
-…
 
-// Calculation of the resulting intermediate image.
-for (int i = 0; i &lt; data.Length; i += 4)
+<span style="color: #008000">// ...</span>
+
+<span style="color: #008000">// Calculation of the resulting intermediate image.</span>
+<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; data.Length; i += 4)
 {
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-…
 
-// Calculation of values for the second table.
-for (int i = 0; i &lt; 256; i++)
+<span style="color: #008000">// ...</span>
+
+<span style="color: #008000">// Calculation of values for the second table.</span>
+<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; 256; i++)
 {
-      r[i] = &lt;actionFunc2R&gt;(i);
-      g[i] = &lt;actionFunc2G&gt;(i);
-      b[i] = &lt;actionFunc2B&gt;(i);
+      r[i] = ActionFunc2R(i);
+      g[i] = ActionFunc2G(i);
+      b[i] = ActionFunc2B(i);
 }
-…
 
-// Calculation of the resulting image.
-for (int i = 0; i &lt; data.Length; i += 4)
+<span style="color: #008000">// ...</span>
+
+<span style="color: #008000">// Calculation of the resulting image.</span>
+<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; data.Length; i += 4)
 {
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-…
+
+<span style="color: #008000">// ...</span>
+</pre></div>
     </td>
-    <td>
-//  Calculation of values for the first table.
-for (int i = 0; i &lt; 256; i++)
+    <td valign="top">
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .1em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008000">//  Calculation of values for the first table.</span>
+<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; 256; i++)
 {
-      r[i] = &lt;actionFunc1R&gt;(i);
-      g[i] = &lt;actionFunc1G&gt;(i);
-      b[i] = &lt;actionFunc1B&gt;(i);
+      r[i] = ActionFunc1R(i);
+      g[i] = ActionFunc1G(i);
+      b[i] = ActionFunc1B(i);
 }
-…
 
-// Calculation of values for the second table.
+<span style="color: #008000">// ...</span>
+
+<span style="color: #008000">// Calculation of values for the second table.</span>
 tr = r.Clone();
 tg = g.Clone();
 tb = b.Clone();
-for (int i = 0; i &lt; 256; i++)
+<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; 256; i++)
 {
-      r[i] = tr[&lt;actionFunc2R&gt;(i)];
-      g[i] = tg[&lt;actionFunc2G&gt;(i)];
-      b[i] = tb[&lt;actionFunc2B&gt;(i)];
+      r[i] = tr[ActionFunc2R(i)];
+      g[i] = tg[ActionFunc2G(i)];
+      b[i] = tb[ActionFunc2B(i)];
 }
-…
 
-// Calculation of the resulting image.
-for (int i = 0; i &lt; data.Length; i += 4)
-{ 	
+<span style="color: #008000">// ...</span>
+
+<span style="color: #008000">// Calculation of the resulting image.</span>
+<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; data.Length; i += 4)
+{
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-…
+</pre></div>
     </td>
 	</tr>
 </table>
