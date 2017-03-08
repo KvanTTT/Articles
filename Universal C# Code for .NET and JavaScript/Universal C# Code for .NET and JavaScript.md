@@ -523,79 +523,69 @@ behavior. However, I’ll give you a listing of the optimization:
     </tr>
 	<tr>
 	<td>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .1em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008000">// Calculation of values for the first table.</span>
-<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; 256; i++)
+<pre>
+// Calculation of values for the first table.
+for (int i = 0; i &lt; 256; i++)
 {
       r[i] = ActionFunc1R(i);
       g[i] = ActionFunc1G(i);
       b[i] = ActionFunc1B(i);
 }
-
-<span style="color: #008000">// ...</span>
-
-<span style="color: #008000">// Calculation of the resulting intermediate image.</span>
-<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; data.Length; i += 4)
+// ...<br>
+// Calculation of the resulting intermediate image.
+for (int i = 0; i &lt; data.Length; i += 4)
 {
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-
-<span style="color: #008000">// ...</span>
-
-<span style="color: #008000">// Calculation of values for the second table.</span>
-<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; 256; i++)
+// ...<br>
+// Calculation of values for the second table.
+for (int i = 0; i &lt; 256; i++)
 {
       r[i] = ActionFunc2R(i);
       g[i] = ActionFunc2G(i);
       b[i] = ActionFunc2B(i);
 }
-
-<span style="color: #008000">// ...</span>
-
-<span style="color: #008000">// Calculation of the resulting image.</span>
-<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; data.Length; i += 4)
+// ...<br>
+// Calculation of the resulting image.
+for (int i = 0; i &lt; data.Length; i += 4)
 {
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-
-<span style="color: #008000">// ...</span>
-</pre></div>
+</pre>
     </td>
     <td valign="top">
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .1em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008000">//  Calculation of values for the first table.</span>
-<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; 256; i++)
+<pre>
+//  Calculation of values for the first table.
+for (int i = 0; i &lt; 256; i++)
 {
       r[i] = ActionFunc1R(i);
       g[i] = ActionFunc1G(i);
       b[i] = ActionFunc1B(i);
 }
-
-<span style="color: #008000">// ...</span>
-
-<span style="color: #008000">// Calculation of values for the second table.</span>
+// ...<br>
+// Calculation of values for the second table.
 tr = r.Clone();
 tg = g.Clone();
 tb = b.Clone();
-<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; 256; i++)
+for (int i = 0; i &lt; 256; i++)
 {
       r[i] = tr[ActionFunc2R(i)];
       g[i] = tg[ActionFunc2G(i)];
       b[i] = tb[ActionFunc2B(i)];
 }
-
-<span style="color: #008000">// ...</span>
-
-<span style="color: #008000">// Calculation of the resulting image.</span>
-<span style="color: #0000ff">for</span> (<span style="color: #2b91af">int</span> i = 0; i &lt; data.Length; i += 4)
+// ...<br>
+// Calculation of the resulting image.
+for (int i = 0; i &lt; data.Length; i += 4)
 {
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-</pre></div>
+</pre>
     </td>
 	</tr>
 </table>
