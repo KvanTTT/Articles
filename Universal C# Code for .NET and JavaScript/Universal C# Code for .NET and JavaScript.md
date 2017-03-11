@@ -492,9 +492,9 @@ values:
 ```CSharp
 for (int i = 0; i < 256; i++)
 {
-	r[i] = <actionFuncR>(i);
-	g[i] = <actionFuncG>(i);
-	b[i] = <actionFuncB>(i);
+	r[i] = ActionFuncR(i);
+	g[i] = ActionFuncG(i);
+	b[i] = ActionFuncB(i);
 }
 ```
 
@@ -517,12 +517,12 @@ optimization aside. Furthermore, the optimization caused some unwanted
 behavior. However, I’ll give you a listing of the optimization:
 
 <table>
-	<tr>
+    <tr>
         <td>Original code </td>
         <td>Optimized code</td>
     </tr>
-	<tr>
-	<td>
+    <tr>
+    <td>
 <pre>
 // Calculation of values for the first table.
 for (int i = 0; i &lt; 256; i++)
@@ -587,7 +587,7 @@ for (int i = 0; i &lt; data.Length; i += 4)
 }
 </pre>
     </td>
-	</tr>
+    </tr>
 </table>
 
 But even this is not all If you have a look at the table on the right,
