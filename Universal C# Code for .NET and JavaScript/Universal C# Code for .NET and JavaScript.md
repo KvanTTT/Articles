@@ -12,7 +12,7 @@ gfranq.com, the photo editing web service, which supports client- and
 server-side image processing using filters as well as collage
 functionality. This web service is not currently available.
 
-![Client-Server Interaction](Images/Client-Server-Interaction.png)]
+![Client-Server Interaction](Images/Client-Server-Interaction.png)
 
 ## Contents
 
