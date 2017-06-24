@@ -185,7 +185,7 @@ calculateLargestRect = function(angle, origWidth, origHeight) {
 
 To explain the technique for auto horizon alignment, I prepared a graphic illustration of the process:
 
-![Algorithm Steps](Images/Algorithm-Steps-Ru.jpg)
+![Algorithm Steps](Images/Algorithm-Steps-En.png)
 
 ### Rotating images in Google Chrome
 

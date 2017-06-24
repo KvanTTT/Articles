@@ -184,7 +184,7 @@ calculateLargestRect = function(angle, origWidth, origHeight) {
 
 Для лучшего понимания работы метода автоматического выравнивания горизонта 
 я подготовил графическую иллюстрацию процесса:
-![Algorithm Steps](Images/Algorithm-Steps-Ru.jpg)
+![Algorithm Steps](Images/Algorithm-Steps-Ru.png)
 
 ## Поворот изображений в Google Chrome
 
