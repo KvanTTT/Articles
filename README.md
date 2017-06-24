@@ -1,2 +1,3 @@
 # Articles
-Collection of my articles on Russian and English
+
+* [Algorithm for Automatic Skyline-Alignment](Automatic-Skyline-Alignment/English.md) ([ru](Automatic-Skyline-Alignment/Russian.md))
