@@ -13,3 +13,11 @@ functionality.
 ## [Algorithm for Automatic Skyline-Alignment](Automatic-Skyline-Alignment/English.md) ([ru](Automatic-Skyline-Alignment/Russian.md))
 
 * **Date**: 20.09.2013
+
+## [Parsing Preprocessor Directives in Objective-C Code](Parsing-Preprocessor-Directives-in-Objective-C-Code/English.md) ([ru](Parsing-Preprocessor-Directives-in-Objective-C-Code/Russian.md))
+
+* **Date**: 19.02.2017
+* **Description**: This article goes into detail describing approaches 
+to Objective-C preprocessor directives processing. Besides the 
+theoretical side of the question, these approaches are practically 
+implemented in web services, such as Swiftify and Codebeat.
