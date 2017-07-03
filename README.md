@@ -7,6 +7,11 @@ to Objective-C preprocessor directives processing. Besides the
 theoretical side of the question, these approaches are practically 
 implemented in web services, such as Swiftify and Codebeat.
 
+## Write a Palindrome Polyglot Quine ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Write-a-palindrome-polyglot-quine/Russian.md))
+
+* **12.09.2016**
+* [habrahabr.ru](https://habrahabr.ru/company/pt/blog/309702/)
+
 ## [Pattern language for a universal signature-based code analyzer](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Pattern-language-for-a-universal-signature-based-code-analyzer/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Pattern-language-for-a-universal-signature-based-code-analyzer/Russian.md))
 
 * **17.05.2016**
