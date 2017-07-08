@@ -35,6 +35,11 @@ implemented in web services, such as Swiftify and Codebeat.
 * **20.09.2013**
 * [habrahabr.ru](https://habrahabr.ru/post/194580/)
 
+## Selection, Caching and Drawing Photos on Map ([ru](Selection-Caching-and-Drawing-Photos-on-Map/Russian.md))
+
+* **17.08.2013**
+* [habrahabr.ru](https://habrahabr.ru/post/182532/)
+
 ## [Universal C# Code for .NET and JavaScript](Universal-CSharp-Code-for-NET-and-JavaScript/English.md) ([ru](Universal-CSharp-Code-for-NET-and-JavaScript/Russian.md))
 
 * **17.03.2013**
