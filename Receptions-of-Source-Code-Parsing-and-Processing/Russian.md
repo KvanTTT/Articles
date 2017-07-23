@@ -28,7 +28,39 @@
 * Предметно-ориентированный языки DSL
 
 **Лексер** группирует символы исходного кода в значащие последовательности.
-**Парсер** же из потока токенов строит связную древовидную структуру.
+**Парсер** из потока токенов строит связную древовидную структуру.
+
+![](https://habrastorage.org/files/6c4/385/fbe/6c4385fbe3d8471982c9b2a030106d38.png)
+
+Существуют безлексерные парсеры.
+
+---
+
+# Парсинг и грамматики
+
+### Типы языков
+
+* Регулярные
+* Контекстно-свободные
+* Контекстно-зависимые
+
+### Пример грамматики
+
+```
+expr
+    : expr '*' expr
+    | expr '+' expr
+    | ID
+    ;
+
+ID: [a-zA-Z]+;
+```
+
+### Пример данных
+
+```
+a + b * c
+```
 
 ---
 
@@ -214,11 +246,25 @@ JavaScript внутри PHP или C# внутри Aspx.
 </head>
 ```
 
-* Использовать режимы переключения лексем
+* Использовать режимы переключения лексем `mode`.
 * Парсер **PHP** распознает код внутри тегов `<script>` как строку:
 `document.body.innerHTML="<svg/onload=alert(1)>"`
 * Парсер **JavaScript** используется во время обхода дерева.
 Для него это обычный код + смещение.
+
+---
+
+# Использование другого режима лексем для JavaScript
+
+```
+ScriptText:   ~[<]+;
+ScriptClose:  '</script'? '>' -> popMode;
+PHPStart:     '<?=' -> type(Echo), pushMode(PHP);
+PHPStart:     '<?' 'php'? -> channel(SkipChannel), pushMode(PHP);
+ScriptText2:  '<' ~[<?/]* -> type(ScriptText);
+ScriptText3:  '?' ~[<]* -> type(ScriptText);
+ScriptText4:  '/' ~[<]* -> type(ScriptText);
+```
 
 ---
 
@@ -387,6 +433,32 @@ class T { int f(x) { a = 3 4 5; } }
 
 ```CSharp
 class T { int ; }
+```
+
+---
+
+# Ошибки в Roslyn
+
+```
+namespace App
+{
+    class Program
+    {
+        ;                    // Skipped Trivia
+        static void Main(string[] args)
+        {
+            a                // Missing ';'
+            ulong ul = 1lu;  // Incorrect Numeric
+            string s = """;  // Incorrect String
+            char c = '';     // Incorrect Char
+        }
+    }
+
+    class bControl flow
+    {
+        c                    // Incomplete Member
+    }
+}
 ```
 
 ---
