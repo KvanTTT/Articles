@@ -22,7 +22,7 @@
 
 # Парсинг
 
-Процесс преобразования исходного кода в структурированный вид.
+Процесс преобразования исходного кода в структурированный вид (AST).
 
 * Языки программирования: C#, Java, T-SQL, PL/SQL и т.д.
 * Предметно-ориентированный языки DSL
@@ -50,9 +50,9 @@
 
 * Ключевые слова как идентификаторы
 ```CSharp
-var var = 0; // Valid!
+var var = 0; // Valid code!
 ```
-* [The lexer hack](https://en.wikipedia.org/wiki/The_lexer_hack)
+* Хак лексера ([The lexer hack](https://en.wikipedia.org/wiki/The_lexer_hack))
 * Контекстно-зависимые конструкции
 
 ---
@@ -214,6 +214,7 @@ JavaScript внутри PHP или C# внутри Aspx.
 </head>
 ```
 
+* Использовать режимы переключения лексем
 * Парсер **PHP** распознает код внутри тегов `<script>` как строку:
 `document.body.innerHTML="<svg/onload=alert(1)>"`
 * Парсер **JavaScript** используется во время обхода дерева.
@@ -252,7 +253,7 @@ declaration:
 
 ---
 
-## Связывание скрытые токенов с правилами грамматики (Swiftify)
+## Связывание скрытых токенов с правилами грамматики (Swiftify)
 
 * Предшествующие (**Precending**)
 
@@ -279,7 +280,6 @@ declaration:
 
 * Лидирующие (**LeadingTrivia**)
 * Замыкающие (**TrailingTrivia**)
-* Более правильный подход!
 
 ```CSharp
 
@@ -294,6 +294,8 @@ int bar = 100500; // trailing (;)
 EOF
 ```
 
+* Более правильный подход!
+
 ---
 
 # Препроцессорные директивы
@@ -307,7 +309,7 @@ EOF
 
 1. Токенизация и разбор кода препроцессорных диреткив.
 2. Вычисление условных директив `#if` и определение компилируемых блоков кода.
-3. Замена директив из исходника на символы пробел.
+3. Замена директив из исходника на пробелы.
 4. Токенизация и парсинг результирующего текста с удаленными директивами.
 
 ---
@@ -318,7 +320,7 @@ EOF
 
 Интерпретация и обработка макросов вместе с функциями:
 
-```Objective
+```
 #define DEGREES_TO_RADIANS(degrees) (M_PI * (degrees) / 180)
 ```
 
@@ -389,6 +391,16 @@ class T { int ; }
 
 ---
 
+# Использование в IDE
+
+### Всплывающая подсказска
+
+* Только с использование грамматики грамматики
+* С использованием семантики
+* Чудес не бывает - все равно придется писать код в ручную для лучшего качества
+
+---
+
 # Оптимизация грамматик
 
 ### Леворекурсивные правила вместо обычных
@@ -428,17 +440,19 @@ expression
 ### Профилирование
 
 * Уровень грамматики. Плагин к Idea [ANTLR v4 grammar plugin](https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin) 
-* Уровень рантайма.
+* Уровень рантайма. Тестирование парсера на большом файле и определение узких мест.
 
 ---
 
 # Преобразование деревьев
 
-* Обход
-* Обращение к узлам
-* Форматирование кода
+* Методы обхода
+* Реализации Visitor и Listener
+* Архитектура
+* Доступ (Аксессинг) к узлам
+* Фичи C# 7 на практике
 * Сериализация
-* Оптимизация
+* Оптимизации
 
 ---
 
@@ -456,13 +470,22 @@ expression
 
 ---
 
-## Статические визиторы
+## Реализации Visitor и Listener
 
-Обычно генерируются (ANTLR)
+### Написанные вручную
+* Долгая и утомительная разработка
 
-## Динамические визиторы
+### Сгенерированные (ANTLR)
+* Избыточность
+* Нарушение Code Style
+* Доступны не всегда
+* Универсальность (Java, C#, Python2|3, JS, C++, Go, Swift)
+* Скорость разработки
 
-Используется рефлексия и ключевое слова `dynamic`
+### Динамические
+
+* Используется рефлексия и динамические типы с  `dynamic`
+* Медленная скорость, но хорошо для прототипов
 
 ---
 
@@ -471,7 +494,7 @@ expression
 ## Архитектура
 
 * Один большой с использованием `partial` классов.
-* Несколько маленьких
+* Несколько маленьких. Создание визиторов при необходимости.
 
 ## Статические проверки
 
@@ -489,6 +512,34 @@ throw new ShouldNotBeVisitedException(context);
 
 ---
 
+## C# 7: Локальные функции и Is Expression
+
+```
+public static List<Terminal> GetLeafs(this Rule node)
+{
+    var result = new List<TerminalNode>();
+    GetLeafs(node, result);
+    
+    // Local function
+    void GetLeafs(Rule localNode, List<Terminal> localResult)
+    {
+        for (int i = 0; i < localNode.ChildCount; ++i)
+        {
+            IParseTree child = localNode.GetChild(i);
+            // Is expression
+            if (child is TerminalNode typedChild)
+                localResult.Add(typedChild);
+
+            GetLeafs(child, localResult);
+        }
+    }
+
+    return result;
+}
+```
+
+---
+
 # Сериалзиация
 
 * Бинарная
@@ -497,15 +548,64 @@ throw new ShouldNotBeVisitedException(context);
 
 Подробности:
 * Проект на GitHub: [TreeProcessing.NET](https://github.com/KvanTTT/TreeProcessing.NET).
-* ["Сериализация, отображение, сравнение и обход древовидных структур в .NET"](https://github.com/KvanTTT/Articles/blob/tree-structures-serialization-comparison-and-mapping-on-net/Tree-Structures-Serialization-Comparison-and-Mapping-on-NET/Russian.md).
+* [Сериализация, отображение, сравнение и обход древовидных структур в .NET](https://github.com/KvanTTT/Articles/blob/tree-structures-serialization-comparison-and-mapping-on-net/Tree-Structures-Serialization-Comparison-and-Mapping-on-NET/Russian.md).
 
 ---
 
-# Оптимизация
+# JSON сериализация
 
-## `FirstDescendantOfType` - хранение всех потомков для каждого узла дерева вместа их поиска.
+* Сериализация по-умолчанию с параметром ` TypeNameHandling.All`
+* Длинные и платформозависимые имена типов
 
-## Уменьшение аллокаций `Visit`
+Результирующий JSON:
+
+```JSON
+"Statements": {
+    "$type": "System.Collections.Generic.List`1[[TreesProcessing.NET.Statement, TreesProcessing.NET]], mscorlib",
+    "$values": [
+        ...
+    ]
+```
+
+---
+
+# JSON сериалзиация
+
+* **Свойство** в качестве идентификации типа
+```JSON
+override NodeType NodeType => NodeType.InvocationExpression;
+```
+* **Имя класса** в качестве идентификации типа
+* **Аттрибут** в качестве идентификации типа
+```CSharp
+[NodeAttr(NodeType.BinaryOperatorExpression)]
+public class BinaryOperatorExpression : Expression
+```
+
+Результирующий JSON:
+
+```JSON
+"Statements": {
+    "NodeType": "BlockStatement",
+    "Statements": [
+        ...
+    ]
+```
+
+---
+
+# Оптимизации
+
+## Мемоизация
+
+* Поиск первого потомка определенного типа `FirstDescendantOfType`.
+* Хранение всех потомков для каждого узла дерева вместо их поиска.
+* Увеличение производительности в 2-3 раза.
+* Увеличение потребления памяти в 3 раза.
+
+## Уменьшение аллокаций
+
+* Метод `Visit` - базовый, он часто вызывается.
 
 ---
 
@@ -515,7 +615,7 @@ throw new ShouldNotBeVisitedException(context);
 * Статьи:
 	* [Теория и практика парсинга исходников с помощью ANTLR и Roslyn](https://habrahabr.ru/company/pt/blog/210772)
 	* [Обработка препроцессорных директив в Objective-C](https://habrahabr.ru/post/318954/)
-* [PT.PM](https://github.com/PositiveTechnologies/PT.PM).
+* Открытый сигнатурный движок поиска по шаблонам [PT.PM](https://github.com/PositiveTechnologies/PT.PM)
 * Грамматики: [grammars-v4](https://github.com/antlr/grammars-v4)
 
 ---
