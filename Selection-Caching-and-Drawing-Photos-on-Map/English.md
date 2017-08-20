@@ -7,8 +7,7 @@ In this article, I decided to describe how the functionality of selecting and
 displaying photos on a specific place on the map was implemented in our photo
 service *gfranq.com*. The photo service does not work now.
 
-![Title
-image](https://habrastorage.org/storage2/709/48a/e52/70948ae52bacb687d1b882fa7405bed5.jpg)
+![Title image](Images/Title-image.jpg)
 
 Since we had a lot of photos in our service and sending requests to database
 every time the viewport changes was too resource-intensive, it was logical to
@@ -129,8 +128,7 @@ The most optimal solution to the problem of selecting photos from certain areas
 is to create additional table `Zooms` which stores strings containing hashes of
 areas for each zoom, as shown below.
 
-![Table with
-hashes](http://habrastorage.org/storage2/dd2/696/223/dd269622322fa5b688101ba38ef68f10.png)
+![Table with hashes](Images/Table-with-Hashes.png)
 
 The following SQL query can be used (`zn` - current zoom level):
 
@@ -344,12 +342,12 @@ will be shown later), we decided to do it with some delay after the user input:
 google.maps.event.addListener(map, 'bounds_changed', function () {
     if (boundsChangedInverval != undefined)
         clearInterval(boundsChangedInverval);
-    
+
     var zoom = map.getZoom();
     boundsChangedInverval = setTimeout(function () {
         boundsChanged();
     }, prevZoom === zoom ? moveUpdateDelay : zoomUpdateDelay);
-    
+
     prevZoom = zoom;
 });
 ```
@@ -360,8 +358,7 @@ Calculation of coordinates and hashes of all the rectangles that overlap the
 visible window with coordinates (`latMin`, `lngMin`) and dimensions calculated
 using the algorithm described earlier is done as follows:
 
-![Coordinates and hashes
-calculation](http://habrastorage.org/storage2/d8f/63a/bd7/d8f63abd76978f82b66bd0cc5a06311e.png)
+![Coordinates and hashes calculation](Images/Coordinates-and-Hashes-Calculation.png)
 
 ```JavaScript
 var s = zoomSizes[zoom];

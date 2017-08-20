@@ -7,7 +7,7 @@
 отображения фотографий на определенном участке карты в нашем
 фотосервисе *gfranq.com*. Сейчас данный фотосервис не работает.
 
-![Title image](https://habrastorage.org/storage2/709/48a/e52/70948ae52bacb687d1b882fa7405bed5.jpg)
+![Титульное изображение](Images/Title-image.jpg)
 
 Так как в нашем сервисе было очень много фотографий и посылать запросы к БД 
 при каждом изменении окна просмотра слишком ресурсозатратно, логично было разбить
@@ -132,7 +132,7 @@ ORDER BY popularity DESC
 хранила бы в себе строки, содержащие в себе хеши областей для каждого зума,
 как это отображено на рисунке ниже.
 
-![Table with hashes](http://habrastorage.org/storage2/dd2/696/223/dd269622322fa5b688101ba38ef68f10.png)
+![Таблица с хешами](Images/Table-with-Hashes.png)
 
 SQL запрос при этом приобретает следующий вид (`zn` - текущий уровень зума):
 
@@ -361,7 +361,7 @@ google.maps.event.addListener(map, 'bounds_changed', function () {
 координатами (`latMin`, `lngMin`) и размерами, вычисленных по алгоритму,
 описанному ранее, производится следующим образом:
 
-![Coordinates and hashes calculation](http://habrastorage.org/storage2/d8f/63a/bd7/d8f63abd76978f82b66bd0cc5a06311e.png)
+![Расчет координат и хешей](Images/Coordinates-and-Hashes-Calculation.png)
 
 ```JavaScript
 var s = zoomSizes[zoom];
