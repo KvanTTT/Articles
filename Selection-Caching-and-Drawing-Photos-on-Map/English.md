@@ -20,37 +20,31 @@ scales, elements of spherical geometry and tools for it were also considered.
 In this article, the following issues were raised:
 
 * Storing and retrieving photos from the database and caching them on the server
-(SQL, C#, ASP.NET).
+  (SQL, C#, ASP.NET).
 * Downloading necessary photos on the client side and saving them to the client
-cache (JavaScript).
+  cache (JavaScript).
 * Recalculation of photos that must be hidden or shown when the viewport
-changes.
+  changes.
 * Elements of spherical geometry.
 
 ## Contents
 
-* [Server part](#Server-part)
-    * [Built-in geotypes](#Built-in-geotypes)
-    * [Normal selection](#Normal-selection)
-    * [Using additional hash table](#Using-additional-hash-table)
-* [Caching photos for multi-threaded
-access](#Caching-photos-for-multi-threaded-access)
-* [Client side](#Client-side)
-    * [Initializing the map](#Initializing-the-map)
-* [Determining the geolocation using
-HTML5](#Determining-the-geolocation-using-HTML5)
-* [Determining the geolocation using information from the
-server](#Determining-the-geolocation-using-information-from-the-server)
-* [Calculating partially visible rectangular
-areas](#Calculating-partially-visible-rectangular-areas)
-* [Calculating the size of caching
-areas](#Calculating-the-size-of-caching-areas)
-        * [Using delay when redrawing](#Using-delay-when-redrawing)
-* [Calculating coordinates and hashes of partially visible
-areas](#Calculating-coordinates-and-hashes-of-partially-visible-areas)
-    * [Redrawing the displayed photos](#Redrawing-the-displayed-photos)
-        * [Distance on the map](#Distance-on-the-map)
-* [Conclusion](#Conclusion)
+* [Server part](#server-part)
+  * [Built-in geotypes](#built-in-geotypes)
+  * [Normal selection](#normal-selection)
+  * [Using additional hash table](#using-additional-hash-table)
+  * [Caching photos for multi-threaded access](#caching-photos-for-multi-threaded-access)
+* [Client side](#client-side)
+  * [Initializing the map](#initializing-the-map)
+    * [Determining the geolocation using HTML5](#determining-the-geolocation-using-HTML5)
+    * [Determining the geolocation using information from the server](#determining-the-geolocation-using-information-from-the-server)
+  * [Calculating partially visible rectangular areas](#calculating-partially-visible-rectangular-areas)
+    * [Calculating the size of caching areas](#calculating-the-size-of-caching-areas)
+    * [Using delay when redrawing](#using-delay-when-redrawing)
+    * [Calculating coordinates and hashes of partially visible areas](#calculating-coordinates-and-hashes-of-partially-visible-areas)
+  * [Redrawing the displayed photos](#redrawing-the-displayed-photos)
+    * [Distance on the map](#distance-on-the-map)
+* [Conclusion](#conclusion)
 
 ## Server part
 
@@ -68,14 +62,14 @@ Further, these methods will be described in details.
 As is known, SQL Server 2008 supports geography and geometry data types, which
 allow to specify geographical (on the sphere) and geometrical (on the plane)
 information, such as points, lines, polygons
-[etc.](http://msdn.microsoft.com/en-us/library/bb933790.aspx) In order to
+[etc.](http://msdn.microsoft.com/en-us/library/bb933790.aspx). In order to
 retrieve all photos enclosed by a rectangle with coordinates (`lngMin` `latMin`)
 and (`latMax` `lngMax`), you can use the following query:
 
 ```SQL
 DECLARE @h geography;
 DECLARE @p geography;
-SET @rect = 
+SET @rect =
 geography::STGeomFromText('POLYGON((lngMin latMin, lngMax latMin, lngMax latMax, lngMin latMax, lngMin latMin))', 4326);
 SELECT TOP @cound id, image75Path, geoTag.Lat as Lat, geoTag.Long as Lng, popularity, width, height
 FROM Photo WITH (INDEX(IX_Photo_geoTag))
@@ -91,23 +85,23 @@ However, it turned out that in Microsoft SQL Server 2008, spatial indexes do not
 work if the column with geotypes can accept `NULL` values, and a composite index
 cannot contain a column with geography data type, and this question was
 [discussed on Stackoverflow](http://stackoverflow.com/q/15004850/1046374).
-That's why the perfomance of such queries (without indexes) becomes very low.
+That's why the performance of such queries (without indexes) becomes very low.
 
 The following approaches can solve this problem:
 
 * Since `NULL` values cannot be used, the default values for this column are
-corrdinates (0, 0) which point to a place in the Atlantic Ocean near Africa (the
-starting point for measuring latitude and longitude). However, in this place as
-well as nearby the real points can be located, and the photos not from the map
-should be ignored. If you change zero point (0, 0) to far north point (0, 90),
-then everything will be much better, because latitude 90 points to the edge of
-the map, and you should ignore this value when building the grip (i.e. build up
-to latitude 89).
+  coordinates (0, 0) which point to a location in the Atlantic Ocean near Africa (the
+  starting point for measuring latitude and longitude). However, in this place as
+  well as nearby the real points can be located, and the photos not from the map
+  should be ignored. If you change zero point (0, 0) to far north point (0, 90),
+  then everything will be much better, because latitude 90 points to the edge of
+  the map, and you should ignore this value when building the grid (i.e. build up
+  to latitude 89).
 * Using SQL Server 2012 or higher and changing the compatibility level of the
-database to 110 or higher by executing `ALTER DATABASE database_name SET
-COMPATIBILITY_LEVEL = 110`. In this version of SQL Server, the bug with `NULL`
-values of geotypes was fixed and the support of polygons of different
-orientations (counterclockwise and clockwise) was added.
+  database to 110 or higher by executing `ALTER DATABASE database_name SET
+  COMPATIBILITY_LEVEL = 110`. In this version of SQL Server, the bug with `NULL`
+  values of geotypes was fixed and the support of polygons of different
+  orientations (counterclockwise and clockwise) was added.
 
 Despite the wide possibilities of geotypes (they allow you to make not only a
 simple selection as shown above, but also to use distances and different
@@ -126,7 +120,7 @@ ORDER BY popularity DESC
 ```
 
 Note that in this case you can create any indexes for `latitude` and `longitude`
-fields (in contrast to the first method), because FLOAT data type is used.
+fields (in contrast to the first method), because an ordinary float data type is used.
 However, there are 4 comparison operations in this selection.
 
 ### Using additional hash table
@@ -151,7 +145,7 @@ The disadvantage of this approach is that the additional table occupies
 additional memory space.
 
 Despite the advantages of the latter method, we used the second method ([Normal
-selection](#Normal-selection)) on the server, as it showed good performance.
+selection](#normal-selection)) on the server, as it showed good performance.
 
 ### Caching photos for multi-threaded access
 
@@ -266,10 +260,10 @@ was used, the part {Populated area} was removed, etc.
 area}&sensor=false`
 
 For example, for the following query:
-[http://maps.googleapis.com/maps/api/geocode/xml?address=Россия,Ивановская%20область,Иваново&sensor=false](http://maps.googleapis.com/maps/api/geocode/xml?address=Россия,Ивановская%20область,Иваново&sensor=false)
+<http://maps.googleapis.com/maps/api/geocode/xml?address=Россия,Ивановская%20область,Иваново&sensor=false>
 
-<details> <summary>The following coordinates will be returned
-(fragment)</summary>
+<details>
+<summary>The following coordinates will be returned (fragment)</summary>
 
 ```html
 ...
@@ -338,7 +332,7 @@ function initZoomSizes() {
 }
 ```
 
-Thus, at each zoom level, the size of the rectangular area is 0.75^2=0.5625 from
+Thus, at each zoom level, the size of the rectangular area is `0.75^2=0.5625` from
 the size of the current viewport, if it has width of 1080px and height of 500px.
 
 #### Using delay when redrawing
@@ -363,7 +357,7 @@ google.maps.event.addListener(map, 'bounds_changed', function () {
 #### Calculating coordinates and hashes of partially visible areas
 
 Calculation of coordinates and hashes of all the rectangles that overlap the
-visible window with coordinates (`latMin` `lngMin`) and dimensions calculated
+visible window with coordinates (`latMin`, `lngMin`) and dimensions calculated
 using the algorithm described earlier is done as follows:
 
 ![Coordinates and hashes
@@ -409,7 +403,7 @@ unique value for each area, because the starting point and dimensions are fixed.
 function loadIfNeeded(lat, lng) {
     var hash = calculateHash(lat, lng, zoom);
     if (!(hash in items)) {
-        // Make a query to the database and put this cell in the client cache.
+        // Send a query to the database and put this cell in the client cache.
     } else {
         // Do nothing.
     }
@@ -434,20 +428,21 @@ changed, and then they are redisplayed, then the user may notice flickering. To
 solve these problems, the following algorithm was developed:
 
 1. Extracting all visible photos from the client cache to the array `visMarks`.
-Calculation of these areas with photos was described above.
+   Calculation of these areas with photos was described above.
 2. Sorting the received markers by popularity.
 3. Finding overlapping markers using `markerSize`, `SmallMarkerSize`,
-`minPhotoDistRatio` and `pixelDistance`.
+   `minPhotoDistRatio` and `pixelDistance`.
 4. Creating arrays of large markers with `maxBigVisPhotosCount` and small
-markers with `maxSmlVisPhotosCount`.
+   markers with `maxSmlVisPhotosCount`.
 5. Defining old markers that should be hidden and adding them to
-`smlMarksToHide` and `bigMarksToHide` using `refreshMarkerArrays`.
+   `smlMarksToHide` and `bigMarksToHide` using `refreshMarkerArrays`.
 6. Updating the visibility and zoom index `zIndex` for new markers that should
-be displayed using `updateMarkersVis`.
+   be displayed using `updateMarkersVis`.
 7. Adding photos, which became visible at the current time, to the feed using
-`addPhotoToRibbon`.
+   `addPhotoToRibbon`.
 
-<details> <summary>Algorithm for recalculation of visible markers</summary>
+<details>
+<summary>Algorithm for recalculation of visible markers</summary>
 
 ```JavaScript
 function redraw() {
@@ -564,7 +559,7 @@ function redraw() {
     // Adding markers that should be hidden to smlMarksToHide and bigMarksToHide.
     refreshMarkerArrays(visibleSmallMarkers, visSmlMarks2, smlMarksToHide);
     refreshMarkerArrays(visibleBigMarkers, visBigMarks2, bigMarksToHide);
-    
+
     // Hiding invisible markers and displaying visible markers when zIndex changes.
     var curZInd = maxBigVisPhotosCount + 1;
     curZInd = updateMarkersVis(visBigMarks2, bigMarksToHide, true, curZInd);
@@ -573,7 +568,7 @@ function redraw() {
 
     visibleBigMarkers = visBigMarks2;
     visibleSmallMarkers = visSmlMarks2;
-    
+
     // Adding visible photos to the feed.
     trPhotosOnMap.innerHTML = '';
     for (var marker in visBigMarks2) {
@@ -645,7 +640,7 @@ function addPhotoToRibbon(marker) {
                 stop: function (e) {
                     var mapBoundingRect = document.getElementById("map_canvas").getBoundingClientRect();
                     var point = new google.maps.Point(e.pageX - mapBoundingRect.left, e.pageY - mapBoundingRect.top);
-                    
+
                     var latLng = overlay.getProjection().fromContainerPixelToLatLng(point);
                     marker.latLng = latLng;
                     marker.priority = ++curPriority;

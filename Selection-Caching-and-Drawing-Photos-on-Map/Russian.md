@@ -261,7 +261,7 @@ function getZoomFromBounds(ne, sw) {
 или английском, убиралась часть {Населенный пункт} и т. д.
 `http://maps.googleapis.com/maps/api/geocode/xml?address={Страна},{Область/Штат},{Населенный пункт}&sensor=false`
 
-Например для такого запроса: [http://maps.googleapis.com/maps/api/geocode/xml?address=Россия,Ивановская%20область,Иваново&sensor=false](http://maps.googleapis.com/maps/api/geocode/xml?address=Россия,Ивановская%20область,Иваново&sensor=false)
+Например для такого запроса: <http://maps.googleapis.com/maps/api/geocode/xml?address=Россия,Ивановская%20область,Иваново&sensor=false>
 
 <details>
 <summary>Будут возвращаться следующие координаты (фрагмент)</summary>
@@ -334,7 +334,7 @@ function initZoomSizes() {
 ```
 
 Таким образом, на каждом уровне зума, размер прямоугольной области по площади
-составляет 0.75^2=0.5625 от текущего окна просмотра,
+составляет `0.75^2=0.5625` от текущего окна просмотра,
 если его ширина = 1080px и высота  = 500px.
 
 #### Использование задержки при перерисовке
@@ -429,18 +429,18 @@ function calculateHash(lat, lng, zoom) {
 был разработан следующий алгоритм:
 
 1. Извлечение всех видимых фотографий из клиентского кэша в массив `visMarks`.
-  Расчет данных областей с фотографиями был описаны выше.
+   Расчет данных областей с фотографиями был описаны выше.
 2. Сортировка полученных маркеров по популярности.
 3. Определение перекрывающихся маркеров с использованием `markerSize`,
   `smallMarkerSize`, `minPhotoDistRatio` и функции `pixelDistance`.
 4. Создание массивов из больших маркеров с количеством `maxBigVisPhotosCount`
-  и маленьких с количеством `maxSmlVisPhotosCount`.
+   и маленьких с количеством `maxSmlVisPhotosCount`.
 5. Определение старых маркеров, которые нужно скрыть и занесение их
-  в `smlMarksToHide` и `bigMarksToHide` c помощью `refreshMarkerArrays`.
+   в `smlMarksToHide` и `bigMarksToHide` c помощью `refreshMarkerArrays`.
 6. Обновление видимости и индекса глубины `zIndex` для новых маркеров,
-  которые нужно отобразить с помощью `updateMarkersVis`.
+   которые нужно отобразить с помощью `updateMarkersVis`.
 7. Добавление фотографий, которые стали видимыми в текущий момент времени,
-  в ленту сверху с помощью `addPhotoToRibbon`.
+   в ленту сверху с помощью `addPhotoToRibbon`.
 
 <details>
 <summary>Алгоритм пересчета видимых маркеров</summary>
