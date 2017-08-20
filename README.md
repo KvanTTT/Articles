@@ -1,3 +1,5 @@
+## Biography ([ru](Biography/Russian.md))
+
 ## [Parsing Preprocessor Directives in Objective-C Code](Parsing-Preprocessor-Directives-in-Objective-C-Code/English.md) ([ru](Parsing-Preprocessor-Directives-in-Objective-C-Code/Russian.md))
 
 * **19.02.2017**
@@ -50,5 +52,3 @@ browsers. The approach described in this article was implemented in
 gfranq.com, the photo editing web service, which supports client- and
 server-side image processing using filters as well as collage
 functionality.
-
-
