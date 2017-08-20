@@ -7,7 +7,7 @@ In this article, I decided to describe how the functionality of selecting and
 displaying photos on a specific place on the map was implemented in our photo
 service *gfranq.com*. The photo service does not work now.
 
-![Title image](Images/Title-image.jpg)
+![Title image](Images/Title-Image.jpg)
 
 Since we had a lot of photos in our service and sending requests to database
 every time the viewport changes was too resource-intensive, it was logical to
