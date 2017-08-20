@@ -37,7 +37,7 @@ implemented in web services, such as Swiftify and Codebeat.
 * **20.09.2013**
 * [habrahabr.ru](https://habrahabr.ru/post/194580/)
 
-## Selection, Caching and Drawing Photos on Map ([ru](Selection-Caching-and-Drawing-Photos-on-Map/Russian.md))
+## [Selection, Caching and Drawing Photos on Map](Selection-Caching-and-Drawing-Photos-on-Map/English.md) ([ru](Selection-Caching-and-Drawing-Photos-on-Map/Russian.md))
 
 * **17.08.2013**
 * [habrahabr.ru](https://habrahabr.ru/post/182532/)
