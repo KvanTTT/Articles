@@ -10,12 +10,14 @@
 # О себе
 
 * Иван Кочуркин
-* Работаю в [Positive Technologies](https://www.ptsecurity.com/ru-ru/) над открытым универсальным сигнатурным анализатором кода [PT.PM](https://github.com/PositiveTechnologies/PT.PM)
-* Подрабатываю в [Swiftify](http://swiftify.io/), веб-сервисе для конвертинга кода Objective-C в Swift
+* Работаю в [Positive Technologies](https://www.ptsecurity.com/ru-ru/)
+  над открытым универсальным сигнатурным анализатором кода [PT.PM](https://github.com/PositiveTechnologies/PT.PM)
+* Подрабатываю в [Swiftify](http://swiftify.io/), веб-сервисе для конвертинга
+  кода Objective-C в Swift
 * Веду активную деятельность на GitHub:
-	* Сделал более [10 Pull Request](https://github.com/antlr/antlr4/pulls?utf8=%E2%9C%93&q=state%3Amerged%20is%3Apr%20author%3AKvanTTT%20) в ANTLR 4
-	* Разработал/доработал грамматики PHP, PL/SQL, T-SQL, Objective-C, C#, Java 8 в [grammars-v4](https://github.com/antlr/grammars-v4/pulls?utf8=%E2%9C%93&q=state%3Amerged%20is%3Apr%20author%3AKvanTTT%20)
-	* Создал и закрыл много Issues для различных проектов
+  * Сделал более [10 Pull Request](https://github.com/antlr/antlr4/pulls?utf8=%E2%9C%93&q=state%3Amerged%20is%3Apr%20author%3AKvanTTT%20) в ANTLR 4
+  * Разработал/доработал грамматики PHP, PL/SQL, T-SQL, Objective-C, C#, Java 8 в [grammars-v4](https://github.com/antlr/grammars-v4/pulls?utf8=%E2%9C%93&q=state%3Amerged%20is%3Apr%20author%3AKvanTTT%20)
+  * Создал и закрыл много Issues для различных проектов
 * Пишу статьи на [Хабре](https://habrahabr.ru/users/kvanttt/) и [GitHub](https://github.com/KvanTTT/Articles) под ником KvanTTT
 
 ---
@@ -27,22 +29,110 @@
 * Языки программирования: C#, Java, T-SQL, PL/SQL и т.д.
 * Предметно-ориентированный языки DSL
 
-**Лексер** группирует символы исходного кода в значащие последовательности.
-**Парсер** из потока токенов строит связную древовидную структуру.
+---
 
-![](https://habrastorage.org/files/6c4/385/fbe/6c4385fbe3d8471982c9b2a030106d38.png)
+# Целесообразность
 
-Существуют безлексерные парсеры.
+## Regex для HTML?
+
+* `<table>(.*?)</table>`
+* Аттрибуты: `<table.*?>(.*?)</table>`
+* Комментарии: `<!— my comment &gtl—>`
+
+## Вывод
+
+Очень громоздко и сложно
 
 ---
 
-# Парсинг и грамматики
+# Способы парсинга текста
 
-### Типы языков
+* Использование существующей библиотеки (например, парсинг XML или JSON)
+* Разработка парсера вручную
+* Использование генератора парсера
 
-* Регулярные
-* Контекстно-свободные
-* Контекстно-зависимые
+---
+
+# Использование существующей библиотеки
+
+* Обычно уже содержат API для создания и изменения документов на таком языке
+* Поддерживают только наиболее распространенные языки (XML, JSON)
+
+---
+
+# Разработка парсера вручную
+
+* Большая гибкость
+* Медленная скорость разработки
+
+---
+
+# Использование сгенерированного парсера
+
+* Большой порог вхождения
+* Быстрая скорость разработки после освоения
+* Меньшая гибкость по сравнению с ручными парсерами
+
+---
+
+# Структура парсера
+
+**Лексер** или **сканер** группирует символы исходного кода в значащие последовательности.
+**Парсер** из потока токенов строит связную древовидную структуру.
+  * Parse Tree
+  * AST или Abstract Syntax Tree
+
+![](https://habrastorage.org/files/6c4/385/fbe/6c4385fbe3d8471982c9b2a030106d38.png)
+
+Существуют безлексерные парсеры (PEG).
+
+---
+
+# Лексер
+
+* 
+
+---
+
+# Парсер-комбинаторы
+
+* Использование внутри языка разработки (C#)
+* Использование в IDE
+
+Библиотеки:
+
+* [Sprache](https://github.com/sprache/Sprache)
+* [superpower](https://github.com/datalust/superpower)
+
+---
+
+# Примеры кода парсер-комбинатора
+
+```CSharp
+// Parse any number of capital 'A's in a row
+var parseA = Parse.Char('A').AtLeastOnce();
+```
+
+Правило для `id`:
+
+```CSharp
+Parser<string> identifier =
+    from leading in Parse.WhiteSpace.Many()
+    from first in Parse.Letter.Once()
+    from rest in Parse.LetterOrDigit.Many()
+    from trailing in Parse.WhiteSpace.Many()
+    select new string(first.Concat(rest).ToArray());
+    
+var id = identifier.Parse(" abc123  ");
+
+Assert.AreEqual("abc123", id);
+```
+
+---
+
+# Грамматика и языки
+
+Формальное описание языка, которое может быть использовано для распознавания его структуры.
 
 ### Пример грамматики
 
@@ -61,6 +151,16 @@ ID: [a-zA-Z]+;
 ```
 a + b * c
 ```
+
+---
+
+# Парсинг и грамматики
+
+### Типы языков
+
+* Регулярные
+* Контекстно-свободные
+* Контекстно-зависимые
 
 ---
 
@@ -111,9 +211,73 @@ identifier
 
 ---
 
+## Объектный конструктор в C#
+
+```CSharp
+
+class Foo
+{
+    public string Bar { get; set; }
+}
+public string Bar { get; set; } = "Bar2";
+
+...
+
+foo = new Foo
+{
+    Bar = Bar // Umbiguity here
+};
+```
+
+---
+
+## Какой результат возвращает `nameof`?
+
+```CSharp
+class Foo
+{
+    public string Bar { get; set; }
+}
+
+static void Main(string[] args)
+{
+    var foo = new Foo();
+    WriteLine(nameof(foo.Bar));
+}
+```
+
+---
+
+## 42
+
+```CSharp
+class Foo
+{
+    public string Bar { get; set; }
+}
+
+static void Main(string[] args)
+{
+    var foo = new Foo();
+    WriteLine(nameof(foo.Bar));
+}
+
+static string nameof(string str)
+{
+    return "42";
+}
+```
+
+![](Troll-Face.png)
+
+---
+
 ## Ключевые слова как идентификаторы
 
 ### Решение с использованием вставок кода
+
+* **Действия** - производят вычисления на целевом языке парсера.
+* **Семантические предикаты** - возвращают результат.
 
 ```ANTLR
 // Lexer
@@ -121,7 +285,7 @@ ID:  [0-9a-zA-Z];
 
 // Parser
 varDeclaration
-    : id {_input.Lt(-1).Type == VAR} id ('=' expression)? ';'
+    : id {_input.Lt(-1).Type == VAR}? id ('=' expression)? ';'
     ;
 
 id
@@ -130,9 +294,46 @@ id
 
 ---
 
-## The lexer hack. Плохое решение
+##
 
-* Вход: `static MyType staticGlobaVar;`
+---
+
+## Контекстно-зависимые конструкции
+
+Heredoc в PHP или интерполируемые строки в C#
+
+```PHP
+<?php
+    echo <<< HeredocIdentifier
+Line 1.
+Line 2.
+HeredocIdentifier
+;
+```
+
+### Решение
+
+Использование вставок кода, смотри лексеры [PHP](https://github.com/antlr/grammars-v4/blob/master/php/PHPLexer.g4).
+
+---
+
+## Интерполируемые строки в C# 6
+
+```CSharp
+s = $"{p.Name} is \"{p.Age} year{(p.Age==1 ? "" : "s")} old";
+s = $"{(p.Age == 2 ? $"{new Person { } }" : "")}";
+s = $@"\{p.Name}
+                       ""\";
+s = $"Color[R={func(b: 3):#0.##}, G={G:#0.##}, B={B:#0.##}]";
+```
+
+* Реализация в [CSharpLexer.g4](https://github.com/antlr/grammars-v4/blob/master/csharp/CSharpLexer.g4).
+
+---
+
+## Лексерный хак: плохое решение
+
+* Вход: `static MyType staticGlobalVar;`
 
 * Грамматика
 
@@ -154,7 +355,7 @@ varDeclaration
 
 ---
 
-## The lexer hack. Изящное решение
+## Лексерный хак: изящное решение
 
 * Вход: `static MyType staticGlobaVar;`
 
@@ -178,30 +379,13 @@ varDeclaration
 
 ---
 
-## Контекстно-зависимые конструкции
-
-Heredoc в PHP или интерполируемые строки в C#
-
-```PHP
-<?php
-    echo <<< HeredocIdentifier
-Line 1.
-Line 2.
-HeredocIdentifier
-;
-```
-
-### Решение
-
-Использование вставок кода, смотри лексеры [PHP](https://github.com/antlr/grammars-v4/blob/master/php/PHPLexer.g4) и [C#](https://github.com/antlr/grammars-v4/blob/master/csharp/CSharpLexer.g4).
-
----
-
 # Регистронезависимость
 
 Нечувствительные к регистру языки: Delphi, T-SQL, PL/SQL и другие.
 
 ### Решение с помощью грамматики
+
+**Фрагментный токен** не используется в токенизации, но облегчает запись других токенов.
 
 ```ANTLR
 Abstract:           A B S T R A C T;
@@ -212,11 +396,15 @@ fragment A: [aA];
 fragment B: [bB];
 ```
 
+Без использования фрагметных токенов:
+
+```ANTLR
+Abstract:           [Aa][Bb][Ss][Tt][Rr][Aa][Cc][Tt];
+```
+
 ---
 
-# Регистронезависимость
-
-## Решение на уровне рантайма
+## Регистронезависимость: решение на уровне рантайма
 
 ```ANTLR
 Abstract:           'ABSTRACT';
@@ -228,8 +416,9 @@ BooleanConstant:    'TRUE' | 'FALSE';
 Чувствительные к регистру токены обрабатываются на этапе обхода дерева. Например `$id` и `$ID` в PHP.
 
 Достоинства:
+
 * Код лексера чище и проще
-* Производительность лучше
+* Производительность выше
 
 ---
 
@@ -237,7 +426,7 @@ BooleanConstant:    'TRUE' | 'FALSE';
 
 JavaScript внутри PHP или C# внутри Aspx.
 
-```
+```PHP
 <?php
 <head>
   <script type="text/javascript">
@@ -254,9 +443,28 @@ JavaScript внутри PHP или C# внутри Aspx.
 
 ---
 
-# Использование другого режима лексем для JavaScript
+# PHP: альтернативный синтаксис
 
+Смесь блоков кода на HTML и PHP
+
+```PHP
+<?php switch($a): case 1: // without semicolon?>
+        <br>
+    <?php break ?>
+    <?php case 2: ?>
+        <br>
+    <?php break;?>
+    <?php case 3: ?>
+        <br>
+    <?php break;?>
+<?php endswitch; ?>
 ```
+
+---
+
+# Использование отдельного режима лексем для JavaScript
+
+```ANTLR
 ScriptText:   ~[<]+;
 ScriptClose:  '</script'? '>' -> popMode;
 PHPStart:     '<?=' -> type(Echo), pushMode(PHP);
@@ -267,25 +475,6 @@ ScriptText4:  '/' ~[<]* -> type(ScriptText);
 ```
 
 ---
-
-# Парсинг фрагментов кода
-
-### Задача
-
-Определение корректного правила для фрагмента кода
-
-### Применение
-
-* Конвертинг кода в плагине IDE (в Swiftify для плагинов к AppCode, XCode)
-* Определение языка программирования (в PT.PM для редактора [Approof](https://approof.ptsecurity.ru/))
-
-### Решение
-
-* Регулярные выражения
-* Токенизация и операции с токенами
-* Парсинг разными правилами
-
---- 
 
 # Скрытые токены
 
@@ -299,7 +488,7 @@ declaration:
 
 ---
 
-## Связывание скрытых токенов с правилами грамматики (Swiftify)
+## Связывание скрытых токенов с правилами грамматики
 
 * Предшествующие (**Precending**)
 
@@ -311,7 +500,7 @@ declaration:
 * Последующие (**Following**)
 
 ```
-'{' a = b; b = c; /*Following*/ '}' /*Last comment*/ 
+'{' a = b; b = c; /*Following*/ '}' /*Last comment*/
 ```
 
 * Токены-сироты (**Orphans**)
@@ -322,7 +511,7 @@ declaration:
 
 ---
 
-## Связывание скрытых токенов с основными (Roslyn)
+## Связывание скрытых токенов с основными
 
 * Лидирующие (**LeadingTrivia**)
 * Замыкающие (**TrailingTrivia**)
@@ -344,14 +533,66 @@ EOF
 
 ---
 
-# Препроцессорные директивы
+# Roslyn: препроцессорные директивы
 
-## Одноэтапная обработка ([Swiftify](https://objectivec2swift.com/#/home/main))
+```CSharp
+bool trueFlag =
+#if NETCORE
+    true
+#else
+    new Random().Next(100) > 95 ? true : false
+#endif
+;
+```
+
+### `;` leading
+
+```CSharp
+#else
+····new Random().Next(100) > 95 ? true : false
+#endif
+```
+
+### `true` leading
+
+```
+#if NETCORE
+····
+```
+
+---
+
+# Препроцессорные директивы: одноэтапная обработка ([Swiftify](https://objectivec2swift.com/#/home/main))
 
 * Одновременный парсинг директив докенов основного языка.
 * Использование каналов для изоляции токенов препроцессорных директив.
 
-## Двухэтапная обработка ([Codebeat](https://codebeat.co/))
+Интерпретация и обработка макросов вместе с функциями:
+
+```Objective-C
+#define DEGREES_TO_RADIANS(degrees) (M_PI * (degrees) / 180)
+```
+
+```Swift
+func DEGREES_TO_RADIANS(degrees: Double) 
+    -> Double { return (.pi * degrees)/180; }
+```
+
+---
+
+# Препроцессорные директивы: двухэтапная обработка
+
+Исключение блоков кода, с которыми парсинг будет ошибочным:
+
+```CSharp
+bool·trueFlag·=
+·········
+····true
+·····
+··············································
+······
+;
+```
 
 1. Токенизация и разбор кода препроцессорных диреткив.
 2. Вычисление условных директив `#if` и определение компилируемых блоков кода.
@@ -360,46 +601,22 @@ EOF
 
 ---
 
-# Препроцессорные директивы
+# Парсинг фрагментов кода
 
-## Одноэтапная обработка
+### Задача
 
-Интерпретация и обработка макросов вместе с функциями:
+Определение корректного правила для фрагмента кода
 
-```
-#define DEGREES_TO_RADIANS(degrees) (M_PI * (degrees) / 180)
-```
+### Применение
 
-```Swift
-func DEGREES_TO_RADIANS(degrees: Double) 
-   -> Double { return (.pi * degrees)/180; }
-```
+* Конвертинг кода в плагине IDE (в Swiftify для плагинов к AppCode, XCode)
+* Определение языка программирования (в PT.PM для редактора [Approof](https://approof.ptsecurity.ru/))
 
----
+### Решение
 
-# Препроцессорные директивы
-
-## Двухэтапная обработка
-
-Исключение блоков кода, с которыми парсинг будет ошибочным:
-
-```
-BOOL trueFlag =
-#if DEBUG
-    YES
-#else
-    arc4random_uniform(100) > 95 ? YES : NO
-#endif
-;
-```
-
-```
-BOOL trueFlag =
-
-    YES
-
-;
-```
+* Регулярные выражения
+* Токенизация и операции с токенами
+* Парсинг разными правилами
 
 ---
 
@@ -411,16 +628,13 @@ BOOL trueFlag =
 class # { int i; }
 ```
 
-#### Единичный лишний токен
+Отдельный канал: `ERROR: . -> channel(ErrorChannel)`
+
+#### Отсутствующий и лишний токены
 
 ```CSharp
+class T { int f(x) { a = 3; }
 class T ; { int i; }
-```
-
-#### Единичный отсутствующий токен
-
-```CSharp
-class T { int f(x) { a = 3; } }
 ```
 
 #### Несколько лишних токенов (режим «паники»)
@@ -437,9 +651,9 @@ class T { int ; }
 
 ---
 
-# Ошибки в Roslyn
+# Ошибки парсинга в Roslyn
 
-```
+```CSharp
 namespace App
 {
     class Program
@@ -460,16 +674,6 @@ namespace App
     }
 }
 ```
-
----
-
-# Использование в IDE
-
-### Всплывающая подсказска
-
-* Только с использование грамматики грамматики
-* С использованием семантики
-* Чудес не бывает - все равно придется писать код в ручную для лучшего качества
 
 ---
 
@@ -511,12 +715,12 @@ expression
 
 ### Профилирование
 
-* Уровень грамматики. Плагин к Idea [ANTLR v4 grammar plugin](https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin) 
+* Уровень грамматики. Плагин к Idea [ANTLR v4 grammar plugin](https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin)
 * Уровень рантайма. Тестирование парсера на большом файле и определение узких мест.
 
 ---
 
-# Преобразование деревьев
+# Обработка древовидных структур
 
 * Методы обхода
 * Реализации Visitor и Listener
@@ -528,7 +732,7 @@ expression
 
 ---
 
-# Методы обхода
+# Методы обхода деревьев
 
 ## Посетитель (**Visitor**)
 
@@ -542,37 +746,64 @@ expression
 
 ---
 
-## Реализации Visitor и Listener
+# Visitor & Listener
 
-### Написанные вручную
+![Visitor & Listener](https://habrastorage.org/files/bd1/69c/535/bd169c535e854f9681520f520d0db9c3.png)
+
+---
+
+## Реализации Visitor
+
+## Написанные вручную
+
 * Долгая и утомительная разработка
 
-### Сгенерированные (ANTLR)
-* Избыточность
-* Нарушение Code Style
+## Сгенерированные (ANTLR)
+
+* Избыточность и нарушение Code Style
 * Доступны не всегда
 * Универсальность (Java, C#, Python2|3, JS, C++, Go, Swift)
 * Скорость разработки
 
-### Динамические
+## Динамические
 
-* Используется рефлексия и динамические типы с  `dynamic`
 * Медленная скорость, но хорошо для прототипов
 
 ---
 
-# Visitor
+# Диспетчеризация с использованием рефлексии
+
+```CSharp
+// invocation in VisitChildren
+Visit((dynamic)customNode);
+
+// visit methods
+
+public virtual T Visit(ExpressionStatement expressionStatement)
+{
+    return VisitChildren(expressionStatement);
+}
+
+public virtual T Visit(StringLiteral stringLiteral)
+{
+    return VisitChildren(stringLiteral);
+}
+```
+
+---
+
+# Реализация Visitor
 
 ## Архитектура
 
-* Один большой с использованием `partial` классов.
 * Несколько маленьких. Создание визиторов при необходимости.
+* Один большой с использованием `partial` классов.
 
-## Статические проверки
+## Формализация
 
 Перегрузка всех методов и использование "заглушек"
 
-```
+```CSharp
 throw new ShouldNotBeVisitedException(context);
 ```
 
@@ -586,7 +817,7 @@ throw new ShouldNotBeVisitedException(context);
 
 ## C# 7: Локальные функции и Is Expression
 
-```
+```CSharp
 public static List<Terminal> GetLeafs(this Rule node)
 {
     var result = new List<TerminalNode>();
@@ -615,8 +846,8 @@ public static List<Terminal> GetLeafs(this Rule node)
 # Сериалзиация
 
 * Бинарная
-* Xml
-* Json.NET
+* XML, Json и другие языки разметки
+* Собственный формат
 
 Подробности:
 * Проект на GitHub: [TreeProcessing.NET](https://github.com/KvanTTT/TreeProcessing.NET).
@@ -641,18 +872,18 @@ public static List<Terminal> GetLeafs(this Rule node)
 
 ---
 
-# JSON сериалзиация
+## Своя логика сериализации с JsonConverter
 
-* **Свойство** в качестве идентификации типа
-```JSON
-override NodeType NodeType => NodeType.InvocationExpression;
-```
 * **Имя класса** в качестве идентификации типа
+* **Свойство** в качестве идентификации типа
+  ```CSharp
+  override NodeType NodeType => NodeType.InvocationExpression;
+  ```
 * **Аттрибут** в качестве идентификации типа
-```CSharp
-[NodeAttr(NodeType.BinaryOperatorExpression)]
-public class BinaryOperatorExpression : Expression
-```
+  ```CSharp
+  [NodeAttr(NodeType.BinaryOperatorExpression)]
+  public class BinaryOperatorExpression : Expression
+  ```
 
 Результирующий JSON:
 
@@ -683,20 +914,12 @@ public class BinaryOperatorExpression : Expression
 
 # Ресурсы
 
-* Исходники презентации: 
+* Исходники презентации:
 * Статьи:
-	* [Теория и практика парсинга исходников с помощью ANTLR и Roslyn](https://habrahabr.ru/company/pt/blog/210772)
-	* [Обработка препроцессорных директив в Objective-C](https://habrahabr.ru/post/318954/)
+  * [Теория и практика парсинга исходников с помощью ANTLR и Roslyn](https://habrahabr.ru/company/pt/blog/210772)
+  * [Обработка препроцессорных директив в Objective-C](https://habrahabr.ru/post/318954/)
 * Открытый сигнатурный движок поиска по шаблонам [PT.PM](https://github.com/PositiveTechnologies/PT.PM)
 * Грамматики: [grammars-v4](https://github.com/antlr/grammars-v4)
-
----
-
-# Перспективы и планы
-
-* Грамматики с универсальными вставками кода.
-* Использовать PT.PM в более продвинутом ядре поиска по потоку данных AI.Taint.
-* Взяться наконец уже за XAML парсер для [Avalonia](https://github.com/AvaloniaUI/Avalonia)!
 
 ---
 
@@ -705,3 +928,5 @@ public class BinaryOperatorExpression : Expression
 ## [Positive Technologies на GitHub](https://github.com/PositiveTechnologies)
 
 ## [Swiftify](http://swiftify.io/)
+
+---
