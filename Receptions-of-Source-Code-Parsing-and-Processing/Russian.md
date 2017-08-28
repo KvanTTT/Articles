@@ -1,96 +1,108 @@
-# Приемы парсинга и обработки исходного кода
+<!-- $theme: default -->
 
-* Теория и практика парсинга
-* Преобразование деревьев
-* Доклад не совсем про .NET
-* Зато имеет прикладное значение, используется в открытых и коммерческих проектах
-
----
-
-# О себе
+# Теория и практика формальных языков
 
 * Иван Кочуркин
-* Работаю в [Positive Technologies](https://www.ptsecurity.com/ru-ru/)
-  над открытым универсальным сигнатурным анализатором кода [PT.PM](https://github.com/PositiveTechnologies/PT.PM)
+* Работаю в [Positive Technologies](https://www.ptsecurity.com/ru-ru/) над открытым универсальным сигнатурным анализатором кода [PT.PM](https://github.com/PositiveTechnologies/PT.PM)
 * Подрабатываю в [Swiftify](http://swiftify.io/), веб-сервисе для конвертинга
   кода Objective-C в Swift
-* Веду активную деятельность на GitHub:
-  * Сделал более [10 Pull Request](https://github.com/antlr/antlr4/pulls?utf8=%E2%9C%93&q=state%3Amerged%20is%3Apr%20author%3AKvanTTT%20) в ANTLR 4
-  * Разработал/доработал грамматики PHP, PL/SQL, T-SQL, Objective-C, C#, Java 8 в [grammars-v4](https://github.com/antlr/grammars-v4/pulls?utf8=%E2%9C%93&q=state%3Amerged%20is%3Apr%20author%3AKvanTTT%20)
-  * Создал и закрыл много Issues для различных проектов
+* Веду активную деятельность на [GitHub](https://github.com/KvanTTT)
 * Пишу статьи на [Хабре](https://habrahabr.ru/users/kvanttt/) и [GitHub](https://github.com/KvanTTT/Articles) под ником KvanTTT
 
 ---
 
-# Парсинг
+# Почему не Regex?
 
-Процесс преобразования исходного кода в структурированный вид (AST).
-
-* Языки программирования: C#, Java, T-SQL, PL/SQL и т.д.
-* Предметно-ориентированный языки DSL
-
----
-
-# Целесообразность
-
-## Regex для HTML?
-
-* `<table>(.*?)</table>`
-* Аттрибуты: `<table.*?>(.*?)</table>`
-* Комментарии: `<!— my comment &gtl—>`
-
-## Вывод
-
-Очень громоздко и сложно
+1. `<table>(.*?)</table>`
+2. А если аттрибуты? `<table.*?>(.*?)</table>`
+3. А если элементы? `tr`, `td`
+4. А если комментарии? `<!-- html comment>`
+5. ...
+6. [NO NOO̼O​O NΘ stop the an​*̶͑̾̾​̅ͫ͏̙̤g͇̫͛͆̾ͫ̑͆l͖͉̗̩̳̟̍ͫͥͨe̠̅s ͎a̧͈͖r̽̾̈́͒͑e n​ot rè̑ͧ̌aͨl̘̝̙̃ͤ͂̾̆ ZA̡͊͠͝LGΌ ISͮ̂҉̯͈͕̹̘̱ TO͇̹̺ͅƝ̴ȳ̳ TH̘Ë͖́̉ ͠P̯͍̭O̚​N̐Y̡ H̸̡̪̯ͨ͊̽̅̾̎Ȩ̬̩̾͛ͪ̈́̀́͘ ̶̧̨̱̹̭̯ͧ̾ͬC̷̙̲̝͖ͭ̏ͥͮ͟Oͮ͏̮̪̝͍M̲̖͊̒ͪͩͬ̚̚͜Ȇ̴̟̟͙̞ͩ͌͝S̨̥̫͎̭ͯ̿̔̀ͅ](https://stackoverflow.com/a/1732454/1046374)
 
 ---
 
-# Способы парсинга текста
+# Лексемы и токены
 
-* Использование существующей библиотеки (например, парсинг XML или JSON)
-* Разработка парсера вручную
-* Использование генератора парсера
+* **Лексема** - распознанная последовательность символов
+* **Токен** - лексема + тип
 
----
-
-# Использование существующей библиотеки
-
-* Обычно уже содержат API для создания и изменения документов на таком языке
-* Поддерживают только наиболее распространенные языки (XML, JSON)
+```ANTLR
+MyKeyword: 'var';
+Id:        [a-z]+;
+Digit:     [0-9]+;
+```
 
 ---
 
-# Разработка парсера вручную
+# Дерево разбора и AST
 
-* Большая гибкость
-* Медленная скорость разработки
+<!-- Возможно все же заменить на свою картинку -->
 
----
+* **Дерево разбора** - древовидная структура, распознанная из потока токенов
+* **AST** - дерево разбора без не значимых токенов (пробелов, точек с запятых и т.д.)
 
-# Использование сгенерированного парсера
-
-* Большой порог вхождения
-* Быстрая скорость разработки после освоения
-* Меньшая гибкость по сравнению с ручными парсерами
+![Лексер и парсер](https://habrastorage.org/files/6c4/385/fbe/6c4385fbe3d8471982c9b2a030106d38.png)
 
 ---
 
-# Структура парсера
+# Типы парсеров
 
-**Лексер** или **сканер** группирует символы исходного кода в значащие последовательности.
-**Парсер** из потока токенов строит связную древовидную структуру.
-  * Parse Tree
-  * AST или Abstract Syntax Tree
-
-![](https://habrastorage.org/files/6c4/385/fbe/6c4385fbe3d8471982c9b2a030106d38.png)
-
-Существуют безлексерные парсеры (PEG).
+* Готовые библиотеки парсинга (regex, JSON.NET)
+  * API
+  * Только самые распространенные языки
+* Парсеры, написанные вручную (Roslyn)
+  * Большая гибкость
+  * Медленная скорость разработки
+* Автоматически сгенерированные парсеры (ANTLR)
+  * Большой порог вхождения
+  * Быстрая скорость разработки после освоения
+  * Меньшая гибкость по сравнению с ручными парсерами
 
 ---
 
-# Лексер
+# Грамматика
 
-* 
+Формальное описание языка, которое может быть использовано для распознавания его структуры.
+
+### Пример грамматики
+
+```ANTLR
+expr
+    : expr '*' expr
+    | expr '+' expr
+    | ID
+    ;
+
+ID: [a-zA-Z]+;
+```
+
+### Пример данных
+
+```
+a + b * c
+```
+
+---
+
+# Типы языков
+
+* Регулярные
+* Контекстно-свободные
+* Контекстно-зависимые
+* Тьюринг-полные
+
+---
+
+# Инструменты и библиотеки под C#
+
+* Генераторы
+  * Контекстно-свободные (ANTLR, Coco/R, Gardens Point Parser Generator, Grammatica, Hime Parser Generator, LLLPG)
+  * Безлексерные PEG (IronMeta, Pagarus)
+* Комбинаторы (Parseq, Parsley, LanguageExt.Parsec, Sprache, Superpower)
+* Фреймворки Roslyn, Nitra
+
+Детально описание [Parsing In C#: Tools And Libraries](https://tomassetti.me/parsing-in-csharp).
 
 ---
 
@@ -122,45 +134,11 @@ Parser<string> identifier =
     from rest in Parse.LetterOrDigit.Many()
     from trailing in Parse.WhiteSpace.Many()
     select new string(first.Concat(rest).ToArray());
-    
+
 var id = identifier.Parse(" abc123  ");
 
 Assert.AreEqual("abc123", id);
 ```
-
----
-
-# Грамматика и языки
-
-Формальное описание языка, которое может быть использовано для распознавания его структуры.
-
-### Пример грамматики
-
-```
-expr
-    : expr '*' expr
-    | expr '+' expr
-    | ID
-    ;
-
-ID: [a-zA-Z]+;
-```
-
-### Пример данных
-
-```
-a + b * c
-```
-
----
-
-# Парсинг и грамматики
-
-### Типы языков
-
-* Регулярные
-* Контекстно-свободные
-* Контекстно-зависимые
 
 ---
 
@@ -180,16 +158,7 @@ a + b * c
 
 # Неоднозначность
 
-* Ключевые слова как идентификаторы
-```CSharp
-var var = 0; // Valid code!
-```
-* Хак лексера ([The lexer hack](https://en.wikipedia.org/wiki/The_lexer_hack))
-* Контекстно-зависимые конструкции
-
----
-
-## Ключевые слова как идентификаторы
+Пример: `var var = 0;`
 
 ### Решение с помощью грамматики
 
@@ -211,10 +180,9 @@ identifier
 
 ---
 
-## Объектный конструктор в C#
+# Объектный конструктор в C#
 
 ```CSharp
-
 class Foo
 {
     public string Bar { get; set; }
@@ -231,7 +199,7 @@ foo = new Foo
 
 ---
 
-## Какой результат возвращает `nameof`?
+# Какой результат возвращает `nameof`?
 
 ```CSharp
 class Foo
@@ -248,7 +216,7 @@ static void Main(string[] args)
 
 ---
 
-## 42
+# 42
 
 ```CSharp
 class Foo
@@ -268,13 +236,11 @@ static string nameof(string str)
 }
 ```
 
-![](Troll-Face.png)
+<!-- ![Troll-Face](Troll-Face.png) -->
 
 ---
 
-## Ключевые слова как идентификаторы
-
-### Решение с использованием вставок кода
+# Неоднозначность: решение с использованием вставок кода
 
 * **Действия** - производят вычисления на целевом языке парсера.
 * **Семантические предикаты** - возвращают результат.
@@ -285,7 +251,7 @@ ID:  [0-9a-zA-Z];
 
 // Parser
 varDeclaration
-    : id {_input.Lt(-1).Type == VAR}? id ('=' expression)? ';'
+    : id {_input.Lt(-1).Text == "VAR"}? id ('=' expression)? ';'
     ;
 
 id
@@ -294,11 +260,7 @@ id
 
 ---
 
-##
-
----
-
-## Контекстно-зависимые конструкции
+# Контекстно-зависимые конструкции
 
 Heredoc в PHP или интерполируемые строки в C#
 
@@ -317,7 +279,7 @@ HeredocIdentifier
 
 ---
 
-## Интерполируемые строки в C# 6
+# Интерполируемые строки в C# 6
 
 ```CSharp
 s = $"{p.Name} is \"{p.Age} year{(p.Age==1 ? "" : "s")} old";
@@ -331,48 +293,40 @@ s = $"Color[R={func(b: 3):#0.##}, G={G:#0.##}, B={B:#0.##}]";
 
 ---
 
-## Лексерный хак: плохое решение
+# Лексерный хак: плохое решение
 
 * Вход: `static MyType staticGlobalVar;`
-
 * Грамматика
 
-```ANTLR
-varDeclaration
-    : specifiers initDeclaratorList? ';'
-    ;
-```
+  ```ANTLR
+  varDeclaration
+      : (specifiers initDeclaratorList | specifiers) ';'
+      ;
+  ```
 
 * Токены
-
-	* **static** - `specifier`
-	* **MyType** - `specifier`
-	* **staticGlobaVar** - - `specifier`
-
+  * **static** - `specifier`
+  * **MyType** - `specifier`
+  * **staticGlobaVar** - - `specifier`
 * Решение
 
 Визитор: поиск последнего `specifier` и "превращение" его в `initDeclaratorList`.
 
 ---
 
-## Лексерный хак: изящное решение
+# Лексерный хак: изящное решение
 
 * Вход: `static MyType staticGlobaVar;`
-
 * Грамматика
-
-```ANTLR
-varDeclaration
-    : (specifiers initDeclaratorList | specifiers) ';'
-    ;
-```
-
+  ```ANTLR
+  varDeclaration
+      : (specifiers initDeclaratorList | specifiers) ';'
+      ;
+  ```
 * Токены
-
-	* **static** - `specifier`
-	* **MyType** - `specifier`
-	* **staticGlobaVar** - - `initDeclaratorList`
-
+  * **static** - `specifier`
+  * **MyType** - `specifier`
+  * **staticGlobaVar** - - `initDeclaratorList`
 * Решение
 
 Визитор: уже имеем `initDeclaratorList`, т.к. такая альтернатива приоритетней.
@@ -404,7 +358,7 @@ Abstract:           [Aa][Bb][Ss][Tt][Rr][Aa][Cc][Tt];
 
 ---
 
-## Регистронезависимость: решение на уровне рантайма
+# Регистронезависимость: решение на уровне рантайма
 
 ```ANTLR
 Abstract:           'ABSTRACT';
@@ -437,9 +391,9 @@ JavaScript внутри PHP или C# внутри Aspx.
 
 * Использовать режимы переключения лексем `mode`.
 * Парсер **PHP** распознает код внутри тегов `<script>` как строку:
-`document.body.innerHTML="<svg/onload=alert(1)>"`
+  `document.body.innerHTML="<svg/onload=alert(1)>"`
 * Парсер **JavaScript** используется во время обхода дерева.
-Для него это обычный код + смещение.
+  Для него это обычный код + смещение.
 
 ---
 
@@ -476,48 +430,47 @@ ScriptText4:  '/' ~[<]* -> type(ScriptText);
 
 ---
 
-# Скрытые токены
+# Обработка комментариев и пробелов
 
 * Включение скрытых токенов в грамматику
-```ANTLR
-declaration:
-    property COMMENT* COLON COMMENT* expr COMMENT* prio?;
-```
+  ```ANTLR
+  declaration:
+      property COMMENT* COLON COMMENT* expr COMMENT* prio?;
+  ```
 * Связывание скрытые токенов с правилами грамматики (ANTLR, Swiftify)
 * Связывание скрытых токенов с основными (Roslyn)
 
 ---
 
-## Связывание скрытых токенов с правилами грамматики
+# Связывание скрытых токенов с узлами дерева (Swiftify)
 
-* Предшествующие (**Precending**)
+### Предшествующие (**Precending**)
 
-```
+```C
 //First comment
 '{' /*Precending1*/ a = b; /*Precending2*/ b = c; '}'
 ```
 
-* Последующие (**Following**)
+### Последующие (**Following**)
 
-```
+```C
 '{' a = b; b = c; /*Following*/ '}' /*Last comment*/
 ```
 
-* Токены-сироты (**Orphans**)
+### Токены-сироты (**Orphans**)
 
-```
+```C
 '{' /*Orphan*/ '}'
 ```
 
 ---
 
-## Связывание скрытых токенов с основными
+# Связывание скрытых токенов со значимыми (Roslyn)
 
 * Лидирующие (**LeadingTrivia**)
 * Замыкающие (**TrailingTrivia**)
 
 ```CSharp
-
 // leading 1 (var)
 // leading 2 (var)
 var foo = 42; // trailing (;)
@@ -533,7 +486,7 @@ EOF
 
 ---
 
-# Roslyn: препроцессорные директивы
+# Препроцессорные директивы (Roslyn)
 
 ```CSharp
 bool trueFlag =
@@ -545,7 +498,7 @@ bool trueFlag =
 ;
 ```
 
-### `;` leading
+### Лидирующие для `;`
 
 ```CSharp
 #else
@@ -553,7 +506,7 @@ bool trueFlag =
 #endif
 ```
 
-### `true` leading
+### Лидирующие для `true`
 
 ```
 #if NETCORE
@@ -562,16 +515,20 @@ bool trueFlag =
 
 ---
 
-# Препроцессорные директивы: одноэтапная обработка ([Swiftify](https://objectivec2swift.com/#/home/main))
+# Препроцессорные директивы: одноэтапная обработка (Swiftify)
 
 * Одновременный парсинг директив докенов основного языка.
 * Использование каналов для изоляции токенов препроцессорных директив.
 
 Интерпретация и обработка макросов вместе с функциями:
 
+### Objective-C
+
 ```Objective-C
 #define DEGREES_TO_RADIANS(degrees) (M_PI * (degrees) / 180)
 ```
+
+### Swift
 
 ```Swift
 func DEGREES_TO_RADIANS(degrees: Double) 
@@ -580,7 +537,7 @@ func DEGREES_TO_RADIANS(degrees: Double)
 
 ---
 
-# Препроцессорные директивы: двухэтапная обработка
+# Препроцессорные директивы: двухэтапная обработка (Codebeat)
 
 Исключение блоков кода, с которыми парсинг будет ошибочным:
 
@@ -601,7 +558,7 @@ bool·trueFlag·=
 
 ---
 
-# Парсинг фрагментов кода
+# Парсинг фрагментов кода (Swiftify, PT.PM)
 
 ### Задача
 
@@ -620,7 +577,7 @@ bool·trueFlag·=
 
 ---
 
-# Обработка ошибок
+# Ошибки парсинга
 
 #### Лексическая ошибка
 
@@ -633,8 +590,8 @@ class # { int i; }
 #### Отсутствующий и лишний токены
 
 ```CSharp
-class T { int f(x) { a = 3; }
-class T ; { int i; }
+class T { int f(x) { a = 3; } // Отсутствующий токен
+class T ; { int i; } // Лишний токен
 ```
 
 #### Несколько лишних токенов (режим «паники»)
@@ -677,46 +634,13 @@ namespace App
 
 ---
 
-# Оптимизация грамматик
+# Заключение о парсинге
 
-### Леворекурсивные правила вместо обычных
+О чем не будет рассказываться:
 
-**Обычные**
-
-```ANTLR
-expression
-    : multExpression
-    | expression ('+'|'-') multExpression
-    ;
-
-multExpression
-    : ID
-    | multExpression ('*'|'/') ID
-    ;
-```
-
-**Леворекурсивное**
-
-```ANTLR
-expression
-    : expression ('*'|'/') expression
-    | expression ('+'|'-') expression
-    | ID
-    ;
-```
-
----
-
-# Производительность
-
-### Уменьшение количества правил парсинга
-
-* Каждое правило - вызов метода
-
-### Профилирование
-
-* Уровень грамматики. Плагин к Idea [ANTLR v4 grammar plugin](https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin)
-* Уровень рантайма. Тестирование парсера на большом файле и определение узких мест.
+* Производительность парсинга
+* Форматирование кода
+* Использование в IDE
 
 ---
 
@@ -752,7 +676,7 @@ expression
 
 ---
 
-## Реализации Visitor
+# Реализации Visitor
 
 ## Написанные вручную
 
@@ -792,7 +716,7 @@ public virtual T Visit(StringLiteral stringLiteral)
 
 ---
 
-# Реализация Visitor
+# Архитектура Visitor
 
 ## Архитектура
 
@@ -809,20 +733,16 @@ throw new ShouldNotBeVisitedException(context);
 
 ---
 
-# Аксессоры
+# C\# 7
 
-Используются для доступа к различным узлам дерева разбора.
-
----
-
-## C# 7: Локальные функции и Is Expression
+**Локальные функции** и **Is Expression**
 
 ```CSharp
 public static List<Terminal> GetLeafs(this Rule node)
 {
     var result = new List<TerminalNode>();
     GetLeafs(node, result);
-    
+
     // Local function
     void GetLeafs(Rule localNode, List<Terminal> localResult)
     {
@@ -832,11 +752,9 @@ public static List<Terminal> GetLeafs(this Rule node)
             // Is expression
             if (child is TerminalNode typedChild)
                 localResult.Add(typedChild);
-
             GetLeafs(child, localResult);
         }
     }
-
     return result;
 }
 ```
@@ -872,7 +790,7 @@ public static List<Terminal> GetLeafs(this Rule node)
 
 ---
 
-## Своя логика сериализации с JsonConverter
+# Своя логика сериализации с JsonConverter
 
 * **Имя класса** в качестве идентификации типа
 * **Свойство** в качестве идентификации типа
@@ -914,12 +832,18 @@ public static List<Terminal> GetLeafs(this Rule node)
 
 # Ресурсы
 
-* Исходники презентации:
+* Исходники и текст презентации:
 * Статьи:
   * [Теория и практика парсинга исходников с помощью ANTLR и Roslyn](https://habrahabr.ru/company/pt/blog/210772)
   * [Обработка препроцессорных директив в Objective-C](https://habrahabr.ru/post/318954/)
 * Открытый сигнатурный движок поиска по шаблонам [PT.PM](https://github.com/PositiveTechnologies/PT.PM)
 * Грамматики: [grammars-v4](https://github.com/antlr/grammars-v4)
+  * [PL/SQL](https://github.com/antlr/grammars-v4/tree/master/plsql)
+  * [T-SQL](https://github.com/antlr/grammars-v4/tree/master/tsql)
+  * [PHP](https://github.com/antlr/grammars-v4/tree/master/php)
+  * [C#](https://github.com/antlr/grammars-v4/tree/master/csharp)
+  * [Java8](https://github.com/antlr/grammars-v4/tree/master/java8-pt)
+  * [Objective-C](https://github.com/antlr/grammars-v4/tree/master/objc)
 
 ---
 
