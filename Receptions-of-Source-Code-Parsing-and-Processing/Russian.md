@@ -40,7 +40,7 @@ Digit:     [0-9]+;
 <!-- Возможно все же заменить на свою картинку -->
 
 * **Дерево разбора** - древовидная структура, распознанная из потока токенов
-* **AST** - дерево разбора без не значимых токенов (пробелов, точек с запятых и т.д.)
+* **AST** - дерево разбора без пробелов, точек с запятых и т.д.
 
 ![Лексер и парсер](https://habrastorage.org/files/6c4/385/fbe/6c4385fbe3d8471982c9b2a030106d38.png)
 
@@ -52,7 +52,7 @@ Digit:     [0-9]+;
   * API
   * Только самые распространенные языки
 * Парсеры, написанные вручную (Roslyn)
-  * Большая гибкость
+  * Большие возможности и гибкость
   * Медленная скорость разработки
 * Автоматически сгенерированные парсеры (ANTLR)
   * Большой порог вхождения
@@ -295,41 +295,33 @@ s = $"Color[R={func(b: 3):#0.##}, G={G:#0.##}, B={B:#0.##}]";
 
 # Лексерный хак: плохое решение
 
-* Вход: `static MyType staticGlobalVar;`
+* Вход:
+  * `static MyType staticGlobaVar;`
+  * [`unsinged int;`](https://goo.gl/kKhdCh)
 * Грамматика
-
   ```ANTLR
   varDeclaration
-      : (specifiers initDeclaratorList | specifiers) ';'
+      : specifiers initDeclaratorList? ';'
       ;
   ```
-
-* Токены
-  * **static** - `specifier`
-  * **MyType** - `specifier`
-  * **staticGlobaVar** - - `specifier`
-* Решение
-
-Визитор: поиск последнего `specifier` и "превращение" его в `initDeclaratorList`.
+* Токены: `static` (specifier), `MyType` (specifier), `staticGlobaVar` (specifier)
+* Решение: поиск последнего `specifier` в визиторе и "превращение" его в `initDeclaratorList`.
 
 ---
 
-# Лексерный хак: изящное решение
+# Лексерный хак: изящное решение (Swiftify)
 
-* Вход: `static MyType staticGlobaVar;`
+* Вход:
+  * `static MyType staticGlobaVar;`
+  * [`unsinged int;`](https://goo.gl/kKhdCh)
 * Грамматика
   ```ANTLR
   varDeclaration
       : (specifiers initDeclaratorList | specifiers) ';'
       ;
   ```
-* Токены
-  * **static** - `specifier`
-  * **MyType** - `specifier`
-  * **staticGlobaVar** - - `initDeclaratorList`
-* Решение
-
-Визитор: уже имеем `initDeclaratorList`, т.к. такая альтернатива приоритетней.
+* Токены: `static` (specifier), `MyType` (specifier), `staticGlobaVar` (initDeclaratorList)!
+* Решение: уже имеем `initDeclaratorList`, т.к. такая альтернатива приоритетней.
 
 ---
 
@@ -424,9 +416,12 @@ ScriptClose:  '</script'? '>' -> popMode;
 PHPStart:     '<?=' -> type(Echo), pushMode(PHP);
 PHPStart:     '<?' 'php'? -> channel(SkipChannel), pushMode(PHP);
 ScriptText2:  '<' ~[<?/]* -> type(ScriptText);
-ScriptText3:  '?' ~[<]* -> type(ScriptText);
-ScriptText4:  '/' ~[<]* -> type(ScriptText);
 ```
+
+* `pushMode` - зайти в другой режим распознавания лексем (JavaScript -> PHP)
+* `popMode` - выйти из режима (PHP -> JavaScript)
+* `type` - изменить тип токена
+* `channel` - поместить токен в изолированный канал (пробелы, комментарии)
 
 ---
 
@@ -560,9 +555,7 @@ bool·trueFlag·=
 
 # Парсинг фрагментов кода (Swiftify, PT.PM)
 
-### Задача
-
-Определение корректного правила для фрагмента кода
+### Задача: определение корректного правила для фрагмента кода
 
 ### Применение
 
@@ -574,6 +567,12 @@ bool·trueFlag·=
 * Регулярные выражения
 * Токенизация и операции с токенами
 * Парсинг разными правилами
+
+### Примеры
+
+* [Утверждения](http://objc.to/6mpmhq)
+* [Декларации методов](http://objc.to/nt25a1)
+* [Свойства](http://objc.to/vnpasw)
 
 ---
 
@@ -733,9 +732,7 @@ throw new ShouldNotBeVisitedException(context);
 
 ---
 
-# C\# 7
-
-**Локальные функции** и **Is Expression**
+# C\# 7: локальные функции
 
 ```CSharp
 public static List<Terminal> GetLeafs(this Rule node)
@@ -847,7 +844,7 @@ public static List<Terminal> GetLeafs(this Rule node)
 
 ---
 
-# На правах рекламы
+# Вопросы?
 
 ## [Positive Technologies на GitHub](https://github.com/PositiveTechnologies)
 
