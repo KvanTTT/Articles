@@ -100,7 +100,7 @@ a + b * c
   * Контекстно-свободные (ANTLR, Coco/R, Gardens Point Parser Generator, Grammatica, Hime Parser Generator, LLLPG)
   * Безлексерные PEG (IronMeta, Pagarus)
 * Комбинаторы (Parseq, Parsley, LanguageExt.Parsec, Sprache, Superpower)
-* Фреймворки Roslyn, Nitra
+* Языковые фреймворки (JetBrains MPS, Nitra, Roslyn) 
 
 Детально описание [Parsing In C#: Tools And Libraries](https://tomassetti.me/parsing-in-csharp).
 
@@ -770,7 +770,7 @@ public static List<Terminal> GetLeafs(this Rule node)
 
 ---
 
-# JSON сериализация
+# JSON сериализация деревьев
 
 * Сериализация по-умолчанию с параметром ` TypeNameHandling.All`
 * Длинные и платформозависимые имена типов
