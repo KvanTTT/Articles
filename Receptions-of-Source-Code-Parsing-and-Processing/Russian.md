@@ -463,19 +463,22 @@ ScriptText2:  '<' ~[<?/]* -> type(ScriptText);
 
 # Связывание скрытых токенов со значимыми (Roslyn)
 
-* Лидирующие (**LeadingTrivia**)
-* Замыкающие (**TrailingTrivia**)
+## Типы узлов Roslyn
+
+* **Node** - не конечный узел дерева, содержащий детей
+* **Token** - конечный узел (keyword, id, литерал, пунктуация)
+* **Trivia** - скрытый токен без родителя, связывается с `Token`.
+    * Лидирующие (**Leading**)
+    * Замыкающие (**Trailing**)
 
 ```CSharp
 // leading 1 (var)
 // leading 2 (var)
-var foo = 42; /* trailing (;)*/ int bar = 100500; // trailing (;)
+var foo = 42; /*trailing (;)*/ int bar = 100500; //trailing (;)
 
 // leading (EOF)
 EOF
 ```
-
-* Более правильный подход!
 
 ---
 
@@ -551,7 +554,7 @@ bool·trueFlag·=
 
 ---
 
-# Парсинг фрагментов кода (Swiftify, PT.PM)
+# Парсинг фрагментов кода (Swiftify)
 
 ### Задача: определение корректного правила для фрагмента кода
 
