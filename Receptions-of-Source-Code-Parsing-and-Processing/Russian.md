@@ -92,6 +92,8 @@ a + b * c
 * Контекстно-зависимые
 * Тьюринг-полные
 
+Пример КС-КЗ конструкции: `T a = new T()`
+
 ---
 
 # Инструменты и библиотеки под C#
@@ -102,7 +104,7 @@ a + b * c
 * Комбинаторы (Parseq, Parsley, LanguageExt.Parsec, Sprache, Superpower)
 * Языковые фреймворки (JetBrains MPS, Nitra, Roslyn) 
 
-Детально описание [Parsing In C#: Tools And Libraries](https://tomassetti.me/parsing-in-csharp).
+Детальное описание: [Parsing In C#: Tools And Libraries](https://tomassetti.me/parsing-in-csharp).
 
 ---
 
@@ -114,7 +116,7 @@ a + b * c
 Библиотеки:
 
 * [Sprache](https://github.com/sprache/Sprache)
-* [superpower](https://github.com/datalust/superpower)
+* [Superpower](https://github.com/datalust/superpower)
 
 ---
 
@@ -145,14 +147,13 @@ Assert.AreEqual("abc123", id);
 # Проблемы и задачи парсинга
 
 * Неоднозначность
+* Контекстно-зависимые конструкции
 * Регистронезависимость
 * Островные языки и конструкции
-* Парсинг фрагментов кода
 * Скрытые токены
 * Препроцессорные директивы
+* Парсинг фрагментов кода
 * Обработка и восстановление от ошибок
-* Использование парсеров в IDE
-* Производительность
 
 ---
 
@@ -216,7 +217,7 @@ static void Main(string[] args)
 
 ---
 
-# 42
+# `nameof` как функция и оператор
 
 ```CSharp
 class Foo
@@ -275,7 +276,7 @@ HeredocIdentifier
 
 ### Решение
 
-Использование вставок кода, смотри лексеры [PHP](https://github.com/antlr/grammars-v4/blob/master/php/PHPLexer.g4).
+Использование вставок кода, смотри лексер [PHP](https://github.com/antlr/grammars-v4/blob/master/php/PHPLexer.g4).
 
 ---
 
@@ -289,7 +290,7 @@ s = $@"\{p.Name}
 s = $"Color[R={func(b: 3):#0.##}, G={G:#0.##}, B={B:#0.##}]";
 ```
 
-* Реализация в [CSharpLexer.g4](https://github.com/antlr/grammars-v4/blob/master/csharp/CSharpLexer.g4).
+Реализация в лексере [C#](https://github.com/antlr/grammars-v4/blob/master/csharp/CSharpLexer.g4).
 
 ---
 
@@ -327,11 +328,11 @@ s = $"Color[R={func(b: 3):#0.##}, G={G:#0.##}, B={B:#0.##}]";
 
 # Регистронезависимость
 
-Нечувствительные к регистру языки: Delphi, T-SQL, PL/SQL и другие.
+Языки: Delphi, T-SQL, PL/SQL и другие.
 
 ### Решение с помощью грамматики
 
-**Фрагментный токен** не используется в токенизации, но облегчает запись других токенов.
+**Фрагментный токен** облегчает запись других токенов.
 
 ```ANTLR
 Abstract:           A B S T R A C T;
@@ -565,11 +566,7 @@ bool·trueFlag·=
 * Токенизация и операции с токенами
 * Парсинг разными правилами
 
-### Примеры
-
-* [Утверждения](http://objc.to/6mpmhq)
-* [Декларации методов](http://objc.to/nt25a1)
-* [Свойства](http://objc.to/vnpasw)
+**Примеры**: [утверждения](http://objc.to/6mpmhq), [декларации методов](http://objc.to/nt25a1), [свойства](http://objc.to/vnpasw).
 
 ---
 
@@ -630,13 +627,33 @@ namespace App
 
 ---
 
+# Уязвимость goto fail
+
+```C
+hashOut.data = hashes + SSL_MD5_DIGEST_LEN;
+hashOut.length = SSL_SHA1_DIGEST_LEN;
+if ((err = SSLFreeBuffer(&hashCtx)) != 0)
+    goto fail;
+// ...
+if ((err = SSLHashSHA1.update(&hashCtx, &signedParams)) != 0)
+    goto fail;
+    goto fail;  /* MISTAKE! THIS LINE SHOULD NOT BE HERE */
+```
+
+Способы выявления:
+
+* Анализ достоверного дерева разбора (full fidelity)
+* Анализ графа потока управления (CFG)
+
+---
+
 # Заключение о парсинге
 
 О чем не будет рассказываться:
 
-* Производительность парсинга
-* Форматирование кода
-* Использование в IDE
+* Форматирование кода (антипарсинг)
+* Автокомплит
+* Производительность
 
 ---
 
@@ -829,13 +846,7 @@ public static List<Terminal> GetLeafs(this Rule node)
   * [Теория и практика парсинга исходников с помощью ANTLR и Roslyn](https://habrahabr.ru/company/pt/blog/210772)
   * [Обработка препроцессорных директив в Objective-C](https://habrahabr.ru/post/318954/)
 * Открытый сигнатурный движок поиска по шаблонам [PT.PM](https://github.com/PositiveTechnologies/PT.PM)
-* Грамматики: [grammars-v4](https://github.com/antlr/grammars-v4)
-  * [PL/SQL](https://github.com/antlr/grammars-v4/tree/master/plsql)
-  * [T-SQL](https://github.com/antlr/grammars-v4/tree/master/tsql)
-  * [PHP](https://github.com/antlr/grammars-v4/tree/master/php)
-  * [C#](https://github.com/antlr/grammars-v4/tree/master/csharp)
-  * [Java8](https://github.com/antlr/grammars-v4/tree/master/java8-pt)
-  * [Objective-C](https://github.com/antlr/grammars-v4/tree/master/objc)
+* Грамматики: [grammars-v4](https://github.com/antlr/grammars-v4) ([PL/SQL](https://github.com/antlr/grammars-v4/tree/master/plsql), [T-SQL](https://github.com/antlr/grammars-v4/tree/master/tsql), [PHP](https://github.com/antlr/grammars-v4/tree/master/php), [C#](https://github.com/antlr/grammars-v4/tree/master/csharp), [Java8](https://github.com/antlr/grammars-v4/tree/master/java8-pt), [Objective-C](https://github.com/antlr/grammars-v4/tree/master/objc)).
 
 ---
 
@@ -844,5 +855,3 @@ public static List<Terminal> GetLeafs(this Rule node)
 ## [Positive Technologies на GitHub](https://github.com/PositiveTechnologies)
 
 ## [Swiftify](http://swiftify.io/)
-
----
