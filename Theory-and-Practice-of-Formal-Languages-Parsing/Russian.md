@@ -16,7 +16,7 @@
 1. `<table>(.*?)</table>`
 2. А если аттрибуты? `<table.*?>(.*?)</table>`
 3. А если элементы? `tr`, `td`
-4. А если комментарии? `<!-- html comment>`
+4. А если комментарии? `<!-- html comment -->`
 5. ...
 6. [NO NOO̼O​O NΘ stop the an​*̶͑̾̾​̅ͫ͏̙̤g͇̫͛͆̾ͫ̑͆l͖͉̗̩̳̟̍ͫͥͨe̠̅s ͎a̧͈͖r̽̾̈́͒͑e n​ot rè̑ͧ̌aͨl̘̝̙̃ͤ͂̾̆ ZA̡͊͠͝LGΌ ISͮ̂҉̯͈͕̹̘̱ TO͇̹̺ͅƝ̴ȳ̳ TH̘Ë͖́̉ ͠P̯͍̭O̚​N̐Y̡ H̸̡̪̯ͨ͊̽̅̾̎Ȩ̬̩̾͛ͪ̈́̀́͘ ̶̧̨̱̹̭̯ͧ̾ͬC̷̙̲̝͖ͭ̏ͥͮ͟Oͮ͏̮̪̝͍M̲̖͊̒ͪͩͬ̚̚͜Ȇ̴̟̟͙̞ͩ͌͝S̨̥̫͎̭ͯ̿̔̀ͅ](https://stackoverflow.com/a/1732454/1046374)
 
@@ -31,6 +31,7 @@
 MyKeyword: 'var';
 Id:        [a-z]+;
 Digit:     [0-9]+;
+Comment:   '<!--' .*? '-->';
 ```
 
 ---
@@ -71,6 +72,7 @@ Digit:     [0-9]+;
 expr
     : expr '*' expr
     | expr '+' expr
+    | ID '(' args ')'
     | ID
     ;
 
@@ -159,7 +161,7 @@ Assert.AreEqual("abc123", id);
 
 # Неоднозначность
 
-Пример: `var var = 0;`
+Пример: `var var = 100500;`
 
 ### Решение с помощью грамматики
 
@@ -252,7 +254,7 @@ ID:  [0-9a-zA-Z];
 
 // Parser
 varDeclaration
-    : id {_input.Lt(-1).Text == "VAR"}? id ('=' expression)? ';'
+    : id {_input.Lt(-1).Text == "var"}? id ('=' expression)? ';'
     ;
 
 id
@@ -263,7 +265,7 @@ id
 
 # Контекстно-зависимые конструкции
 
-Heredoc в PHP или интерполируемые строки в C#
+[Heredoc](http://php.net/manual/en/language.types.string.php) в PHP или интерполируемые строки в C#
 
 ```PHP
 <?php
