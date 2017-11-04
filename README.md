@@ -38,6 +38,11 @@ implemented in web services, such as Swiftify and Codebeat.
 * [blog.ptsecurity.com](http://blog.ptsecurity.com/2016/06/theory-and-practice-of-source-code.html),
 [habrahabr.ru](https://habrahabr.ru/company/pt/blog/210772/)
 
+### Notepad++ Gist Plugin Development ([ru](Notepad++-Gist-Plugin-Development/Russian.md))
+
+* **24.03.2014**
+* [habrahabr.ru](https://habrahabr.ru/post/215769/)
+
 ### [Algorithm for Automatic Skyline-Alignment](Automatic-Skyline-Alignment/English.md) ([ru](Automatic-Skyline-Alignment/Russian.md))
 
 * **20.09.2013**
