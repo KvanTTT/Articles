@@ -7,14 +7,14 @@
 После того, как найти плагин для работы с Gist в Notepad++ не удалось
 (есть только под Sublime), я решил написать свой. К тому же
 это добавило опыта разработки плагинов и работы с GitHub API.
-Сразу выкладываю ссылку на исходники: [NppGist
-Sources](https://github.com/KvanTTT/NppGist) и сам плагин:
-[NppGist](https://github.com/KvanTTT/NppGist/releases/download/1.1/NppGist.dll)
-(для его подключения нужно перенести файл `NppGist.dll` в папку plugins, которая
-находится в папке с установленным Notepad++). Под Notepad++ плагины можно писать
-на нескольких языках: C++, Ada, Delphi, C#, но я остановился на последнем из-за
-скорости разработки и большого опыта работы с ним. При разработке были
-использованы следующие библиотеки и инструменты:
+Сразу выкладываю ссылку на [исходники](https://github.com/KvanTTT/NppGist) и
+сборки самого плагина [NppGist-x86-1.1.0.10](https://github.com/KvanTTT/NppGist/releases/download/1.2/NppGist-x86-1.1.0.10.zip),
+[NppGist-x64-1.1.0.10](https://github.com/KvanTTT/NppGist/releases/download/1.2/NppGist-x64-1.1.0.10.zip).
+Для его подключения нужно перенести соответствующий файл `NppGist.dll` в папку
+plugins, которая находится в папке с установленным Notepad++. Плагины можно
+разрабатывать на нескольких языках: C++, Ada, Delphi, C#, но я остановился на
+последнем из-за его актуальности и большого опыта работы с ним. При разработке
+использовались следующие библиотеки и инструменты:
 
 1. [**NppPlugin.NET**](http://sourceforge.net/projects/sourcecookifier/files/other%20plugins/NppPlugin.NET.v0.5.zip/download) -
    шаблон Notepad++ плагина для .NET платформы.
