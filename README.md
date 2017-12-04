@@ -1,10 +1,9 @@
 ## Biography ([ru](Biography/Russian.md))
 
-### [Positive Technologies at GitHub](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/Russian.md))
+### [Positive Technologies on GitHub](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/Russian.md))
 
 * **13.09.2017**
-* [habrahabr.ru](https://habrahabr.ru/company/pt/blog/327957/)
-* [blog.ptsecurity.com](http://blog.ptsecurity.com/2017/12/positive-technologies-on-github.html)
+* [habrahabr.ru](https://habrahabr.ru/company/pt/blog/327957/), [blog.ptsecurity.com](http://blog.ptsecurity.com/2017/12/positive-technologies-on-github.html)
 
 ### [Parsing Preprocessor Directives in Objective-C Code](Parsing-Preprocessor-Directives-in-Objective-C-Code/English.md) ([ru](Parsing-Preprocessor-Directives-in-Objective-C-Code/Russian.md))
 
