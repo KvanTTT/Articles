@@ -12,7 +12,7 @@ gfranq.com, the photo editing web service, which supports client- and
 server-side image processing using filters as well as collage
 functionality. This web service is not currently available.
 
-![Client-Server Interaction](Images/Client-Server-Interaction.png)
+![Client-Server Interaction](Images/Client-Server-Interaction.svg)
 
 ## Contents
 
@@ -176,7 +176,7 @@ following pros and cons:
 The process of compiling the same C\# code into .NET and Javascript can
 be illustrated by the following scheme:
 
-![C\# translation to .NET & JavaScript Scheme](Images/CSharp-Translation-to-NET-JavaScript-Scheme.png)
+<img src=Images/CSharp-Translation-to-NET-JavaScript-Scheme.svg align=center width=70% alt="C\# translation to .NET & JavaScript Scheme" />
 
 Although .NET and HTML5 are completely different technologies, they also
 have similar features. This also applies to working with graphics. For
@@ -185,7 +185,7 @@ analogue — **Canvas**. The same goes with **Graphics** , **Context**, and
 arrays of pixels. In order to combine it all in one code, it was decided
 to develop the following architecture:
 
-![Common .NET & JavaScript GraphicsContext](Images/Common-NET-JavaScript-GraphicsContext.png)
+<img src=Images/Common-NET-JavaScript-GraphicsContext.svg align=center width=50% alt="Common .NET & JavaScript GraphicsContext" />
 
 Of course, it is not limited to two platforms. As a followup it is
 planned to add support for WinPhone, and then, perhaps, Android and
