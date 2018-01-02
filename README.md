@@ -2,14 +2,13 @@
 
 ### [Positive Technologies on GitHub](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/Russian.md))
 
-* **13.09.2017**
-* [habrahabr.ru](https://habrahabr.ru/company/pt/blog/327957/), [blog.ptsecurity.com](http://blog.ptsecurity.com/2017/12/positive-technologies-on-github.html)
+* [habrahabr.ru (09/13/2017)](https://habrahabr.ru/company/pt/blog/327957/)
+* [blog.ptsecurity.com (12/04/2017)](http://blog.ptsecurity.com/2017/12/positive-technologies-on-github.html)
 
 ### [Parsing Preprocessor Directives in Objective-C Code](Parsing-Preprocessor-Directives-in-Objective-C-Code/English.md) ([ru](Parsing-Preprocessor-Directives-in-Objective-C-Code/Russian.md))
 
-* **19.02.2017**
-* [swiftify.blog](https://swiftify.blog/2017/01/31/handling-preprocessor-directives-in-objective-c/),
-[habrahabr.ru](https://habrahabr.ru/post/318954/)
+* [medium.com (01/31/2017)](https://medium.com/swiftify/parsing-preprocessor-directives-in-objective-c-714a3dde570)
+* [habrahabr.ru (01/16/2017)](https://habrahabr.ru/post/318954/)
 * This article goes into detail describing approaches 
 to Objective-C preprocessor directives processing. Besides the 
 theoretical side of the question, these approaches are practically 
@@ -17,46 +16,38 @@ implemented in web services, such as Swiftify and Codebeat.
 
 ### Write a Palindrome Polyglot Quine ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Write-a-palindrome-polyglot-quine/Russian.md))
 
-* **12.09.2016**
-* [habrahabr.ru](https://habrahabr.ru/company/pt/blog/309702/)
+* [habrahabr.ru (09/12/2016)](https://habrahabr.ru/company/pt/blog/309702/)
 
 ### [Pattern language for a universal signature-based code analyzer](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Pattern-language-for-a-universal-signature-based-code-analyzer/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Pattern-language-for-a-universal-signature-based-code-analyzer/Russian.md))
 
-* **17.05.2016**
-* [blog.ptsecurity.com](http://blog.ptsecurity.com/2016/08/pattern-language-for-univeral-signature.html),
-[habrahabr.ru](https://habrahabr.ru/company/pt/blog/300946/)
+* [blog.ptsecurity.com (08/25/2016)](http://blog.ptsecurity.com/2016/08/pattern-language-for-univeral-signature.html)
+* [habrahabr.ru (05/17/2017)](https://habrahabr.ru/company/pt/blog/300946/)
 
 ### [Tree structures processing and unified AST](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Tree-structures-processing-and-unified-AST/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Tree-structures-processing-and-unified-AST/Russian.md))
 
-* **04.05.2016**
-* [blog.ptsecurity.com](http://blog.ptsecurity.com/2016/07/tree-structures-processing-and-unified.html),
-[habrahabr.ru](https://habrahabr.ru/company/pt/blog/210060/)
+* [blog.ptsecurity.com (07/27/2016)](http://blog.ptsecurity.com/2016/07/tree-structures-processing-and-unified.html)
+* [habrahabr.ru (04/05/2016)](https://habrahabr.ru/company/pt/blog/210060/)
 
 ### [Theory and Practice of Source Code Parsing with ANTLR and Roslyn](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Theory-and-Practice-of-source-code-parsing-with-ANTLR-and-Roslyn/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Theory-and-Practice-of-source-code-parsing-with-ANTLR-and-Roslyn/Russian.md))
 
-* **03.03.2016**
-* [blog.ptsecurity.com](http://blog.ptsecurity.com/2016/06/theory-and-practice-of-source-code.html),
-[habrahabr.ru](https://habrahabr.ru/company/pt/blog/210772/)
+* [blog.ptsecurity.com (06/20/2016)](http://blog.ptsecurity.com/2016/06/theory-and-practice-of-source-code.html)
+* [habrahabr.ru (03/03/2016)](https://habrahabr.ru/company/pt/blog/210772/)
 
 ### Notepad++ Gist .Net Plugin Development ([ru](Notepad++-Gist-NET-Plugin-Development/Russian.md))
 
-* **24.03.2014**
-* [habrahabr.ru](https://habrahabr.ru/post/215769/)
+* [habrahabr.ru (03/24/2014)](https://habrahabr.ru/post/215769/)
 
 ### [Algorithm for Automatic Skyline-Alignment](Automatic-Skyline-Alignment/English.md) ([ru](Automatic-Skyline-Alignment/Russian.md))
 
-* **20.09.2013**
-* [habrahabr.ru](https://habrahabr.ru/post/194580/)
+* [habrahabr.ru (09/20/2013)](https://habrahabr.ru/post/194580/)
 
 ### [Selection, Caching and Drawing Photos on Map](Selection-Caching-and-Drawing-Photos-on-Map/English.md) ([ru](Selection-Caching-and-Drawing-Photos-on-Map/Russian.md))
 
-* **17.08.2013**
-* [habrahabr.ru](https://habrahabr.ru/post/182532/)
+* [habrahabr.ru (08/17/2013)](https://habrahabr.ru/post/182532/)
 
 ### [Universal C# Code for .NET and JavaScript](Universal-CSharp-Code-for-NET-and-JavaScript/English.md) ([ru](Universal-CSharp-Code-for-NET-and-JavaScript/Russian.md))
 
-* **17.03.2013**
-* [habrahabr.ru](https://habrahabr.ru/post/164439/)
+* [habrahabr.ru (03/17/2013)](https://habrahabr.ru/post/164439/)
 * This topic is aimed at highlighting the details of
 cross-platform development in C\#, particularly for .NET apps and web
 browsers. The approach described in this article was implemented in
