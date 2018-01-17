@@ -16,14 +16,16 @@ plugins, которая находится в папке с установлен
 последнем из-за его актуальности и большого опыта работы с ним. При разработке
 использовались следующие библиотеки и инструменты:
 
-1. [**NppPlugin.NET**](http://sourceforge.net/projects/sourcecookifier/files/other%20plugins/NppPlugin.NET.v0.5.zip/download) -
-   шаблон Notepad++ плагина для .NET платформы.
-2. [**ServiceStack.Text**](https://github.com/ServiceStack/ServiceStack.Text) -
-   библиотека для сериализация и десериализация JSON. Имеет высокую
-   производительность и небольшой размер).
-3. **[hurl.it](http://www.hurl.it/)** - удобный онлайн-инструмент для
-   составления и тестирования GET, POST, DELETE и других запросов.
-4. **NUnit** - юнит-тестирование.
+* [**NppPlugin.NET**](http://sourceforge.net/projects/sourcecookifier/files/other%20plugins/NppPlugin.NET.v0.5.zip/download) -
+  шаблон Notepad++ плагина для .NET платформы.
+* [**NppNetInf**](https://github.com/KvanTTT/NppNetInf) - новая библиотека
+  для более легкой разработки плагинов. 
+* [**ServiceStack.Text**](https://github.com/ServiceStack/ServiceStack.Text) -
+  библиотека для сериализация и десериализация JSON. Имеет высокую
+  производительность и небольшой размер).
+* **[hurl.it](http://www.hurl.it/)** - удобный онлайн-инструмент для
+  составления и тестирования GET, POST, DELETE и других запросов.
+* **NUnit** - юнит-тестирование.
 
 ## Инициализация плагина
 
@@ -31,7 +33,7 @@ plugins, которая находится в папке с установлен
 счастью, под .NET уже написан готовый шаблон плагина со многими
 сообщениями, классами и структурами
 ([NppPlugin.NET.v0.5](http://sourceforge.net/projects/sourcecookifier/files/other%20plugins/NppPlugin.NET.v0.5.zip/download)).
-Для корректной компиляции плагина в Visual Studio **Platform taget** нужно
+Для корректной компиляции плагина в Visual Studio **Platform target** нужно
 устанавливать в **x86** или **x64**, вместо **Any CPU** по-умолчанию, а также
 использовать .NET не ниже версии 4.0. Инициализация плагина происходит в методах
 `CommandMenuInit` и `SetToolBarIcon`. В первый добавляются пункты, которые
@@ -240,5 +242,5 @@ _main = (PluginMain)Activator.CreateInstance(pluginMain);
 Результаты билда, тестов и готовые сборки доступны
 [по ссылке](https://ci.appveyor.com/project/KvanTTT/nppgist/branch/master).
 
-Надеюсь после прочтения всем желающим станет проще писать плагины под Notepad++.
+Надеюсь, после прочтения всем желающим станет проще писать плагины под Notepad++.
 Используйте плагин и присоединяйтесь к его разработке!
