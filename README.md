@@ -33,7 +33,7 @@ implemented in web services, such as Swiftify and Codebeat.
 * [blog.ptsecurity.com (06/20/2016)](http://blog.ptsecurity.com/2016/06/theory-and-practice-of-source-code.html)
 * [habrahabr.ru (03/03/2016)](https://habrahabr.ru/company/pt/blog/210772/)
 
-### Notepad++ Gist .Net Plugin Development ([ru](Notepad++-Gist-NET-Plugin-Development/Russian.md))
+### [Notepad++ Gist .Net Plugin Development](Notepad++-Gist-NET-Plugin-Development/English.md) ([ru](Notepad++-Gist-NET-Plugin-Development/Russian.md))
 
 * [habrahabr.ru (03/24/2014)](https://habrahabr.ru/post/215769/)
 
