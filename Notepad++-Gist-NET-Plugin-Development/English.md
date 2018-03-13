@@ -229,7 +229,7 @@ _main = (PluginMain)Activator.CreateInstance(pluginMain);
 
 Unfortunately, the full modularity has not yet been implemented (connecting via
 NuGet package, not submodule). However, even with the current implementation it
-is not necessary to add infrastrature project to the plugin solution.
+is not necessary to add infrastructure project to the plugin solution.
 
 ## Conclusion
 

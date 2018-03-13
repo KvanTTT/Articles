@@ -14,7 +14,7 @@ to Objective-C preprocessor directives processing. Besides the
 theoretical side of the question, these approaches are practically 
 implemented in web services, such as Swiftify and Codebeat.
 
-### Write a Palindrome Polyglot Quine ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Write-a-palindrome-polyglot-quine/Russian.md))
+### [Write a Palindrome Polyglot Quine](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Write-a-palindrome-polyglot-quine/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Write-a-palindrome-polyglot-quine/Russian.md))
 
 * [habrahabr.ru (09/12/2016)](https://habrahabr.ru/company/pt/blog/309702/)
 
