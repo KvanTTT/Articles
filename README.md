@@ -62,3 +62,7 @@ browsers. The approach described in this article was implemented in
 gfranq.com, the photo editing web service, which supports client- and
 server-side image processing using filters as well as collage
 functionality.
+
+### [Valentines Day Hearts App](Valentines-Day-Hearts-App/Russian.md)
+
+* [habrahabr.ru (02/13/2012)](https://habr.com/post/137861/)
