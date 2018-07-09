@@ -20,14 +20,13 @@
 парсеров ANTLR, так как на тот момент он обладал большими возможностями и коммьюнити.
 Были разработаны открытые грамматики PHP, T-SQL, а также сильно улучшены
 грамматики JavaScript, Java8, PL/SQL, Objective-C и C#. Сейчас они востребованы
-как в мире открытого ПО, так и в коммерческой разработке. Помимо основной
-деятельности, я написал несколько тематических статей:
+как в мире открытого ПО, так и в коммерческой разработке. Сам код анализатора в
+настоящее время открыт: [PT.PM](https://github.com/PositiveTechnologies/PT.PM).
+Помимо основной деятельности, я написал несколько тематических статей:
 
 * [Theory and Practice of Source Code Parsing with ANTLR and Roslyn](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Theory-and-Practice-of-source-code-parsing-with-ANTLR-and-Roslyn/English.md)
 * [Tree structures processing and unified AST](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Tree-structures-processing-and-unified-AST/English.md)
 * [Pattern language for a universal signature-based code analyzer](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Pattern-language-for-a-universal-signature-based-code-analyzer/English.md)
-
-Сам код анализатора в настоящее время открыт: [PT.PM](https://github.com/PositiveTechnologies/PT.PM).
 
 В 2017 приступил к реализации нового модуля анализа потоков данных, который
 работает на межпроцедурнром и межфайловом уровнях.
