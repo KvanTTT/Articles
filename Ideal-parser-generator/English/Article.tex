@@ -1,0 +1,222 @@
+\documentclass[sigplan,screen]{acmart}
+
+\usepackage{booktabs} % For formal tables
+
+\setcopyright{rightsretained}
+
+% DOI
+\acmDOI{}
+
+% ISBN
+\acmISBN{}
+
+%Conference
+\acmConference[SLE 2018]{SLE 2018}{November 2018}{}
+\acmYear{2018}
+\copyrightyear{2018}
+
+\title{\LARGE \bf
+The Ideal Parser Generator}
+
+\author{Ivan Kochurkin}
+\affiliation{%
+  \institution{Positive Technologies}
+  \city{Moscow}
+  \country{Russia}
+}
+\email{ivan.kochurkin@gmail.com}
+
+\begin{document}
+
+\maketitle
+
+\section{Token value comparison operator}
+
+Many languages, such as SQL dialects, have a large number of words that
+are keywords only in particular contexts. The standard solution is to
+put all such keywords in an identifier rule:
+
+\begin{verbatim}
+identifier : ID | GET | /* other keywords */
+\end{verbatim}
+
+Although this solution is broadly applicable, it has drawbacks: such
+keywords in a particular context could be numerous, and it is easy to
+forget one by mistake. Moreover, if the number of keywords is large,
+parser performance can suffer.
+
+Another way is to get the value of an identifier token and recognize the
+relevant rule based on it. This requires a code insert, which
+unfortunately limits the scope of grammar application to the Java
+runtime.
+
+\begin{verbatim}
+getter
+    : {_input.LT(1).getText().equals("get")}?
+    Identifier propertyName;
+\end{verbatim}
+
+To avoid Java dependence and make the grammar truly universal, we could
+introduce a special construction for comparing a token's value with that
+of another token:
+
+\begin{verbatim}
+getter : Identifier=='get' propertyName;
+\end{verbatim}
+
+This feature has been previously proposed on GitHub: \cite{token-value-comparison-operator}.
+
+\section{Universal code inserts}
+
+Certain syntactic constructions cannot be covered even by additional
+syntax and parsing them correctly requires computations. Examples
+include in C\# or PHP \cite{string-interpolation}. As mentioned already, \emph{semantic
+predicates} or \emph{actions} can be used for such computations in
+ANTLR. However, they are not universal.
+
+With certain tricks, we can generalize them to multiple runtimes, as has
+been done in the JavaScript ANTLR grammar \cite{universal-javascript-grammar}.
+However, this approach is not ideal since abstracting the
+parser is an additional stage, and a complicated one at that. Such code
+inserts are foreign and integrate poorly with generated code, since the
+code is not checked during generation of the parser from the grammar and
+is poorly formatted. In addition, grammar IDEs do not work well with
+inserts.
+
+A \textbf{Universal DSL} for describing semantic predicates would solve
+all these problems, in a laconic and elegant way. By combining a
+declarative approach (context-free grammar) and imperative approach
+(universal inserts), we could simplify creation of all sorts of parsers!
+
+For instance, the instruction ~\texttt{la(-1)} for getting the previous
+character is translated as ~\texttt{\_input.LA(-1)}~ in the Java runtime
+and as ~\texttt{self.\_input.LA(1)}~ in the Python runtime. Read more
+about universal code inserts on GitHub \cite{universal-code-inserts}.
+
+\section{Full-fidelity parse tree}
+
+ANTLR has a channeling mechanism for isolating a set of hidden tokens
+(spaces, comments) from the main tokens. However, these tokens are
+associated with nodes on the parse tree. Besides hidden symbols, there
+are unrecognized (error) symbols for which no lexical rules matched, and
+error tokens for which no grammar alternatives matched.
+
+It is very important that such tokens be \textbf{associated} with nodes
+of the parsing tree: this structure makes it possible to take code style
+into account during transformation and refactoring, for example. Plus by
+analyzing just the parse tree and spaces, we can detect serious
+vulnerabilities in source code, such as goto fail1 \cite{goto-fail-vulnerability}.
+
+More on GitHub: \cite{full-fidelity-tree-tokens}, \cite{error-tokens}.
+
+\section{Idiomatic generated code}
+
+In ANTLR, the first letter of~\emph{lexical} rules is capitalized,
+whereas the first letter of \emph{parser} rules is in lower case. Target
+runtimes each have their own code style, which is completely ignored
+during rule transformation. Worse still, the generated code may be
+actually invalid because certain identifiers may be reserved for
+keywords. This fact creates a choice: either sacrifice universality, or try to
+fit the target runtime by renaming rules.
+
+Instead of changing rules in the grammar itself, we could adapt
+identifiers for each target runtime. Therefore the grammar is completely
+independent of the runtime and Visitor code will look
+runtime-appropriate.
+
+More on GitHub: \cite{naming-convention}, \cite{symbol-conflicts}.
+
+\section{Scannerless parsers}
+
+For certain languages and syntactic constructions, the stages of
+tokenization, parsing, and semantic analysis are heavily intertwined.
+
+One example: in C languages, the construction \texttt{x\ *\ y}~is
+ambiguous. It can be interpreted as multiplication or as declaration of
+a pointer. This ambiguity is resolved with the help of a symbol table.
+
+In the popular Markdown text format, parsing errors do not exist. Rather, every
+symbol is interpreted either as a formatting element or as regular text. If we
+write: \\~\texttt{{[}link{]}(https://google.com)}, we get
+a \\~\href{https://google.com/}{link}. If we remove the closing
+parenthesis, then we get plain text:
+\texttt{{[}link{]}(https://google.com/}.
+
+Description on GitHub:\cite{scannerless-parser}.
+
+\section{Online grammars editor and browser}
+
+Plugins for popular IDEs can be used for developing and debugging of
+ANTLR grammars. Plugins include ANTLR intellij-plugin-v4 \cite{ANTLR-intellij-plugin-v4}
+and \cite{vscode-antlr4}. However, they do not enable developing grammars without
+an IDE or for all runtimes simultaneously, and most importantly, they work offline.
+So in order to test even something small, the user must install and
+configure additional software.
+
+It would be much more convenient to test grammars online right in a web
+browser. Users could choose to create their own language or use an
+existing grammar from the ANTLR official repository \cite{grammars-v4} to view
+the parse tree for a particular code fragment. The ability to make fixes then and
+there, and add them to the repository, would make things even more convenient.
+
+On AST Explorer \cite{astexplorer}, users can build a parse tree only for
+certain languages (JavaScript and CSS), and cannot change the grammar.
+
+To demonstrate this concept, I have developed an open-source desktop
+application: Desktop Antlr Grammar Editor (DAGE) \cite{dage}. The left side of
+the window allows editing the grammar, while the right side allows editing the
+language. Both the grammar and code can have associated errors at the relevant
+levels of parser generation.
+
+\section{Conclusion}
+
+The proposed features expand upon the abilities of standard context-free
+grammars, as well as unify the API and generated code. This should make
+development of ANTLR-based parsers more convenient.
+
+A web grammar editor would automate and streamline the development
+process, thus reducing the domain barrier to entry.
+
+These changes would also attract new developers working with various
+levels and languages. Beginners could quickly and easily get to work on
+making their own grammars. Those with more ANTLR experience could help
+to quickly fix issues in existing grammars. And what's more, grammar
+would become universal and no longer be runtime-dependent.
+
+\bibliographystyle{ACM-Reference-Format}
+
+\begin{thebibliography}{}
+
+\bibitem{token-value-comparison-operator} Token value comparison operator, \url{https://github.com/antlr/antlr4/issues/1965}.
+
+\bibitem{string-interpolation} C\# string interpolation, \url{https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated}.
+
+\bibitem{universal-javascript-grammar} Universal JavaScript Grammar, \url{https://github.com/antlr/grammars-v4/tree/master/javascript}.
+
+\bibitem{universal-code-inserts} Universal actions language, \url{https://github.com/antlr/antlr4/issues/1045}.
+
+\bibitem{goto-fail-vulnerability} Anatomy of a "goto fail", \url{https://nakedsecurity.sophos.com/2014/02/24/anatomy-of-a-goto-fail-apples-ssl-bug-explained-plus-an-unofficial-patch/}.
+
+\bibitem{full-fidelity-tree-tokens} Create parse trees whose leaves have left/right hidden token text, \url{https://github.com/antlr/antlr4/pull/1667}.
+
+\bibitem{error-tokens} Error recovery should create missing tokens for first path to recovery point, \url{https://github.com/antlr/antlr4/issues/1972}.
+
+\bibitem{naming-convention} Add a new option for naming convention of generated Visitor and Listener methods, \url{https://github.com/antlr/antlr4/issues/1615}.
+
+\bibitem{symbol-conflicts} Throw warning if symbol conflicts with generated code in another language or runtime, \url{https://github.com/antlr/antlr4/issues/1670}.
+
+\bibitem{scannerless-parser} Add scannerless tokenizer to runtime jar, \url{https://github.com/antlr/antlr4/issues/814}.
+
+\bibitem{ANTLR-intellij-plugin-v4} ANTLR intellij-plugin-v4,\url{https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin}.
+
+\bibitem{vscode-antlr4} vscode-antlr4, \url{https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4}.
+
+\bibitem{grammars-v4} ANTLR grammars repository, \url{https://github.com/antlr/grammars-v4}.
+
+\bibitem{astexplorer} AST Explorer, \url{http://astexplorer.net/}.
+
+\bibitem{dage} DAGE, \url{https://github.com/KvanTTT/DAGE}.
+
+\end{thebibliography}
+
+\end{document}
