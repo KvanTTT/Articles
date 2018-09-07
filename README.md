@@ -1,5 +1,9 @@
 ## Biography ([ru](Biography/Russian.md))
 
+### Modern Presentation Format ([ru](Modern-Presentations-Format/Russian.md))
+
+* [habr.com 09/09/2017](https://habr.com/company/pt/blog/414757/)
+
 ### [Positive Technologies on GitHub](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/Russian.md))
 
 * [habrahabr.ru (09/13/2017)](https://habrahabr.ru/company/pt/blog/327957/)
