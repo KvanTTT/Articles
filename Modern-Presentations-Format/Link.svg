@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg [
+<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.2" baseProfile="tiny" id="レイヤー_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="600px" height="600px"
+	 viewBox="0 0 600 600" xml:space="preserve">
+    <switch>
+        <foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+            <i:pgfRef  xlink:href="#adobe_illustrator_pgf">
+            </i:pgfRef>
+        </foreignObject>
+        <g i:extraneous="self">
+            <g>
+                <path fill="#006CAF" d="M231.204,415.259c-12.692,12.691-33.27,12.691-45.962,0l0,0c-12.692-12.692-12.692-33.271,0-45.962
+				l184.555-184.555c12.691-12.692,33.27-12.692,45.962,0l0,0c12.691,12.692,12.691,33.27,0,45.962L231.204,415.259z"/>
+                <g>
+                    <path fill="#006CAF" d="M329.335,194.091L449.149,74.276c6.356-6.357,16.664-6.357,23.021,0l54.054,54.054
+					c6.357,6.357,6.357,16.664,0,23.021L406.409,271.166c-3.915,3.915-9.324,5.401-14.389,4.489l-45.478,45.478
+					c32.011,25.123,78.885,22.939,108.336-6.512l118.329-118.33c31.784-31.785,31.847-83.882,0.062-115.667l-53.394-53.394
+					C488.091-4.556,435.994-4.493,404.21,27.292L285.881,145.62c-29.452,29.452-31.637,76.326-6.513,108.337l45.478-45.478
+					C323.934,203.415,325.419,198.006,329.335,194.091z"/>
+                    <path fill="#006CAF" d="M268.837,408.737L149.021,528.553c-6.357,6.357-16.663,6.357-23.02,0l-54.055-54.055
+					c-6.357-6.357-6.357-16.663,0-23.02l119.816-119.816c3.915-3.915,9.323-5.401,14.388-4.488l48.306-48.306
+					c-32.011-25.124-78.884-22.939-108.336,6.513L27.792,403.71c-31.784,31.784-31.847,83.881-0.062,115.666l53.394,53.394
+					c31.785,31.785,83.882,31.724,115.667-0.061l118.33-118.33c29.451-29.451,31.636-76.325,6.513-108.336l-48.306,48.306
+					C274.239,399.413,272.753,404.821,268.837,408.737z"/>
+                </g>
+            </g>
+        </g>
+    </switch>
+</svg>
+
