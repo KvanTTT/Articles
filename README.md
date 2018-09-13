@@ -1,8 +1,12 @@
 ## Biography ([ru](Biography/Russian.md))
 
+### Genealogy Tree inside Git ([ru](Genealogy-Tree-In-Git/Russian.md))
+
+* [habr.com (09/13/2018)](https://habr.com/post/351158/)
+
 ### Modern Presentation Format ([ru](Modern-Presentations-Format/Russian.md))
 
-* [habr.com 09/09/2017](https://habr.com/company/pt/blog/414757/)
+* [habr.com (09/09/2018)](https://habr.com/company/pt/blog/414757/)
 
 ### [Positive Technologies on GitHub](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/Russian.md))
 
