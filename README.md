@@ -63,6 +63,7 @@ gfranq.com, the photo editing web service, which supports client- and
 server-side image processing using filters as well as collage
 functionality.
 
-### [Valentines Day Hearts App](Valentines-Day-Hearts-App/Russian.md)
+### [Valentines Day Hearts App](Valentines-Day-Hearts-App/English.md) ([ru](Valentines-Day-Hearts-App/Russian.md))
 
+* [habr.com (02/14/2019)](https://habr.com/en/post/440298/)
 * [habrahabr.ru (02/13/2012)](https://habr.com/post/137861/)
