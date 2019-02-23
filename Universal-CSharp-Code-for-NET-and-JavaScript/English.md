@@ -1,12 +1,12 @@
-# Universal C\# Code for .NET and JavaScript
+# Universal C# Code for .NET and JavaScript
 
 *Disclaimer: The original article was written in 2013, so some of this
-material may not be relevant in 2017.*
+material may not be relevant for now.*
 
 ## Introduction
 
 Greetings. This topic is aimed at highlighting the details of
-cross-platform development in C\#, particularly for .NET apps and web
+cross-platform development in C#, particularly for .NET apps and web
 browsers. The approach described in this article was implemented in
 gfranq.com, the photo editing web service, which supports client- and
 server-side image processing using filters as well as collage
@@ -14,41 +14,51 @@ functionality. This web service is not currently available.
 
 ![Client-Server Interaction](Images/Client-Server-Interaction.svg)
 
+<cut/>
+
 ## Contents
 
-* [Goal](#goal)
-    * [Description of Filters](#description-of-filters)
-    * [Description of Collages](#description-of-collages)
-* [Implementation](#implementation)
-    * [Choosing a Platform for Photo Processing](#choosing-a-platform-for-photo-processing)
-    * [Translating C\# into Javascript](#translating-c-into-javascript)
-    * [Structure](#structure)
-        * [Using alias](#using-alias)
-        * [Links to Files](#links-to-files)
-        * [Notes on .NET implementation](#notes-on-net-implementation)
-            * [Using Dispose](#using-dispose)
-            * [Using lock](#using-lock)
-        * [Storing Masks in Memory](#storing-masks-in-memory)
-    * [Notes on JavaScript implementation](#notes-on-javascript-implementation)
-        * [Minification](#minification)
-            * [Manual Minification](#manual-minification)
-            * [Automated Minification](#automated-minification)
-        * [Debug and Release Modes](#debug-and-release-modes)
-        * [crossOrigin Property](#crossorigin-property)
-    * [Optimizations](#optimizations)
-        * [Using the Precalculated Values](#using-the-precalculated-values)
-        * [Converting an Image to an Array of Pixels](#converting-an-image-to-an-array-of-pixels)
-* [Code Examples](#code-examples)
-    * [General](#general)
-        * [Detecting Whether a String Is a Number](#detecting-whether-a-string-is-a-number)
-        * [Integer Division](#integer-division)
-        * [Rotating and Flipping an Image Using Canvas and Bitmap](#rotating-and-flipping-an-image-using-canvas-and-bitmap)
-        * [Synchronous and Asynchronous Image Loading](#synchronous-and-asynchronous-image-loading)
-    * [Script\# Only](#script-only)
-        * [Detecting the Type and Version of a Browser](#detecting-the-type-and-version-of-a-browser)
-        * [Rendering a Dash-dot Line](#rendering-a-dash-dot-line)
-        * [Rotation Animation](#rotation-animation)
-* [Conclusion](#conclusion)
+<!-- TOC -->
+
+- [Introduction](#introduction)
+- [Contents](#contents)
+- [Goal](#goal)
+  - [Description of Filters](#description-of-filters)
+  - [Description of Collages](#description-of-collages)
+- [Implementation](#implementation)
+  - [Choosing a Platform for Photo Processing](#choosing-a-platform-for-photo-processing)
+  - [Translating C# into Javascript](#translating-c-into-javascript)
+    - [Advantages](#advantages)
+    - [Disadvantages](#disadvantages)
+  - [Structure](#structure)
+    - [Using alias](#using-alias)
+    - [Links to Files](#links-to-files)
+  - [Notes on .NET Implementation](#notes-on-net-implementation)
+    - [Using Dispose](#using-dispose)
+    - [Using Lock](#using-lock)
+    - [Storing Masks in Memory](#storing-masks-in-memory)
+  - [Notes on JavaScript Implementation](#notes-on-javascript-implementation)
+    - [Minification](#minification)
+      - [Manual Minification](#manual-minification)
+      - [Automated Minification](#automated-minification)
+    - [Debug and Release Modes](#debug-and-release-modes)
+    - [crossOrigin Property](#crossorigin-property)
+  - [Optimizations](#optimizations)
+    - [Using the Precalculated Values](#using-the-precalculated-values)
+    - [Converting an Image to an Array of Pixels](#converting-an-image-to-an-array-of-pixels)
+- [Code Examples](#code-examples)
+  - [General](#general)
+    - [Detecting Whether a String Is a Number](#detecting-whether-a-string-is-a-number)
+    - [Integer Division](#integer-division)
+    - [Rotating and Flipping an Image Using Canvas and Bitmap](#rotating-and-flipping-an-image-using-canvas-and-bitmap)
+    - [Synchronous and Asynchronous Image Loading](#synchronous-and-asynchronous-image-loading)
+  - [Script# Only](#script-only)
+    - [Detecting the Type and Version of a Browser](#detecting-the-type-and-version-of-a-browser)
+    - [Rendering a Dash-dot Line](#rendering-a-dash-dot-line)
+    - [Rotation Animation](#rotation-animation)
+- [Conclusion](#conclusion)
+
+<!-- /TOC -->
 
 ## Goal
 
@@ -131,40 +141,40 @@ popular browsers.
 The choice was made in favor of trendy and progressive HTML5 platform,
 which functionality is currently supported by iOS, as opposed to Flash.
 This choice is also based on the fact that there are a lot of libraries,
-which allow you to compile the C\# code into Javascript. You may also
+which allow you to compile the C# code into Javascript. You may also
 use Visual Studio for this purpose. Details are given below.
 
-### Translating C\# into Javascript
+### Translating C# into Javascript
 
 HTML 5 + JavaScript has been selected as a platform in the previous
 section. So it leaves us a question, whether it is possible to write a
-universal C\# code that could be compiled to both .NET and JavaScript.
+universal C# code that could be compiled to both .NET and JavaScript.
 
 Thus, a number of libraries to accomplish the task were found:
 
 * JSIL
 * SharpKit
-* Script\#
+* Script#
 * And some others available [on GitHub](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS).
 
-As a result, it was decided to use **Script\#** due to the fact that
+As a result, it was decided to use **Script#** due to the fact that
 JSIL works directly with assemblies and generates less pure code (though
-it supports a wider range of C\# language features) and SharpKit is a
+it supports a wider range of C# language features) and SharpKit is a
 commercial product. For a detailed comparison of these tools, see [the
 question on stackoverflow](http://stackoverflow.com/q/11547471/1046374).
 
 To sum up, ScriptSharp compared to manually written JavaScript has the
 following pros and cons:
 
-#### Advantages:
+#### Advantages
 
-* Possibility to write a universal C\# code that could be compiled to
+* Possibility to write a universal C# code that could be compiled to
      .NET and other platforms (WinPhone, Mono)
-* Development in a strongly-typed C\# language supporting OOP
+* Development in a strongly-typed C# language supporting OOP
 * Support for IDE features (autocompletion and refactoring)
 * Ability to detect the majority of errors at the compilation stage
 
-#### Disadvantages:
+#### Disadvantages
 
 * Redundancy and irregularity of the generated JavaScript code (due to
     mscorlib).
@@ -173,10 +183,10 @@ following pros and cons:
 
 ### Structure
 
-The process of compiling the same C\# code into .NET and Javascript can
+The process of compiling the same C# code into .NET and Javascript can
 be illustrated by the following scheme:
 
-<img src=Images/CSharp-Translation-to-NET-JavaScript-Scheme.svg align=center width=70% alt="C\# translation to .NET & JavaScript Scheme" />
+<img src=Images/CSharp-Translation-to-NET-JavaScript-Scheme.svg align=center width=70% alt="C# translation to .NET & JavaScript Scheme" />
 
 Although .NET and HTML5 are completely different technologies, they also
 have similar features. This also applies to working with graphics. For
@@ -212,7 +222,7 @@ WinPhone version also uses an [adapter pattern](https://en.wikipedia.org/wiki/A
 
 #### Using alias
 
-```CSharp
+```cs
 #if SCRIPTSHARP
 using System.Html;
 using System.Html.Media.Graphics;
@@ -233,17 +243,17 @@ using Image = System.Drawing.Bitmap;
 ```
 
 Unfortunately, it’s impossible to create aliases for unsafe types and
-arrays, in other words, [Alias to pointer (byte\*) in C\#](http://stackoverflow.com/q/13489903/1046374):
+arrays, in other words, [Alias to pointer (byte\*) in C#](http://stackoverflow.com/q/13489903/1046374):
 
-```CSharp
+```cs
 using PixelArray = byte*, using PixelArray = byte[]
 ```
 
-To perform rapid processing of pixels using unmanaged C\# code, while at
-the same time compiling it to Script\#, we introduced the following
+To perform rapid processing of pixels using unmanaged C# code, while at
+the same time compiling it to Script#, we introduced the following
 scheme with the help of directives:
 
-```CSharp
+```cs
 #if SCRIPTSHARP
 	PixelArray data = context.GetPixelArray();
 #elif DOTNET
@@ -258,7 +268,7 @@ both parallelized and not.
 #### Links to Files
 
 A separate project is added to the solution for each platform, but, of
-course, Mono, Script\#, and even Silverlight can not refer to the usual
+course, Mono, Script#, and even Silverlight can not refer to the usual
 .NET assemblies. Fortunately, Visual Studio has a mechanism for
 adding links to files, which allows you to reuse the same code in
 different projects.
@@ -268,24 +278,25 @@ properties in Conditional Compilation Symbols.
 
 ### Notes on .NET Implementation
 
-The above abstractions and aliases helped us to write the C\# code with
+The above abstractions and aliases helped us to write the C# code with
 low redundancy. Further, I want to point out the problems with .NET and
 JavaScript platforms that we faced when developing the solution
 code.
 
 #### Using Dispose
 
-Please note that inclusion of any instance of a C\# class, which
+Please note that inclusion of any instance of a C# class, which
 implements the IDisposable interface, requires calling
- **Dispose** method or applying [Using statement](https://msdn.microsoft.com/en-us/library/yh598w02.aspx). In
-this project, these classes are Bitmap and Context. What I’ve said above
+ **Dispose** method or applying [Using statement](https://msdn.microsoft.com/en-us/library/yh598w02.aspx).
+In this project, these classes are Bitmap and Context. What I’ve said above
 is not just the theory, it actually has a practical application:
 Processing a large number of large size photos (up to 2400 x 2400 dpi)
 on ASP.NET Developer Server x86 resulted in out of memory exception. The
 issue was resolved after adding Dispose in the right places. Some other
 helpful advices on image manipulation are given in the following
 article [20 Image Resizing
-Pitfalls](http://www.nathanaeljones.com/blog/2009/20-image-resizing-pitfalls) и [.NET Memory Leak: To dispose or not to dispose, that’s the 1 GB question](https://blogs.msdn.microsoft.com/tess/2009/02/03/net-memory-leak-to-dispose-or-not-to-dispose-thats-the-1-gb-question/).
+Pitfalls](http://www.nathanaeljones.com/blog/2009/20-image-resizing-pitfalls)
+and [.NET Memory Leak: To dispose or not to dispose, that’s the 1 GB question](https://blogs.msdn.microsoft.com/tess/2009/02/03/net-memory-leak-to-dispose-or-not-to-dispose-thats-the-1-gb-question/).
 
 #### Using Lock
 
@@ -302,7 +313,7 @@ masks from different threads; thus, the **lock** pattern is required to
 avoid the exception during synchronization (image is copied
 with **lock**  and the result is used without locking):
 
-```CSharp
+```cs
 internal static Bitmap CloneImage(Image image)
 {
 #if SCRIPTSHARP
@@ -328,9 +339,9 @@ a synchronized object (In fact, any properties are methods).
 
 To speed up the processing, all potentially used masks for filters are
 loaded into memory when the server starts. No matter what format the
-mask is, the Bitmap uploaded to the server uses 4\*2400\*2400 or \~24 MB
-of memory (the maximum image size is 2400\*2400; the number of bytes per
-pixel is 4). All masks for filters (\~30) and collages (40) will consume
+mask is, the Bitmap uploaded to the server uses `4 * 2400 * 2400` or `≈24 MB`
+of memory (the maximum image size is `2400 * 2400`; the number of bytes per
+pixel is 4). All masks for filters (≈30) and collages (40) will consume
 1.5 GB — that’s not quite a lot for the server; however, as the number of
 masks grows this amount may increase considerably. In the future, we
 will possibly use compression techniques for masks stored in memory (in
@@ -349,7 +360,7 @@ term is barely applicable to a fully open-source language, which in our
 case is JavaScript. However, anonymization of identifiers can mess up
 code readability and logic. And most importantly, this
 technique will significantly reduce the size of the script (the
-compressed version is \~80 KB).
+compressed version is ≈80 KB).
 
 There are two approaches to JavaScript minification:
 
@@ -366,7 +377,7 @@ syntax prior to declaration of the above mentioned entities. Of course,
 there’s no need to do that if you are working with methods that are
 called from external scripts and classes (public).
 
-```CSharp
+```cs
 #if SCRIPTSHARP && !DEBUG
     [ScriptName("a0")]
 #endif
@@ -379,12 +390,12 @@ amount of generated JavaScript code and mess it up as well.
 
 Another disadvantage is that you need to keep an eye on such short names
 if they rename the method and field names (especially, overridden names
-in the child classes) because in this case Script\# won't care about
+in the child classes) because in this case Script# won't care about
 repetitive names. However, it won’t allow duplicated classes.
 
 By the way, minification functionality for private and internal methods
 and fields was already added to the developed version of the
-Script\#.
+Script#.
 
 ##### Automated Minification
 
@@ -393,7 +404,7 @@ Google Closure Compiler for its brand and good quality of compression.
 The disadvantage of Google's minification tool is that it can not
 compress CSS files; by contrast,
 [YUI](http://yui.github.com/yuicompressor/css.html) meets this
-challenge successfully. In fact, Script\# can also minify scripts but
+challenge successfully. In fact, Script# can also minify scripts but
 handles this challenge much worse than GCC.
 
 Google’s minification tool has several levels of compression:
@@ -401,7 +412,7 @@ whitespace, simple, and advanced. We’ve chosen Simple level for the
 project; although, Advanced level allows us to achieve the maximum
 quality of compression, it requires code written in such a manner so
 that methods are accessible from outside the class. This minification
-was partially performed manually using Script\#.
+was partially performed manually using Script#.
 
 #### Debug and Release Modes
 
@@ -435,7 +446,7 @@ canvas first. But this may lead to a Cross Origin Request Security
 Since ScriptSharp does not support this property for img elements, the
 following code was written:
 
-```CSharp
+```cs
 [Imported]
 internal class AdvImage
 {
@@ -450,7 +461,7 @@ internal class AdvImage
 
 Then, we'll use it like this:
 
-```JavaScript
+```js
 ((AdvImage)(object)result).CrossOrigin = "";
 ```
 
@@ -467,7 +478,7 @@ source.
 Such images require the server to return the following headers in its
 response headers (in Global.asax):
 
-```CSharp
+```cs
 Response.AppendHeader("Access-Control-Allow-Origin", "\*");
 ```
 
@@ -489,7 +500,7 @@ adjacent pixel.
 The calculation of the resulting color components for all possible
 values:
 
-```CSharp
+```cs
 for (int i = 0; i < 256; i++)
 {
 	r[i] = ActionFuncR(i);
@@ -500,7 +511,7 @@ for (int i = 0; i < 256; i++)
 
 The use of precalculated color components:
 
-```CSharp
+```cs
 for (int i = 0; i < data.Length; i += 4)
 {
 	data[i] = r[data[i]];
@@ -593,7 +604,8 @@ for (int i = 0; i &lt; data.Length; i += 4)
 But even this is not all If you have a look at the table on the right,
 you will notice that new arrays are created using Clone method.
 Actually, you can just change the pointers to the old and new arrays
-instead of copying the array itself (this recalls the analogy of [double buffering](https://en.wikipedia.org/wiki/Multiple_buffering#Double_buffering_in_computer_graphics)).
+instead of copying the array itself (this recalls the analogy of
+[double buffering](https://en.wikipedia.org/wiki/Multiple_buffering#Double_buffering_in_computer_graphics)).
 
 #### Converting an Image to an Array of Pixels
 
@@ -616,10 +628,7 @@ hidden the examples under a spoiler.
 
 #### Detecting Whether a String Is a Number
 
-<details>
-  <summary>Source Code</summary>
-
-```CSharp
+```cs
 internal static bool IsNumeric(string n)
 {
 #if !SCRIPTSHARP
@@ -631,14 +640,9 @@ internal static bool IsNumeric(string n)
 }
 ```
 
-</details>
-
 #### Integer Division
 
-<details>
-  <summary>Source Code</summary>
-
-```CSharp
+```cs
 internal static int Div(int n, int k)
 {
 	int result = n / k;
@@ -649,18 +653,20 @@ internal static int Div(int n, int k)
 }
 ```
 
-</details>
-
 #### Rotating and Flipping an Image Using Canvas and Bitmap
 
-Please note that in html5 canvas images can be rotated 90 and 180 degrees only using matrices, while .NET provides enhanced functionality. Thus, an appropriate precise function for working with pixels was written.
+Please note that in html5 canvas images can be rotated 90 and 180 degrees only
+using matrices, while .NET provides enhanced functionality.
+Thus, an appropriate precise function for working with pixels was written.
 
-It is also worth noting that an any side 90-degree rotation in the .NET version may return incorrect results. Therefore, you need to create a new `Bitmap` after using the `RotateFlip` function.
+It is also worth noting that an any side 90-degree rotation in the .NET version
+may return incorrect results.
+Therefore, you need to create a new `Bitmap` after using the `RotateFlip` function.
 
 <details>
-  <summary>Source Code</summary>
+<summary>Source Code</summary>
 
-```CSharp
+```cs
 public static Bitmap RotateFlip(Bitmap bitmap, RotFlipType rotFlipType)
 {
 #if SCRIPTSHARP
@@ -822,12 +828,14 @@ public static Bitmap RotateFlip(Bitmap bitmap, RotFlipType rotFlipType)
 
 #### Synchronous and Asynchronous Image Loading
 
-Note that in the Script\# version we specify a different function `CollageImageLoad`, which is called after loading an image, whereas in the .NET version these processes take place simultaneously (from a file system or Internet).
+Note that in the Script# version we specify a different function `CollageImageLoad`,
+which is called after loading an image, whereas in the .NET version these processes
+take place simultaneously (from a file system or Internet).
 
 <details>
-  <summary>Source Code</summary>
+<summary>Source Code</summary>
 
-```CSharp
+```cs
 public CollageData(string smallMaskPath, string bigMaskPath, List<CollageDataPart> dataParts)
 {
 	SmallMaskImagePath = smallMaskPath;
@@ -854,16 +862,19 @@ public CollageData(string smallMaskPath, string bigMaskPath, List<CollageDataPar
 
 </details>
 
-### Script\# Only
+### Script# Only
 
 #### Detecting the Type and Version of a Browser
 
-This function is used to determine drag & drop capabilities in different browsers. I’ve tried to use [modernizr](http://modernizr.com/), but it returned that Safari and (in my case, it was a Win version) IE9 implement it. In practice, these browsers fail to implement drag & drop capabilities correctly.
+This function is used to determine drag & drop capabilities in different browsers.
+I’ve tried to use [modernizr](http://modernizr.com/), but it returned that Safari
+and (in my case, it was a Win version) IE9 implement it. In practice,
+these browsers fail to implement drag & drop capabilities correctly.
 
 <details>
-  <summary>Source Code</summary>
+<summary>Source Code</summary>
 
-```CSharp
+```cs
 internal static string BrowserVersion
 {
 	get
@@ -903,12 +914,13 @@ private static void DetectBrowserTypeAndVersion()
 
 #### Rendering a Dash-dot Line
 
-This code is used for a rectangle for cropping images. Thanks for the ideas to everyone who responded to this [question on stackoverflow](http://stackoverflow.com/q/4576724/1046374).
+This code is used for a rectangle for cropping images. Thanks for the ideas to
+everyone who responded to this [question on stackoverflow](http://stackoverflow.com/q/4576724/1046374).
 
 <details>
-  <summary>Source Code</summary>
+<summary>Source Code</summary>
 
-```CSharp
+```cs
 internal static void DrawDahsedLine(GraphicsContext context, double x1, double y1, double x2, double y2, int[] dashArray)
 {
 	if (dashArray == null)
@@ -958,7 +970,7 @@ internal static void DrawDahsedLine(GraphicsContext context, double x1, double y
 <details>
   <summary>Source Code</summary>
 
-```CSharp
+```cs
 public void Rotate(bool cw)
 {
 	if (!_rotating && !_flipping)
@@ -1022,7 +1034,7 @@ private void Draw(Bitmap bitmap)
 
 ## Conclusion
 
-This article describes how C\# language (combining unmanaged code and
+This article describes how C# language (combining unmanaged code and
 compilation for javascript) can be used to create a really
 cross-platform solution. Despite the focus on .NET and JavaScript,
 compiling to Android, iOS (by using Mono), and Windows Phone is also
