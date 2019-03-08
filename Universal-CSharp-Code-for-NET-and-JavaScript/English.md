@@ -1,10 +1,5 @@
 # Universal C# Code for .NET and JavaScript
 
-*Disclaimer: The original article was written in 2013, so some of this
-material may not be relevant for now.*
-
-## Introduction
-
 Greetings. This topic is aimed at highlighting the details of
 cross-platform development in C#, particularly for .NET apps and web
 browsers. The approach described in this article was implemented in
@@ -20,42 +15,41 @@ functionality. This web service is not currently available.
 
 <!-- TOC -->
 
-- [Introduction](#introduction)
 - [Contents](#contents)
 - [Goal](#goal)
-  - [Description of Filters](#description-of-filters)
-  - [Description of Collages](#description-of-collages)
+    - [Description of Filters](#description-of-filters)
+    - [Description of Collages](#description-of-collages)
 - [Implementation](#implementation)
-  - [Choosing a Platform for Photo Processing](#choosing-a-platform-for-photo-processing)
-  - [Translating C# into Javascript](#translating-c-into-javascript)
-    - [Advantages](#advantages)
-    - [Disadvantages](#disadvantages)
-  - [Structure](#structure)
-    - [Using alias](#using-alias)
-    - [Links to Files](#links-to-files)
-  - [Notes on .NET Implementation](#notes-on-net-implementation)
-    - [Using Dispose](#using-dispose)
-    - [Using Lock](#using-lock)
-    - [Storing Masks in Memory](#storing-masks-in-memory)
-  - [Notes on JavaScript Implementation](#notes-on-javascript-implementation)
-    - [Minification](#minification)
-      - [Manual Minification](#manual-minification)
-      - [Automated Minification](#automated-minification)
-    - [Debug and Release Modes](#debug-and-release-modes)
-    - [crossOrigin Property](#crossorigin-property)
-  - [Optimizations](#optimizations)
-    - [Using the Precalculated Values](#using-the-precalculated-values)
-    - [Converting an Image to an Array of Pixels](#converting-an-image-to-an-array-of-pixels)
+    - [Choosing a Platform for Photo Processing](#choosing-a-platform-for-photo-processing)
+    - [Translating C# into Javascript](#translating-c-into-javascript)
+        - [Advantages](#advantages)
+        - [Disadvantages](#disadvantages)
+    - [Structure](#structure)
+        - [Using alias](#using-alias)
+        - [Links to Files](#links-to-files)
+    - [Notes on .NET Implementation](#notes-on-net-implementation)
+        - [Using Dispose](#using-dispose)
+        - [Using lock](#using-lock)
+        - [Storing Masks in Memory](#storing-masks-in-memory)
+    - [Notes on JavaScript Implementation](#notes-on-javascript-implementation)
+        - [Minification](#minification)
+            - [Manual Minification](#manual-minification)
+            - [Automated Minification](#automated-minification)
+        - [Debug and Release Modes](#debug-and-release-modes)
+        - [crossOrigin Property](#crossorigin-property)
+    - [Optimizations](#optimizations)
+        - [Using the Precalculated Values](#using-the-precalculated-values)
+        - [Converting an Image to an Array of Pixels](#converting-an-image-to-an-array-of-pixels)
 - [Code Examples](#code-examples)
-  - [General](#general)
-    - [Detecting Whether a String Is a Number](#detecting-whether-a-string-is-a-number)
-    - [Integer Division](#integer-division)
-    - [Rotating and Flipping an Image Using Canvas and Bitmap](#rotating-and-flipping-an-image-using-canvas-and-bitmap)
-    - [Synchronous and Asynchronous Image Loading](#synchronous-and-asynchronous-image-loading)
-  - [Script# Only](#script-only)
-    - [Detecting the Type and Version of a Browser](#detecting-the-type-and-version-of-a-browser)
-    - [Rendering a Dash-dot Line](#rendering-a-dash-dot-line)
-    - [Rotation Animation](#rotation-animation)
+    - [General](#general)
+        - [Detecting Whether a String Is a Number](#detecting-whether-a-string-is-a-number)
+        - [Integer Division](#integer-division)
+        - [Rotating and Flipping an Image Using Canvas and Bitmap](#rotating-and-flipping-an-image-using-canvas-and-bitmap)
+        - [Synchronous and Asynchronous Image Loading](#synchronous-and-asynchronous-image-loading)
+    - [Script# Only](#script-only)
+        - [Detecting the Type and Version of a Browser](#detecting-the-type-and-version-of-a-browser)
+        - [Rendering a Dash-dot Line](#rendering-a-dash-dot-line)
+        - [Rotation Animation](#rotation-animation)
 - [Conclusion](#conclusion)
 
 <!-- /TOC -->
@@ -71,7 +65,7 @@ are implemented.
 
 In the context of our project, **a filter** is a series of actions made
 in Photoshop and applied to a particular photo. Below are the examples
-of such actions: 
+of such actions:
 
 * Brightness adjustment
 * Contrast adjustment
@@ -111,7 +105,7 @@ position and scale. Your collage may look like this:
 ![Collage Sample](Images/Collage-Sample.jpg)
 
 Collage feature implies using a simple format for storing rectangles
-with relative coordinates from 0 to 1, the addresses of photos, and
+with relative coordinates from `0` to `1`, the addresses of photos, and
 image modification data. Relative coordinates are used because the same
 client-side transformations are applied to large size pictures on the
 server-side.
@@ -123,7 +117,7 @@ collages
 
 ### Choosing a Platform for Photo Processing
 
-There are several RIA technologies such as:
+There are several Rich Internet Application (**RIA**) technologies such as:
 
 * Adobe Flash
 * Microsoft Silverlight
@@ -136,7 +130,7 @@ Furthermore, the Silverlight client is beginning to die. Although I
 really like the concept of  ~~salt~~ NaCl, unfortunately, this
 technology is supported only by Chrome browser and it is not yet known
 when it will be supported (and will it ever be supported) by other
-popular browsers.
+popular browsers. *Note from 2019: it will and the name is [WebAssembly](https://webassembly.org/).*
 
 The choice was made in favor of trendy and progressive HTML5 platform,
 which functionality is currently supported by iOS, as opposed to Flash.
@@ -155,7 +149,7 @@ Thus, a number of libraries to accomplish the task were found:
 * JSIL
 * SharpKit
 * Script#
-* And some others available [on GitHub](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS).
+* And some others available [on GitHub](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS#c-f-net-related-languages).
 
 As a result, it was decided to use **Script#** due to the fact that
 JSIL works directly with assemblies and generates less pure code (though
@@ -203,7 +197,7 @@ iOS.
 
 It should be noted that there are two types of graphic operations:
 
-* **Using API functions** (DrawImage, Arc, MoveTo, LineTo). High
+* **Using API functions** (`DrawImage`, `Arc`, `MoveTo`, `LineTo`). High
      performance and support for hardware acceleration are important
      competitive advantages. The drawback is that they can be
      implemented differently on different platforms.
@@ -215,8 +209,7 @@ It should be noted that there are two types of graphic operations:
 
 As you can see, the abstract class **Graphics** describes all methods
 for working with graphics; these methods are implemented for various
-platforms in the derived class. The following
-[aliases](http://msdn.microsoft.com/en-us/library/aa664765(v=vs.71).aspx)
+platforms in the derived class. The following aliases
 were written to abstract from Bitmap and Canvas classes as well. The
 WinPhone version also uses an [adapter pattern](https://en.wikipedia.org/wiki/Adapter_pattern).
 
@@ -242,7 +235,7 @@ using Image = System.Drawing.Bitmap;
 #endif
 ```
 
-Unfortunately, it’s impossible to create aliases for unsafe types and
+Unfortunately, it's impossible to create aliases for unsafe types and
 arrays, in other words, [Alias to pointer (byte\*) in C#](http://stackoverflow.com/q/13489903/1046374):
 
 ```cs
@@ -261,7 +254,7 @@ scheme with the help of directives:
 #endif
 ```
 
-The data array is subsequently used to implement various pixel by pixel
+The `data` array is subsequently used to implement various pixel by pixel
 operations (such as masking, fisheye, saturation adjustment, and so on),
 both parallelized and not.
 
@@ -286,28 +279,28 @@ code.
 #### Using Dispose
 
 Please note that inclusion of any instance of a C# class, which
-implements the IDisposable interface, requires calling
- **Dispose** method or applying [Using statement](https://msdn.microsoft.com/en-us/library/yh598w02.aspx).
-In this project, these classes are Bitmap and Context. What I’ve said above
+implements the `IDisposable` interface, requires calling
+ **`Dispose`** method or applying [Using statement](https://msdn.microsoft.com/en-us/library/yh598w02.aspx).
+In this project, these classes are Bitmap and Context. What I've said above
 is not just the theory, it actually has a practical application:
 Processing a large number of large size photos (up to 2400 x 2400 dpi)
 on ASP.NET Developer Server x86 resulted in out of memory exception. The
-issue was resolved after adding Dispose in the right places. Some other
+issue was resolved after adding `Dispose` in the right places. Some other
 helpful advices on image manipulation are given in the following
 article [20 Image Resizing
 Pitfalls](http://www.nathanaeljones.com/blog/2009/20-image-resizing-pitfalls)
-and [.NET Memory Leak: To dispose or not to dispose, that’s the 1 GB question](https://blogs.msdn.microsoft.com/tess/2009/02/03/net-memory-leak-to-dispose-or-not-to-dispose-thats-the-1-gb-question/).
+and [.NET Memory Leak: To dispose or not to dispose, that's the 1 GB question](https://blogs.msdn.microsoft.com/tess/2009/02/03/net-memory-leak-to-dispose-or-not-to-dispose-thats-the-1-gb-question/).
 
-#### Using Lock
+#### Using lock
 
 In JavaScript, there is a difference between already uploaded image with
 tag `img`, for which you can specify the source and loading event, and
 canvas tagged  `canvas`, on which you can draw something. In .NET
-these elements are represented by the same Bitmap class. Thus, aliases
-Bitmap and Image in .NET point to the same class System.Drawing.Bitmap
+these elements are represented by the same `Bitmap` class. Thus, aliases
+Bitmap and Image in .NET point to the same class `System.Drawing.Bitmap`
 as shown above.
 
-Nevertheless, this division into img and canvas in JavaScript was very
+Nevertheless, this splitting into `img` and `canvas` in JavaScript was very
 helpful in .NET version as well. The point is that filters use preloaded
 masks from different threads; thus, the **lock** pattern is required to
 avoid the exception during synchronization (image is copied
@@ -342,7 +335,7 @@ loaded into memory when the server starts. No matter what format the
 mask is, the Bitmap uploaded to the server uses `4 * 2400 * 2400` or `≈24 MB`
 of memory (the maximum image size is `2400 * 2400`; the number of bytes per
 pixel is 4). All masks for filters (≈30) and collages (40) will consume
-1.5 GB — that’s not quite a lot for the server; however, as the number of
+1.5 GB — that's not quite a lot for the server; however, as the number of
 masks grows this amount may increase considerably. In the future, we
 will possibly use compression techniques for masks stored in memory (in
 .jpg and .png formats) followed by decompression when necessary.
@@ -367,14 +360,13 @@ There are two approaches to JavaScript minification:
 * **Manual minification,** which is performed at the generation stage
      using ScriptSharp.
 * **Automated minification,** which is performed after the generation
-     stage using external tools such as Google Closure Compiler and
-     Yui.
+     stage using external tools such as Google Closure Compiler, Yui and other tools.
 
 ##### Manual Minification
 
 To shorten the names of methods, classes, and attributes we used this
 syntax prior to declaration of the above mentioned entities. Of course,
-there’s no need to do that if you are working with methods that are
+there's no need to do that if you are working with methods that are
 called from external scripts and classes (public).
 
 ```cs
@@ -391,7 +383,7 @@ amount of generated JavaScript code and mess it up as well.
 Another disadvantage is that you need to keep an eye on such short names
 if they rename the method and field names (especially, overridden names
 in the child classes) because in this case Script# won't care about
-repetitive names. However, it won’t allow duplicated classes.
+repetitive names. However, it won't allow duplicated classes.
 
 By the way, minification functionality for private and internal methods
 and fields was already added to the developed version of the
@@ -405,10 +397,10 @@ The disadvantage of Google's minification tool is that it can not
 compress CSS files; by contrast,
 [YUI](http://yui.github.com/yuicompressor/css.html) meets this
 challenge successfully. In fact, Script# can also minify scripts but
-handles this challenge much worse than GCC.
+handles this challenge much worse than Google Closure.
 
-Google’s minification tool has several levels of compression:
-whitespace, simple, and advanced. We’ve chosen Simple level for the
+Google's minification tool has several levels of compression:
+whitespace, simple, and advanced. We've chosen Simple level for the
 project; although, Advanced level allows us to achieve the maximum
 quality of compression, it requires code written in such a manner so
 that methods are accessible from outside the class. This minification
@@ -416,7 +408,7 @@ was partially performed manually using Script#.
 
 #### Debug and Release Modes
 
-Debug и release libraries were added to ASP.NET pages as follows:
+Debug and Release libraries were added to ASP.NET pages as follows:
 
 ```html
 <% if (Gfranq.JavaScriptFilters.HtmlHelper.IsDebug)
@@ -466,10 +458,10 @@ Then, we'll use it like this:
 ```
 
 This technique allows you to add any feature to the object without
-compilation errors. Particularly, [wheelDelta property is not
+compilation errors. Particularly, [`wheelDelta` property is not
 implemented yet](http://stackoverflow.com/q/13572711/1046374) in
 ScriptSharp (at least in version 0.7.5). This property indicates the
-scroll wheel amount, which is used for creating collages. That’s why it
+scroll wheel amount, which is used for creating collages. That's why it
 was implemented this way. Such a dirty hack with the properties is no
 good; normally, you need to make changes to the project. But just for
 the record, I haven't yet figured out a way to compile ScriptSharp from
@@ -482,8 +474,7 @@ response headers (in Global.asax):
 Response.AppendHeader("Access-Control-Allow-Origin", "\*");
 ```
 
-For more information about the Cross Origin Request Security
-visit [this link](http://enable-cors.org/).
+For more information about the Cross Origin Request Security visit http://enable-cors.org/.
 
 ### Optimizations
 
@@ -520,96 +511,105 @@ for (int i = 0; i < data.Length; i += 4)
 }
 ```
 
-If such table operations go one by one, then there’s no need to
+If such table operations go one by one, then there's no need to
 calculate intermediate images—you may pass only the color component
 arrays. As the code worked fairly quickly on both client- and
 server-side, it was decided to put the implementation of this
 optimization aside. Furthermore, the optimization caused some unwanted
-behavior. However, I’ll give you a listing of the optimization:
+behavior. However, I'll give you a listing of the optimization:
 
 <table>
-    <tr>
-        <td>Original code </td>
-        <td>Optimized code</td>
-    </tr>
-    <tr>
-    <td>
-<pre>
+<tr>
+    <td>Original code </td>
+    <td>Optimized code</td>
+</tr>
+<tr>
+<td>
+
+```cs
 // Calculation of values for the first table.
-for (int i = 0; i &lt; 256; i++)
+for (int i = 0; i < 256; i++)
 {
       r[i] = ActionFunc1R(i);
       g[i] = ActionFunc1G(i);
       b[i] = ActionFunc1B(i);
 }
-// ...<br>
+// ...
+
 // Calculation of the resulting intermediate image.
-for (int i = 0; i &lt; data.Length; i += 4)
+for (int i = 0; i < data.Length; i += 4)
 {
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-// ...<br>
+// ...
+
 // Calculation of values for the second table.
-for (int i = 0; i &lt; 256; i++)
+for (int i = 0; i < 256; i++)
 {
       r[i] = ActionFunc2R(i);
       g[i] = ActionFunc2G(i);
       b[i] = ActionFunc2B(i);
 }
-// ...<br>
+// ...
+
 // Calculation of the resulting image.
-for (int i = 0; i &lt; data.Length; i += 4)
+for (int i = 0; i < data.Length; i += 4)
 {
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-</pre>
-    </td>
-    <td valign="top">
-<pre>
+```
+
+</td>
+<td valign="top">
+
+```cs
 //  Calculation of values for the first table.
-for (int i = 0; i &lt; 256; i++)
+for (int i = 0; i < 256; i++)
 {
       r[i] = ActionFunc1R(i);
       g[i] = ActionFunc1G(i);
       b[i] = ActionFunc1B(i);
 }
-// ...<br>
+// ...
+
 // Calculation of values for the second table.
 tr = r.Clone();
 tg = g.Clone();
 tb = b.Clone();
-for (int i = 0; i &lt; 256; i++)
+for (int i = 0; i < 256; i++)
 {
       r[i] = tr[ActionFunc2R(i)];
       g[i] = tg[ActionFunc2G(i)];
       b[i] = tb[ActionFunc2B(i)];
 }
-// ...<br>
+// ...
+
 // Calculation of the resulting image.
-for (int i = 0; i &lt; data.Length; i += 4)
+for (int i = 0; i < data.Length; i += 4)
 {
       data[i] = r[data[i]];
       data[i + 1] = g[data[i + 1]];
       data[i + 2] = b[data[i + 2]];
 }
-</pre>
-    </td>
-    </tr>
+```
+
+</td>
+</tr>
 </table>
 
-But even this is not all If you have a look at the table on the right,
-you will notice that new arrays are created using Clone method.
+But even this is not all. If you have a look at the table on the right,
+you will notice that new arrays are created using `Clone` method.
 Actually, you can just change the pointers to the old and new arrays
 instead of copying the array itself (this recalls the analogy of
 [double buffering](https://en.wikipedia.org/wiki/Multiple_buffering#Double_buffering_in_computer_graphics)).
 
 #### Converting an Image to an Array of Pixels
 
-JavaScript profiler in Google Chrome revealed that the GetImageData
+JavaScript profiler in Google Chrome revealed that the `GetImageData`
 function (which is used to convert the canvas to the array of pixels)
 runs long enough. This information, by the way, can be found in various
 articles on Canvas optimization in JavaScript.
@@ -621,7 +621,7 @@ analogy with the previous optimization.
 ## Code Examples
 
 In the examples below, I will provide the fragments of code that I found
-interesting and useful. To keep the article from being too long, I’ve
+interesting and useful. To keep the article from being too long, I've
 hidden the examples under a spoiler.
 
 ### General
@@ -867,7 +867,7 @@ public CollageData(string smallMaskPath, string bigMaskPath, List<CollageDataPar
 #### Detecting the Type and Version of a Browser
 
 This function is used to determine drag & drop capabilities in different browsers.
-I’ve tried to use [modernizr](http://modernizr.com/), but it returned that Safari
+I've tried to use [modernizr](http://modernizr.com/), but it returned that Safari
 and (in my case, it was a Win version) IE9 implement it. In practice,
 these browsers fail to implement drag & drop capabilities correctly.
 
@@ -965,10 +965,12 @@ internal static void DrawDahsedLine(GraphicsContext context, double x1, double y
 
 #### Rotation Animation
 
-`setInterval` function is used to implement image rotation animation. Note that the result image is calculated during the animation so that there are no lags at the end of the animation.
+`setInterval` function is used to implement image rotation animation.
+Note that the result image is calculated during the animation so that there are
+no lags at the end of the animation.
 
 <details>
-  <summary>Source Code</summary>
+<summary>Source Code</summary>
 
 ```cs
 public void Rotate(bool cw)
@@ -1035,12 +1037,9 @@ private void Draw(Bitmap bitmap)
 ## Conclusion
 
 This article describes how C# language (combining unmanaged code and
-compilation for javascript) can be used to create a really
+compilation for JavaScript) can be used to create a really
 cross-platform solution. Despite the focus on .NET and JavaScript,
 compiling to Android, iOS (by using Mono), and Windows Phone is also
 possible based on this approach, which, of course, has its pitfalls. The
 code is a bit redundant due to its universality, but it does not affect
 performance as graphic operations usually take significantly more time.
-
-To my mind, this article will be useful enough even without the source
-code. You are welcome to comment and ask questions.

@@ -25,7 +25,7 @@
 
 ![Схема функционирования](Images/Client-Server-Interaction-Ru.svg)
 
-<cut text="Содержание и контент - под катом"/>
+<cut/>
 
 ## Содержание
 
