@@ -1,13 +1,30 @@
 # Universal C# Code for .NET and JavaScript
 
-Greetings. This topic is aimed at highlighting the details of
-cross-platform development in C#, particularly for .NET apps and web
-browsers. The approach described in this article was implemented in
-gfranq.com, the photo editing web service, which supports client- and
-server-side image processing using filters as well as collage
-functionality. This web service is not currently available.
+In 2013, while working at GFRANQ, I participated in the development of an
+eponymous web service for publishing and processing photos. Filters and
+transformations were defined in the file with parameters, and all processing was
+carried out on the server. During service development, there was a need to
+support these transformations on the client side for the preview. According to
+Larry Wall, one of the virtues of a programmer is laziness. Therefore, as truly
+lazy programmers, we thought about the possibility of using the same code on
+both the server and client sides. The entire development was conducted in C#.
+After researching the libraries and a couple of attempts, we proudly concluded
+that this was possible and began to write the universal code.
 
-![Client-Server Interaction](Images/Client-Server-Interaction.svg)
+![Operation scheme](Images/Client-Server-Interaction.svg)
+
+Why is this article needed? Indeed, 6 years have passed since 2013, and many
+technologies have lost their relevance, for example,
+[Script#](https://github.com/nikhilk/scriptsharp). On the other hand, new ones
+have appeared. For example, [Bridge.NET](https://bridge.net/) or
+[Blazor](https://blazor.net/) based on the fancy
+[WebAssembly](https://webassembly.org/).
+
+Nevertheless, some ideas can still be used. In this article I tried to describe
+them as detailed as possible. I hope that the mention of Silverlight and Flash
+will cause a smile with a hint of nostalgia, and not a desire to criticize the
+old solutions. Anyway, they have contributed to the development of the web
+industry.
 
 <cut/>
 
