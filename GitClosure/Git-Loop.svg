@@ -1,0 +1,23 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="165px" height="80px" viewBox="-0.5 -0.5 165 80" content="&lt;mxfile modified=&quot;2019-03-27T10:38:48.619Z&quot; host=&quot;www.draw.io&quot; agent=&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36&quot; etag=&quot;UxnT9UuSQr43mh_wObgf&quot; version=&quot;10.5.8&quot; type=&quot;google&quot;&gt;&lt;diagram id=&quot;MHGHkmXa8K0MjEK8Hlu1&quot; name=&quot;Page-1&quot;&gt;5VbbjpswEP2aPHYFGHJ57ObSSmmrbVdVdx+94IC3DqbGENivr8E2xnESbVpVrdS8xHM8M76cMx4mYLlv3jFYZB9pgsgk8JJmAlaTIPD9KBR/HdJKZBZEEkgZTpSTAe7xC1Kgp9AKJ6i0HDmlhOPCBmOa5yjmFgYZowfbbUeJvWoBU+QA9zEkLvoNJzyT6DyYGfw9wmmmV/anCzmzh9pZnaTMYEIPIwisJ2DJKOVytG+WiHSXp+9Fxm3OzA4bYyjnrwnYru8+v2y/1Cmpv262z58etk8/3qgsJW/1gVEizq9MynhGU5pDsjbobVyxGnVJfWEwWuVJb3nCMgEfKC2UyzPivFXMwopTAWV8T9QsajB/UOHd+LEb30TKWjWjqVWrjJJDxt927AogJrAscazhDSZD6jzRTjnNkUTUvEzD6He0pISy/uxA/oYZTbig6nZHc37KU95fd2lnadF3TCsWowtcgEEUopoQ3SPOWhHHEIEc13Z+qGSdDn5D6B3FYuXAUyUIpqoCVQGGi6mdQlxairiKMvoRg9E2DNSr6gqFBf+MwvxfVZgSz1heni0vo0GjMP9/UVgULP6qwoBcrYakso8w1hwhomN0LB4yzNF9AfuLOoimZYsFloVsIzvcdKK7QOFO8DzCd/3vApGnKdeV4GtbytgPB+prxDhqLpPvkqoCwmNyZnNpH0w3A6olZ6NGprFTMrAIvJat0GHLIcsq/5NVNiLM4SeZLZ4876oSO9mDLr4P4vZZOzwqnfE4njFBvaWjHMWgaRz/gRIX30h9yV3/FIxUEXmuKjT2my9GMI9uIluW4ZHe5EGdN8Ntb+A4FVgcpTrz/AhVwXbkVnQO5flNh56zaVUk5/YWuse0I8RA7uKV76EwzfeidDdf3WD9Ew==&lt;/diagram&gt;&lt;/mxfile&gt;" style="background-color: rgb(255, 255, 255);">
+    <defs/>
+    <g>
+        <path d="M 57.76 62 Q 57.76 62 1 62" fill="none" stroke="#333333" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 63.76 62 L 55.76 66 L 57.76 62 L 55.76 58 Z" fill="#333333" stroke="#333333" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 101 62 Q 101 62 157.76 62" fill="none" stroke="#333333" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 163.76 62 L 155.76 66 L 157.76 62 L 155.76 58 Z" fill="#333333" stroke="#333333" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/>
+        <ellipse cx="84" cy="62" rx="17.5" ry="17.5" fill="#ffffff" stroke="#333333" stroke-width="2" pointer-events="none"/>
+        <g transform="translate(78.5,53.5)">
+            <switch>
+                <foreignObject style="overflow:visible;" pointer-events="all" width="8" height="14" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 14px; font-family: Helvetica; color: rgb(51, 51, 51); line-height: 1.2; vertical-align: top; width: 8px; white-space: nowrap; overflow-wrap: normal; font-weight: bold; text-align: center;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">1</div>
+                    </div>
+                </foreignObject>
+                <text x="4" y="14" fill="#333333" text-anchor="middle" font-size="14px" font-family="Helvetica" font-weight="bold">1</text>
+            </switch>
+        </g>
+        <path d="M 71 49 Q 42.5 1 82.5 1 Q 122.5 1 99.98 41.79" fill="none" stroke="#d79b00" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 97.08 47.04 L 97.45 38.11 L 99.98 41.79 L 104.45 41.97 Z" fill="#d79b00" stroke="#d79b00" stroke-width="2" stroke-miterlimit="10" pointer-events="none"/>
+    </g>
+</svg>
