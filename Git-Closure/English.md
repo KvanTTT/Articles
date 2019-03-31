@@ -115,6 +115,11 @@ general case, it is an n-dimensional diff, that is, there can be as many
 closures as you wish. closure-commit is similar to merge-commit with the only
 difference that it contains several messages, not one.
 
+Unfortunately, existing Git GUI's do not have good support of closures.
+[GitExtensions](https://github.com/gitextensions/gitextensions) preview version
+displays merge curves instead of elegant arcs. Take a look on the new fields such
+as `Closure message` and `Closure diff`:
+
 ![Git Closure Merge](Git-Closure-Merge.png)
 
 It is worth noting that the `closure` command always changes history (as now Git
@@ -127,8 +132,7 @@ recalculating commits is complicated.
 Also the `auto` option allows automatic closures of all the old branches. In
 this case, the closing commit is the one starting the branch. With Git IDE
 plugins, closures can be run periodically. In
-[GitExtensions](https://github.com/gitextensions/gitextensions) there is a
-similar plugin **Delete obsolete branches**.
+GitExtensions there is a similar plugin **Delete obsolete branches**.
 
 ## What IT companies think
 
@@ -136,7 +140,7 @@ Large IT companies: Google, Facebook, Apple, DeepMind, Positive Technologies,
 and especially Microsoft, are eagerly awaiting closures, because now it will be
 possible to formalize the life cycle of branches, including unmerged ones.
 
-One of Microsoft's top managers, Michael Richter, [wrote]():
+One of Microsoft's top managers, Michael Richter, [wrote](https://blogs.microsoft.com/git-closure):
 
 > The new feature of Git, of course, will reduce the chaos in the world of open
 source development (and not only). There are a lot of "hanging" branches in our
