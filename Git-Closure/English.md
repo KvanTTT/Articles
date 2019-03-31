@@ -1,4 +1,4 @@
-# Appearance of closures in Git 3
+# New feature in Git 3: closures
 
 Git is a popular version control system. In Git, an atomic change of one or
 several files is called a commit, and several consecutive commits are combined
