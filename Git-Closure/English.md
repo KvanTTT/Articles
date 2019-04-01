@@ -6,11 +6,11 @@ into a branch. Branches are used to implement new ideas (features).
 
 ![Git Logo](Logo.svg)
 
-It happens that the idea is a dead end and the developer has turned the wrong
+It happens that an idea is a dead end and the developer has turned the wrong
 way, so he needs to roll back to the original version. He should forget about
 the new branch, switch to the main **dev** or **master** branch and continue
 working. In this case, the "scion" will hang forever, as well as the desire to
-remove it. But how to remove the part of the history? This branch shows the
+remove it. But how to remove a part of the history? This branch shows the
 efforts of the hard-working programmer, even if in vain. So it will be easier to
 report to the boss, because an unsuccessful result is also a result!
 
@@ -26,7 +26,7 @@ think? The article answers these and other questions.
 ## Description
 
 Now it is possible to close an unsuccessful branch over one of the previous
-commits. Closure arcs are yellow colored in the pictures below.
+commits. Closure arcs are painted in yellow in the pictures below.
 
 ![Git-Closure](Git-Closure.svg)
 
@@ -91,7 +91,7 @@ the first case the branch will be
 [fast-forwarded](https://stackoverflow.com/q/9069061/1046374), and for the
 second case nothing will be done (`git already up to date`).
 
-In order not to change the old behavior, the developers decided to introduce a
+In order not to change the old behavior the developers decided to introduce a
 closure command:
 
 ```
@@ -115,9 +115,9 @@ general case, it is an n-dimensional diff, that is, there can be as many
 closures as you wish. closure-commit is similar to merge-commit with the only
 difference that it contains several messages, not one.
 
-Unfortunately, existing Git GUI's do not have good support of closures.
+Unfortunately, existing Git GUIs do not have good support for closures.
 [GitExtensions](https://github.com/gitextensions/gitextensions) preview version
-displays merge curves instead of elegant arcs. Take a look on the new fields such
+displays merge curves instead of elegant arcs. Take a look at the new fields such
 as `Closure message` and `Closure diff`:
 
 ![Git Closure Merge](Git-Closure-Merge.png)
@@ -156,7 +156,7 @@ because if this feature :)
 
 ## Note
 
-If earlier the graph of commits was a [directed acyclic
+If previously the graph of commits was a [directed acyclic
 graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) (DAG), then
 closures extend it to a general [directed
 graph](https://en.wikipedia.org/wiki/Directed_graph). Using Git, you can
