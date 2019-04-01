@@ -1,5 +1,10 @@
 ## Biography ([ru](Biography/Russian.md))
 
+### [Appearance of closures in Git 3](Git-Closure/English.md) ([ru](Git-Closure/Russian.md))
+
+* [habr.com (04/01/2019)](https://habr.com/ru/post/445676/)
+* [habr.com (04/01/2019)](https://habr.com/en/post/445680/)
+
 ### Genealogy Tree inside Git ([ru](Genealogy-Tree-In-Git/Russian.md))
 
 * [habr.com (09/13/2018)](https://habr.com/post/351158/)
