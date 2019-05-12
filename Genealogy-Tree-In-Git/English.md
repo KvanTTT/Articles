@@ -136,8 +136,8 @@ not worry: it is possible to "resurrect" it in the future, if necessary).
 The event "Wedding" has two ancestors - spouses. "Divorce" has one ancestor -
 the previous "Wedding". Family and parenting is work, so we can say that after
 the wedding a new descendant also appears - "relationship" which ends after a
-divorce. It resumes after the next wedding. In addition, several people may
-participate in a relationship (merging several branches).
+divorce (or death of a spouse). It resumes after the next wedding. In addition,
+several people may participate in a relationship (merging several branches).
 
 ### Finalization
 
