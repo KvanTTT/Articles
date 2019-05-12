@@ -119,10 +119,11 @@ Moreover, Git allows you to create commits without files with the flag
 `--allow-empty`, and without messages with the flag `--allow-empty-message`. The
 author also needs to specify an email, but Git accepts an empty one - you just
 need to write `<>`. Unfortunately, Git does not respect the elderly: the lower
-bound of the date of the commit is January 1, 1970 - the earlier date will be
-incorrectly displayed. However, you can simply mention the real date in the
-description. Nevertheless, Git accepts dates in the future - look at my son Git.
-By the way, it is also possible to create single parents.
+bound of the date of the commit is January 1, 1970 (the "start" of Unix Time) -
+the earlier date will be incorrectly displayed. However, you can simply mention
+the real date in the description. Nevertheless, Git accepts dates in the
+future - look at my son Git. By the way, it is also possible to create single
+parents.
 
 #### Social graph
 
