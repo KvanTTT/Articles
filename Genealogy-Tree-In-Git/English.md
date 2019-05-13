@@ -110,7 +110,8 @@ flags `--allow-unrelated-histories` and `--no-commit` to enable merging orphan
 branches and to commit changes later. Some children are adopted, so we write
 "Adopted" for them. Funny, but Git allows group marriages, i.e. it is possible
 to merge more than two branches at a time. And the branches do not have gender,
-so you can call them "parent 1" and "parent 2".
+so you can call them "parent 1" and "parent 2". By the way, it is also possible
+to create single parents.
 
 Finally, the third command, `commit`, creates a new commit with the message
 `-m`, the date `--date` and the author `--author`. As I already mentioned, Git
