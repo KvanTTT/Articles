@@ -1,7 +1,7 @@
 # Family tree inside Git
 
 Happy programmer's day! I wish you more bright commits, merged pull requests,
-less unexpected merges, and that your life branches remain relevant as long as
+less merge conflicts, and that your life branches remain relevant as long as
 possible. As a conceptual gift, I propose the implementation of a family tree by
 means of the Git version control system. Well... sounds like a plan!
 
