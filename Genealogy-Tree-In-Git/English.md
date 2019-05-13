@@ -1,7 +1,7 @@
 # Family tree inside Git
 
 Happy programmer's day! I wish you more bright commits, merged pull requests,
-less unexpected merges, and that your life branches remain relevant as long as
+less merge conflicts, and that your life branches remain relevant as long as
 possible. As a conceptual gift, I propose the implementation of a family tree by
 means of the Git version control system. Well... sounds like a plan!
 
@@ -120,9 +120,11 @@ Moreover, Git allows you to create commits without files with the flag
 `--allow-empty`, and without messages with the flag `--allow-empty-message`. The
 author also needs to specify an email, but Git accepts an empty one - you just
 need to write `<>`. Unfortunately, Git does not respect the elderly: the lower
-bound of the date of the commit is January 1, 1970 - the earlier date will be
-incorrectly displayed. However, you can simply mention the real date in the
-description. Nevertheless, Git accepts dates in the future - look at my son Git.
+bound of the date of the commit is January 1, 1970 (the "start" of Unix Time) -
+the earlier date will be incorrectly displayed. However, you can simply mention
+the real date in the description. Nevertheless, Git accepts dates in the
+future - look at my son Git. By the way, it is also possible to create single
+parents.
 
 #### Social graph
 
@@ -136,8 +138,8 @@ not worry: it is possible to "resurrect" it in the future, if necessary).
 The event "Wedding" has two ancestors - spouses. "Divorce" has one ancestor -
 the previous "Wedding". Family and parenting is work, so we can say that after
 the wedding a new descendant also appears - "relationship" which ends after a
-divorce. It resumes after the next wedding. In addition, several people may
-participate in a relationship (merging several branches).
+divorce (or death of a spouse). It resumes after the next wedding. In addition,
+several people may participate in a relationship (merging several branches).
 
 ### Finalization
 
