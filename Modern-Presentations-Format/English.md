@@ -1,8 +1,4 @@
-# Modern Presentataions Format
-
-Congratulations to the designers on their professional day! In honor of the
-holiday, I decided to write a guideline which describes how to make an effective
-presentation in terms of content and design.
+# Modern Presentations Format?
 
 Nowadays, when VR helmets have become part of our reality and Tesla cars fly in
 space, you can use all the power of browser engines to create truly interactive,
@@ -30,13 +26,13 @@ As a demonstration, [slide
 examples](https://kvanttt.github.io/Presentations/2018-05-15-Source-code-analyzers-how-generalizable-are-they/English/index.html#/)
 and [video](https://www.youtube.com/watch?v=SSaymBqOwWs) are available.
 
-<cut>
+<cut/>
 
 Both of the above-mentioned engines support Markdown plain text format. The
 first one, **Marp**, allows you to create presentations in its own IDE, which is
 very convenient, but the output is still a static PDF. The second one,
 **Reveal**, is more interesting: it can be used to create entire presentation
-websites - you can use the full power of JavaScript, HTML and CSS besides
+websites—you can use the full power of JavaScript, HTML and CSS besides
 Markdown. I will mostly speak about **Reveal** in this article.
 
 You can see the evolution of my presentations in the repository
@@ -48,7 +44,7 @@ You can see the evolution of my presentations in the repository
 - [Using metaphors](#using-metaphors)
 - [Minimalism and flat design](#minimalism-and-flat-design)
 - [Online access](#online-access)
-- [Offline operation](#offline-operation)
+- [Offline work](#offline-work)
 - [Cross-platform versions](#cross-platform-versions)
 - [Slides in English](#slides-in-english)
 - [Access by link](#access-by-link)
@@ -68,7 +64,6 @@ You can see the evolution of my presentations in the repository
 - [Additional features](#additional-features)
 - [Presentation looks simple and cool](#presentation-looks-simple-and-cool)
 - [Drawbacks](#drawbacks)
-- [Other resources](#other-resources)
 - [Conclusion](#conclusion)
 
 <!-- /TOC -->
@@ -102,7 +97,7 @@ The presentation should be available from the browser. Thus, you will not be
 afraid of losing a flash drive, crashing of your laptop and other adversities
 during the presentation.
 
-### Offline operation
+### Offline work
 
 <table>
   <tr>
@@ -133,9 +128,9 @@ during the presentation.
   <tr>
     <td widht=120><img src="En.svg" ></td>
     <td>In a good presentation there is little text, and it is simple.
-        Your talk in Russian with slides in English will be clear to both Russian-
-        and English-speaking audiences. It is easy to translate audio, but quite
-        hard to change video.
+        Your talk in Russian (or any other not English language) with slides
+        in English will be clear to the most part of audience who know elementary
+        English. It is easy to translate audio, but quite hard to change video.
     </td>
   </tr>
 </table>
@@ -195,7 +190,7 @@ You can also change the style of transitions between slides.
     <td>Git is one of the most popular version control systems. Using Git, you
         can commit changes, create and merge branches, compare different versions
         of files (diff), identify authors of specific strings (blame),
-        and do many other things. Git is not very simple, but the basic
+        and do a lot of other things. Git is not very simple, but the basic
         capabilities can be mastered quickly.
     </td>
   </tr>
@@ -203,7 +198,7 @@ You can also change the style of transitions between slides.
 
 GitHub can be configured so that when you push to the `gh-pages` or `master`
 branch, the site is immediately published on a static hosting in the domain
-`github.io` - this is very convenient.
+`github.io`—this is very convenient.
 
 Here is the source folder:
 https://github.com/KvanTTT/Presentations/tree/master/2018-05-15-Source-code-analyzers-how-generalizable-are-they
@@ -216,10 +211,10 @@ https://github.com/KvanTTT/Presentations/tree/master/2018-05-15-Source-code-anal
       <a
 href="https://en.wikipedia.org/wiki/Markdown" ><img src="Markdown.svg" /></a>
     </td>
-    <td>It is a simple text format — tags and other complex syntax are optional.
+    <td>It is a simple text format—tags and other complex syntax are optional.
         It is something like Python for technical writers :) On the other
         hand, it is easy to compare different versions since this is a text format,
-        and you can use standard programmer tools <b>Pull Request | Merge Request</b>
+        and you can use standard programmer tools like <b>Pull Request | Merge Request</b>
         or just commits edits to the appropriate branch.
     </td>
   </tr>
@@ -286,7 +281,7 @@ Notes](Slide-Notes.png)](https://kvanttt.github.io/Presentations/2018-05-15-Sour
 ### 😃 Using emoji
 
 Emoji can be used to associate slides with visual images. Unfortunately, they
-are still not supported on Habr, so you will not see the emoji in the title
+are still not supported on Habr, so you won't see the emoji in the title
 above this paragraph.
 
 [![Emoji](Emoji.png)](https://kvanttt.github.io/Presentations/2018-05-15-Source-code-analyzers-how-generalizable-are-they/English/index.html#/11)
@@ -315,7 +310,7 @@ advantages:
 * you can change colors, fonts and other elements in the file directly;
 * small file size.
 
-Supported by all modern browsers - and even Habr! Unfortunately, it can be
+Supported by all modern browsers—and even Habr! Unfortunately, it can be
 uploaded to Habr only
 [indirectly](https://github.com/limonte/dear-habr/issues/104).
 
@@ -369,7 +364,7 @@ plugin, plugins for generating contents (TOC), formatting tables and others.
   <tr>
     <td width=120><img src="Print.svg" >
     </td>
-    <td>The text of slides and notes can be easily printed (for example, for rehearsal).
+    <td>The text of slides and notes can be easily printed (for example, for training).
         It is <a href=https://raw.githubusercontent.com/KvanTTT/Presentations/master/2018-05-15-Source-code-analyzers-how-generalizable-are-they/English.md>
         a plain text</href> with a minimum of garbage.
     </td>
@@ -404,7 +399,7 @@ plugin, plugins for generating contents (TOC), formatting tables and others.
 * Ability to view many slides at once for easy navigation.
 * Using different types of background tiling, using video as a background.
 * Automatic slideshow.
-* And some [others](https://revealjs.com/).
+* And some [other features](https://revealjs.com/).
 
 You can also experiment with an interactive version.
 
@@ -437,15 +432,6 @@ developers (ideally, you need to know **HTML** and **CSS**).
   (for example, you will not see the emoji in this sentence).
 6. The engine is still crude.
 
-### Other resources
-
-There are other resources with examples that I liked:
-
-* [Presentations that delight. Five trends of
-2017](https://l-a-b-a.com/blog/show/55)
-* [10 tips for creating business presentations in
-2018](https://artrange.ru/sozdanie-prezentatsiy-10-priemov-po-sozdaniyu-krasivyih-prezentatsiy/)
-
 ### Conclusion
 
 It seems to me that future presentations will be like this: interactive, in the
@@ -460,7 +446,8 @@ will consider them and possibly include in the article.
 
 [![End](End.jpg)](https://kvanttt.github.io/Presentations/2018-05-15-Source-code-analyzers-how-generalizable-are-they/English/index.html#/39)
 
-*The sources of the article are [available on
-GitHub](https://github.com/KvanTTT/Articles/tree/master/Modern-Presentations-Format) -
-please send Pull Request if you find any mistake. For converting to habr.com
-format, I used the library [MarkConv](https://github.com/KvanTTT/MarkConv).*
+*The sources of the article are
+[available on GitHub](https://github.com/KvanTTT/Articles/tree/master/Modern-Presentations-Format)—
+please
+send Pull Request if you find any mistake. For converting to habr.com
+format, I use the library [MarkConv](https://github.com/KvanTTT/MarkConv).*

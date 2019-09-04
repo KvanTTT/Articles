@@ -10,14 +10,14 @@ means of the Git version control system. Well... sounds like a plan!
 For those who have immediately understood everything, I give links to the source
 code: [GenealogyTreeInGit](https://github.com/KvanTTT/GenealogyTreeInGit.git)
 and family trees: [mine](https://github.com/KvanTTT/Kochurkins.git) and [US
-presidents'](https://github.com/KvanTTT/Presidents.git).
+presidents](https://github.com/KvanTTT/Presidents.git).
 
 In addition, I implemented a simple [**social
 graph**](https://en.wikipedia.org/wiki/Social_graph). It displays not only the
 degree of kinship, but also the status of relations between descendants, events
 such as wedding, divorce, childbirth, as well as contributions to the relations.
 
-<cut text="More about implementation, details, and pictures">
+<cut text="More about implementation, details, and pictures" />
 
 ## Git
 
@@ -38,8 +38,6 @@ ready. Fine. Now we are going to do this with the whole army of relatives. I
 will be happy to write 200 lines of confusing code for them, and 10K lines for
 presidents!
 
-<!-- TODO добавить картинку -->
-
 Have you already added me to the list of idiots? Strike off. Of course, I
 automated the process and wrote an application for converting genealogical data
 to a sequence of Git commands. There are several formats for such data, I chose
@@ -49,18 +47,18 @@ to a sequence of Git commands. There are several formats for such data, I chose
 
 <table> <tr> <td width=100><img src="Gedcom.svg" ></td> <td><b><a
 href="https://en.wikipedia.org/wiki/GEDCOM">GEDCOM</a></b> is a specification
-for exchanging genealogical data. This format is pretty old, but plain text and
-simple. The specification is well <a
+for exchanging genealogical data. This format is pretty old, but simple.
+The specification is well <a
 href="https://webtreeprint.com/tp_famous_gedcoms.php">described</a> on the
 Internet. It is supported by almost all genealogical programs, so there are <a
-href="https://webtreeprint.com/tp_famous_gedcoms.php">many examples</a> for it:
+href="https://webtreeprint.com/tp_famous_gedcoms.php">a lot of examples</a> for it:
 US presidents, the royal dynasty, Shakespeare.</td> </tr> </table>
 
 I implemented all this mess in [.NET
-Core](https://www.microsoft.com/net/learn/get-started-with-dotnet-tutorial) - it
+Core](https://www.microsoft.com/net/learn/get-started-with-dotnet-tutorial)—it
 is convenient and cross-platform. For parsing and processing GEDCOM, there are
 several C# libraries, for
-example,[GeneGenie.Gedcom](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom),
+example, [GeneGenie.Gedcom](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom),
 [gedcomx-csharp](https://github.com/FamilySearch/gedcomx-csharp). I decided to
 write my own library based on
 [GedcomParser](https://github.com/jaklithn/GedcomParser), because it has a
@@ -74,7 +72,7 @@ It is time to process the extracted data in a convenient format and generate Git
 commands for it. I decided to sort all the events in chronological order, and
 then create branches, merge and commit them in ascending order of dates.
 Unfortunately, not all events have dates, so it was not easy to sort all the
-events correctly. 2^2^3 is coming, and I realized that this approach was not
+events correctly. **2^2^3** day is coming, and I realized that this approach was not
 entirely correct, since depth-first search would be much easier. Maybe I will
 correct it later.
 
@@ -99,7 +97,7 @@ following commands were used:
 
 The first command, `checkout`, creates a branch for each person. The `--orphan`
 flag allows you to create orphan branches, i.e. branches without parents. The
-orphan branch is created once - the next time you switch braches using the
+orphan branch is created once—the next time you switch branches using the
 `checkout` command this parameter is omitted. In the end, almost all commits
 have parents, except the most distant ancestors, as the earlier ones are
 unknown.
@@ -118,12 +116,12 @@ Finally, the third command, `commit`, creates a new commit with the message
 allows you to change the message, the author and the date of the commit.
 Moreover, Git allows you to create commits without files with the flag
 `--allow-empty`, and without messages with the flag `--allow-empty-message`. The
-author also needs to specify an email, but Git accepts an empty one - you just
+author also needs to specify an email, but Git accepts an empty one—you just
 need to write `<>`. Unfortunately, Git does not respect the elderly: the lower
-bound of the date of the commit is January 1, 1970 (the "start" of Unix Time) -
-the earlier date will be incorrectly displayed. However, you can simply mention
+bound of the date of the commit is January 1, 1970 (the "start" of Unix Time)—the
+earlier date will be incorrectly displayed. However, you can simply mention
 the real date in the description. Nevertheless, Git accepts dates in the
-future - look at my son Git. By the way, it is also possible to create single
+future—look at my son Git. By the way, it is also possible to create single
 parents.
 
 #### Social graph
@@ -135,9 +133,9 @@ funerals, is impossible in the branch. On the server, you can make this branch
 [protected](https://help.github.com/en/articles/about-protected-branches) (do
 not worry: it is possible to "resurrect" it in the future, if necessary).
 
-The event "Wedding" has two ancestors - spouses. "Divorce" has one ancestor -
-the previous "Wedding". Family and parenting is work, so we can say that after
-the wedding a new descendant also appears - "relationship" which ends after a
+The event "Wedding" has two ancestors—spouses. "Divorce" has one ancestor—the
+previous "Wedding". Family and parenting is work, so we can say that after
+the wedding a new descendant also appears—"relationship" which ends after a
 divorce (or death of a spouse). It resumes after the next wedding. In addition,
 several people may participate in a relationship (merging several branches).
 
@@ -193,7 +191,7 @@ decreasing number of commits.
 [![Pulse](Presidents-Pulse.png)](https://github.com/KvanTTT/Presidents/pulse)
 
 Unfortunately, GitHub and GitLab do not display large trees correctly, but they
-are stored properly - you can open the repository and check. Here is my tree in
+are stored properly—you can open the repository and check. Here is my tree in
 the GitLab web interface:
 
 [![Kochurkins
@@ -203,13 +201,13 @@ GitLab](Kochurkins-GitLab.png)](https://gitlab.com/KvanTTT/Kochurkins/network/@I
 
 It is not very clear how to complement history from the roots. For now you have
 to generate it from the beginning from the GEDCOM file. Probably this can be
-done with the help of rebase - you can try and tell in the comments. It would
+done with the help of `rebase`—you can try and tell in the comments. It would
 also be better to rewrite the code to make it "commit-oriented", not
 "event-oriented", because it is more Git-like: in fact, the branch is a sequence
 of commits, not a separate entity. I also thought about implementing
 [tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) and
 [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), but for now I
-don’t know how to do it better.
+don't know how to do it better.
 
 ## Conclusion
 
@@ -230,5 +228,5 @@ its commands, and the GEDCOM format for describing genealogical data.
 *The sources of the article are [available on
 GitHub](https://github.com/KvanTTT/Articles/tree/master/Genealogy-Tree-In-Git) -
 please send Pull Request if you find any mistake or want to add something. For
-converting to habr.com format, I used the library
+converting to habr.com format, I use the library
 [MarkConv](https://github.com/KvanTTT/MarkConv).*
