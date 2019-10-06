@@ -1,12 +1,14 @@
 ## Biography ([ru](Biography/Russian.md))
 
-### Genealogy Tree inside Git ([ru](Genealogy-Tree-In-Git/Russian.md))
+### [Family Tree inside Git](Genealogy-Tree-In-Git/English.md) ([ru](Genealogy-Tree-In-Git/Russian.md))
 
 * [habr.com (09/13/2018)](https://habr.com/post/351158/)
+* [habr.com (09/13/2019)](https://habr.com/en/post/465959/)
 
-### Modern Presentation Format ([ru](Modern-Presentations-Format/Russian.md))
+### [Modern Presentation Format](Modern-Presentations-Format/English.md) ([ru](Modern-Presentations-Format/Russian.md))
 
 * [habr.com (09/09/2018)](https://habr.com/company/pt/blog/414757/)
+* [habr.com (09/09/2019)](https://habr.com/en/post/445062/)
 
 ### [Positive Technologies on GitHub](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Positive-Technologies-at-GitHub/Russian.md))
 
@@ -51,10 +53,12 @@ implemented in web services, such as Swiftify and Codebeat.
 
 ### [Selection, Caching and Drawing Photos on Map](Selection-Caching-and-Drawing-Photos-on-Map/English.md) ([ru](Selection-Caching-and-Drawing-Photos-on-Map/Russian.md))
 
+* [habr.com (04/17/2013)](https://habr.com/en/post/440410/)
 * [habrahabr.ru (08/17/2013)](https://habrahabr.ru/post/182532/)
 
 ### [Universal C# Code for .NET and JavaScript](Universal-CSharp-Code-for-NET-and-JavaScript/English.md) ([ru](Universal-CSharp-Code-for-NET-and-JavaScript/Russian.md))
 
+* [habr.com (03/17/2013)](https://habr.com/en/post/440342/)
 * [habrahabr.ru (03/17/2013)](https://habrahabr.ru/post/164439/)
 * This topic is aimed at highlighting the details of
 cross-platform development in C\#, particularly for .NET apps and web
