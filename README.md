@@ -1,15 +1,10 @@
 ## Biography ([ru](Biography/Russian.md))
 
-### [New feature in Git 3: closures](Git-Closure/English.md) ([ru](Git-Closure/Russian.md))
-
-* [habr.com (04/01/2019)](https://habr.com/ru/post/445676/)
-* [habr.com (04/01/2019)](https://habr.com/en/post/445680/)
-
 ### Genealogy Tree inside Git ([ru](Genealogy-Tree-In-Git/Russian.md))
 
 * [habr.com (09/13/2018)](https://habr.com/post/351158/)
 
-### [Modern Presentation Format](Modern-Presentations-Format/English.md) ([ru](Modern-Presentations-Format/Russian.md))
+### Modern Presentation Format ([ru](Modern-Presentations-Format/Russian.md))
 
 * [habr.com (09/09/2018)](https://habr.com/company/pt/blog/414757/)
 

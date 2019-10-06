@@ -11,7 +11,7 @@
 
 Данный метод был реализован в фото-сервисе gfranq.com в 2013 году.
 
-[![Пример выравнивания](Images/Alignment-Sample.jpg)](http://habrahabr.ru/post/194580/)
+![Пример выравнивания](Images/Alignment-Sample.jpg)
 
 ## Этапы алгоритма
 

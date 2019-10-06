@@ -1,11 +1,8 @@
-# Реализация выборки, кэширования и отрисовки фотографий на карте
-
-*Дисклеймер. Оригинальная статья была написана в августе 2013 года,
-поэтому сейчас, в 2017 году, часть материала может быть не актуальна.*
+# Выборка, кэширование и отрисовка фотографий на карте
 
 В данной статье я решил описать, как была реализована функциональность выборки и
 отображения фотографий на определенном участке карты в нашем
-фотосервисе *gfranq.com*. Сейчас данный фотосервис не работает.
+фотосервисе *gfranq.com*.
 
 ![Титульное изображение](Images/Title-Image.jpg)
 
@@ -27,7 +24,7 @@
   изменении окна просмотра.
 * Элементы сферической геометрии.
 
-<habracut text="Всем интересующимся добро пожаловать под кат">
+<cut text="Всем интересующимся добро пожаловать под кат">
 
 ## Содержание
 
@@ -66,7 +63,7 @@
 Для того, чтобы получить все фотографии, заключенные прямоугольником с координатами
 (`lngMin` `latMin`) и (`latMax` `lngMax`), можно воспользоваться следующим запросом:
 
-```SQL
+```sql
 DECLARE @h geography;
 DECLARE @p geography;
 SET @rect =
@@ -114,7 +111,7 @@ ORDER BY popularity DESC
 Выборку фотографий из области, ограниченной координатами (`lngMin` `latMin`)
 и (`latMax` `lngMax`), несложно реализовать с помощью следующего запроса:
 
-```SQL
+```sql
 SELECT TOP @Count id, url, ...
 FROM Photo
 WHERE latitude > @latMin AND longitude > @lngMin AND latitude < @latMax AND longitude < @lngMax
@@ -136,7 +133,7 @@ ORDER BY popularity DESC
 
 SQL запрос при этом приобретает следующий вид (`zn` - текущий уровень зума):
 
-```SQL
+```sql
 DECLARE @hash float;
 SET @hash = (@latMin + 90) + (@lngMin + 180) * 180 + (@latMax + 90) * 64800 + (@lngMax + 180) * 11664000;
 SELECT TOP @Count id, url, ...
@@ -155,7 +152,7 @@ FROM Photo WHERE id = (SELECT id FROM Zooms WHERE zn = @hash)
 фотографии помещаются в серверный кэш следующим образом с использованием
 синхронизирующего объекта для поддержки многопоточности:
 
-```CSharp
+```cs
 private static object SyncObject = new object();
 ...
 List<Photo> photos = (List<Photo>)CachedAreas[hash];
@@ -194,7 +191,7 @@ if (photos == null)
 
 #### Определение местоположения с помощью HTML5
 
-```JavaScript
+```javascript
 function detectRegion() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success);
@@ -223,7 +220,7 @@ function success(position) {
 по алгоритму, приведенному в функции `getZoomFromBounds`
 (позаимствовано из [stackoverflow](http://stackoverflow.com/a/6055653/1046374)).
 
-```JavaScript
+```javascript
 var northEast = bounds.getNorthEast();
 var southWest = bounds.getSouthWest();
 var myOptions = {
@@ -236,7 +233,7 @@ var myOptions = {
 map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 ```
 
-```JavaScript
+```javascript
 function getZoomFromBounds(ne, sw) {
     var GLOBE_WIDTH = 256; // a constant in Google's map projection
     var west = sw.lng();
@@ -307,7 +304,7 @@ function getZoomFromBounds(ne, sw) {
 произвольная точка (в нашем случае точка с координатами (0, 0)), а размер
 вычисляется в зависимости от текущего уровня приближения (зума) следующим образом:
 
-```JavaScript
+```javascript
 // Первоначальное окошко, при котором вычислялось initMapSizeLat и initMapSizeLng
 var initDefaultDimX = 1000, var initDefaultDimY = 800;
 // Текущее окно просмотра по умолчанию, которое зависит от размера областей.
@@ -341,7 +338,7 @@ function initZoomSizes() {
 
 Так как перерисовка всех фотографий на карте не очень быстрая операция (как будет показано позже), то решено было ее сделать с определенной задержкой после пользовательского ввода:
 
-```JavaScript
+```javascript
 google.maps.event.addListener(map, 'bounds_changed', function () {
     if (boundsChangedInverval != undefined)
         clearInterval(boundsChangedInverval);
@@ -363,7 +360,7 @@ google.maps.event.addListener(map, 'bounds_changed', function () {
 
 ![Расчет координат и хешей](Images/Coordinates-and-Hashes-Calculation.png)
 
-```JavaScript
+```javascript
 var s = zoomSizes[zoom];
 var beginLat = Math.floor((latMin - initPoint.x) / s.width) * s.width + initPoint.x;
 var beginLng = Math.floor((lngMin - initPoint.y) / s.height) * s.height + initPoint.y;
@@ -399,7 +396,7 @@ function  normalizeLng(lng)
 к серверу при необходимости. Формула расчета хеша возвращает уникальное значение
 для каждой области, потому что точка отсчета и размеры фиксированы.
 
-```JavaScript
+```javascript
 function loadIfNeeded(lat, lng) {
     var hash = calculateHash(lat, lng, zoom);
     if (!(hash in items)) {
@@ -445,7 +442,7 @@ function calculateHash(lat, lng, zoom) {
 <details>
 <summary>Алгоритм пересчета видимых маркеров</summary>
 
-```JavaScript
+```javascript
 function redraw() {
     isRedrawing = true;
 
@@ -662,7 +659,7 @@ function addPhotoToRibbon(marker) {
 Для получения расстояния между двумя точками на карте в _пикселях_
 используется следующая функция:
 
-```JavaScript
+```javascript
 var Offset = 268435456;
 var Radius = 85445659.4471;
 

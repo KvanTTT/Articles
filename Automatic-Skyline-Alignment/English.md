@@ -1,14 +1,14 @@
 # Algorithm for Automatic Skyline Alignment
 
-*Disclaimer. The original article was written in 2013, so some of this material may be irrelevant in 2017.*
-
 The implemented method works for both square and rectangular images.
 It is also capable of keeping the original proportions as well as stretching the image 
 to make it cover the entire area when rotated. A simple program was written to illustrate this article.
 If alignment is unsatisfactory, the angle can be manually changed by rotating the image
 or drawing the skyline. In 2013, this technique was implemented at an online photo service Gfranq.
 
-[![Example of skyline alignment](Images/Alignment-Sample.jpg)](http://habrahabr.ru/post/194580/)
+![Example of skyline alignment](Images/Alignment-Sample.jpg)
+
+<cut/>
 
 ## Stages of the algorithm
 
@@ -191,8 +191,8 @@ To explain the technique for auto horizon alignment, I prepared a graphic illust
 
 This technique was implemented in JavaScript and works in browsers.
 However, there is a bug in Google Chrome related to the lack of smoothing of image edges 
-during transformations (for example, rotations), while the images themselves are interpolated correctly.
-The figure below shows an illustrative example.
+during transformations (for example, rotations), while the images themselves are
+interpolated correctly. The figure below shows an illustrative example.
 
 This bug does not affect other modern versions of browsers (IE, Firefox, Safari).
 

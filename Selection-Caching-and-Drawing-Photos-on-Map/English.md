@@ -1,7 +1,4 @@
-# Implementation of selecting, caching and displaying photos on the map
-
-*Disclaimer. The original article was written in August 2013. Therefore now (in
-2017) some information may not be relevant.*
+# Selecting, caching and displaying photos on the map
 
 In this article, I decided to describe how the functionality of selecting and
 displaying photos on a specific place on the map was implemented in our photo
@@ -25,6 +22,8 @@ In this article, the following issues were raised:
 * Recalculation of photos that must be hidden or shown when the viewport
   changes.
 * Elements of spherical geometry.
+
+<cut/>
 
 ## Contents
 
@@ -65,7 +64,7 @@ information, such as points, lines, polygons
 retrieve all photos enclosed by a rectangle with coordinates (`lngMin` `latMin`)
 and (`latMax` `lngMax`), you can use the following query:
 
-```SQL
+```sql
 DECLARE @h geography;
 DECLARE @p geography;
 SET @rect =
@@ -111,7 +110,7 @@ polygons), we did not use them in our project.
 To select photos from the area bounded by coordinates (`lngMin` `latMin`) and
 (`latMax` `lngMax`), use the following query:
 
-```SQL
+```sql
 SELECT TOP @Count id, url, ...
 FROM Photo
 WHERE latitude > @latMin AND longitude > @lngMin AND latitude < @latMax AND longitude < @lngMax
@@ -132,7 +131,7 @@ areas for each zoom, as shown below.
 
 The following SQL query can be used (`zn` - current zoom level):
 
-```SQL
+```sql
 DECLARE @hash float;
 SET @hash = (@latMin + 90) + (@lngMin + 180) * 180 + (@latMax + 90) * 64800 + (@lngMax + 180) * 11664000;
 SELECT TOP @Count id, url, ...
@@ -151,7 +150,7 @@ After extracting the information from the database in one way or another, photos
 are placed in the server cache using synchronizing object to support
 multithreading as follows:
 
-```CSharp
+```cs
 private static object SyncObject = new object();
 ...
 List<Photo> photos = (List<Photo>)CachedAreas[hash];
@@ -189,7 +188,7 @@ use the capabilities of HTML5 or to use pre-calculated coordinates for regions.
 
 #### Determining the geolocation using HTML5
 
-```JavaScript
+```javascript
 function detectRegion() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success);
@@ -218,7 +217,7 @@ the server. The approximate zoom level is calculated in the function
 `getZoomFromBounds` (taken from
 [stackoverflow](http://stackoverflow.com/a/6055653/1046374)).
 
-```JavaScript
+```javascript
 var northEast = bounds.getNorthEast();
 var southWest = bounds.getSouthWest();
 var myOptions = {
@@ -231,7 +230,7 @@ var myOptions = {
 map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 ```
 
-```JavaScript
+```javascript
 function getZoomFromBounds(ne, sw) {
     var GLOBE_WIDTH = 256; // a constant in Google's map projection
     var west = sw.lng();
@@ -304,7 +303,7 @@ by rectangular areas, the starting point of which is an arbitrary point (in our
 case the point with coordinates (0, 0)), and the size is calculated depending on
 the current zoom level as follows:
 
-```JavaScript
+```javascript
 // The initial window at which initMapSizeLat and initMapSizeLng were calculated
 var initDefaultDimX = 1000, var initDefaultDimY = 800;
 // The current default viewport which depends on the size of the areas.
@@ -338,7 +337,7 @@ the size of the current viewport, if it has width of 1080px and height of 500px.
 Since the redrawing of all the photos on the map is not a fast operation (as
 will be shown later), we decided to do it with some delay after the user input:
 
-```JavaScript
+```javascript
 google.maps.event.addListener(map, 'bounds_changed', function () {
     if (boundsChangedInverval != undefined)
         clearInterval(boundsChangedInverval);
@@ -360,7 +359,7 @@ using the algorithm described earlier is done as follows:
 
 ![Coordinates and hashes calculation](Images/Coordinates-and-Hashes-Calculation.png)
 
-```JavaScript
+```javascript
 var s = zoomSizes[zoom];
 var beginLat = Math.floor((latMin - initPoint.x) / s.width) * s.width + initPoint.x;
 var beginLng = Math.floor((lngMin - initPoint.y) / s.height) * s.height + initPoint.y;
@@ -396,7 +395,7 @@ After that, for each area, the following function is called, which sends the
 request to the server, if necessary. The formula of hash calculation returns a
 unique value for each area, because the starting point and dimensions are fixed.
 
-```JavaScript
+```javascript
 function loadIfNeeded(lat, lng) {
     var hash = calculateHash(lat, lng, zoom);
     if (!(hash in items)) {
@@ -441,7 +440,7 @@ solve these problems, the following algorithm was developed:
 <details>
 <summary>Algorithm for recalculation of visible markers</summary>
 
-```JavaScript
+```javascript
 function redraw() {
     isRedrawing = true;
 
@@ -658,7 +657,7 @@ function addPhotoToRibbon(marker) {
 To calculate the distance between two points on the map in _pixels_ the
 following function is used:
 
-```JavaScript
+```javascript
 var Offset = 268435456;
 var Radius = 85445659.4471;
 

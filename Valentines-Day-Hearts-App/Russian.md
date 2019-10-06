@@ -11,6 +11,8 @@
 
 ![Valentines Day Hearts](Images/Title-Image.png).
 
+<cut/>
+
 ## Содержание
 
 * [Программы и инструменты](#Программы-и-инструменты)
@@ -352,5 +354,5 @@ sound.play(1);
 
 * Исходники: <https://github.com/KvanTTT/ValentinesDayHearts>
 * Кроссплатформенный jar исполняемый
-файл: [ValentinesDayHearts.zip](https://github.com/KvanTTT/ValentinesDayHearts/releases/download/1.0/ValentinesDayHearts.zip)
-* Apk файл для Android: [ValentinesDayHeartsAndroid.apk](https://github.com/KvanTTT/ValentinesDayHearts/releases/download/1.0/ValentinesDayHeartsAndroid.apk)
+файл: [ValentinesDayHearts-1.1.jar](https://github.com/KvanTTT/ValentinesDayHearts/releases/download/1.1/ValentinesDayHearts-1.1.jar)
+* Apk файл для Android: [ValentinesDayHearts-1.1.apk](https://github.com/KvanTTT/ValentinesDayHearts/releases/download/1.1/ValentinesDayHearts-1.1.apk)

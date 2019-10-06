@@ -26,6 +26,8 @@ and my extensive experience in it. I used the following libraries and tools:
   and testing GET, POST, DELETE and other queries.
 * **NUnit** - a unit testing framework for the .NET platform.
 
+<cut/>
+
 ## Plugin initialization
 
 Interaction with Notepad ++ occurs via Win32 messages. But, fortunately, there
