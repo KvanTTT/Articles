@@ -19,14 +19,15 @@
 
 * [medium.com (01/31/2017)](https://medium.com/swiftify/parsing-preprocessor-directives-in-objective-c-714a3dde570)
 * [habrahabr.ru (01/16/2017)](https://habrahabr.ru/post/318954/)
-* This article goes into detail describing approaches 
-to Objective-C preprocessor directives processing. Besides the 
-theoretical side of the question, these approaches are practically 
+* This article goes into detail describing approaches
+to Objective-C preprocessor directives processing. Besides the
+theoretical side of the question, these approaches are practically
 implemented in web services, such as Swiftify and Codebeat.
 
-### [Write a Palindrome Polyglot Quine](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Write-a-palindrome-polyglot-quine/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Write-a-palindrome-polyglot-quine/Russian.md))
+### [Write a Palindrome Polyglot Quine](Write-a-palindrome-polyglot-quine/English.md) ([ru](Write-a-palindrome-polyglot-quine/Russian.md))
 
 * [habrahabr.ru (09/12/2016)](https://habrahabr.ru/company/pt/blog/309702/)
+* [habr.com (09/12/2020)](https://habr.com/en/post/468711/)
 
 ### [Pattern language for a universal signature-based code analyzer](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Pattern-language-for-a-universal-signature-based-code-analyzer/English.md) ([ru](https://github.com/PositiveTechnologies/PT.Doc/blob/master/Articles/Pattern-language-for-a-universal-signature-based-code-analyzer/Russian.md))
 
