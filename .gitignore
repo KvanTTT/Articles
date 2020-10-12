@@ -6,3 +6,6 @@
 *.synctex.gz
 *.fdb_latexmk
 *.cut
+
+_Output/
+*.out.md
