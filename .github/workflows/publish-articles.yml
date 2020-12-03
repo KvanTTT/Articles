@@ -1,0 +1,28 @@
+name: Articles Converting and Publishing
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+
+      - name: Install MarkConv
+        run: dotnet tool install -g MarkConv.Cli --version 1.0.0 --add-source https://www.myget.org/F/mark-conv/api/v3/index.json
+
+      - name: Run MarkConv
+        run: markconv -f ./ -o Habr
+
+      - name: Deploy Articles
+        uses: actions/upload-artifact@v2
+        with:
+          name: articles
+          path: ./_Output
