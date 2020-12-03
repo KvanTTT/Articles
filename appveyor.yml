@@ -1,0 +1,21 @@
+image:
+- Ubuntu
+version: "{build}"
+skip_branch_with_pr: true
+
+before_build:
+- ps: |
+    dotnet tool install -g MarkConv.Cli --version 1.0.0 --add-source https://www.myget.org/F/mark-conv/api/v3/index.json
+
+build_script:
+- ps: |
+    markconv -f ./ -o Habr
+
+after_test:
+- ps: |
+    cd ./_Output
+
+    foreach ($file in Get-ChildItem ./)
+    {
+        Push-AppveyorArtifact $file.Name
+    }
