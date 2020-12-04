@@ -16,10 +16,10 @@ jobs:
           dotnet-version: 3.1.101
 
       - name: Install MarkConv
-        run: dotnet tool install -g MarkConv.Cli --version 1.1.0 --add-source https://www.myget.org/F/mark-conv/api/v3/index.json
+        run: dotnet tool install -g MarkConv.Cli --version 1.2.0 --add-source https://www.myget.org/F/mark-conv/api/v3/index.json
 
       - name: Run MarkConv
-        run: markconv -f ./ -o Habr
+        run: markconv -f ./ -o Habr --checklinks
 
       - name: Deploy Articles
         uses: actions/upload-artifact@v2

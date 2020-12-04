@@ -1,3 +1,13 @@
+## Build status
+
+### GitHub
+
+![Articles Converting and Publishing](https://github.com/KvanTTT/Articles/workflows/Articles%20Converting%20and%20Publishing/badge.svg)
+
+### Appveyor
+
+[![Appveyor status](https://ci.appveyor.com/api/projects/status/9ucvw7ydprvf0r2h?svg=true)](https://ci.appveyor.com/project/KvanTTT/articles)
+
 ## Biography ([ru](Biography/Russian.md))
 
 ### [Family Tree inside Git](Genealogy-Tree-In-Git/English.md) ([ru](Genealogy-Tree-In-Git/Russian.md))
