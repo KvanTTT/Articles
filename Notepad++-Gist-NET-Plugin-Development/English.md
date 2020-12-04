@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/442426 />
+<include src=Links.ignore.md />
+
 # Developing .NET plugin for working with Gist in Notepad++
 
 ![Notepad++ love GitHub](Images/NPP-Love-GitHub.png)

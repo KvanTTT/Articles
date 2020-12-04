@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/ru/post/215769 />
+<include src=Links.ignore.md />
+
 # Разработка .NET плагина для работы с Gist в Notepad++
 
 ![Notepad++ love GitHub](Images/NPP-Love-GitHub.png)
@@ -19,7 +22,7 @@ plugins, которая находится в папке с установлен
 * [**NppPlugin.NET**](http://sourceforge.net/projects/sourcecookifier/files/other%20plugins/NppPlugin.NET.v0.5.zip/download) -
   шаблон Notepad++ плагина для .NET платформы.
 * [**NppNetInf**](https://github.com/KvanTTT/NppNetInf) - новая библиотека
-  для более легкой разработки плагинов. 
+  для более легкой разработки плагинов.
 * [**ServiceStack.Text**](https://github.com/ServiceStack/ServiceStack.Text) -
   библиотека для сериализация и десериализация JSON. Имеет высокую
   производительность и небольшой размер).

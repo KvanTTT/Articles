@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/ru/company/pt/blog/414757 />
+<include src=Links.ignore.md />
+
 # Современный формат презентаций
 
 Поздравляю дизайнеров с их профессиональным днем! В честь праздника я решил

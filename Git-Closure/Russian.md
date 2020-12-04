@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/ru/post/445676 />
+<include src=Links.ignore.md />
+
 # Новое в Git 3: замыкания
 
 Git - популярная система контроля версий.

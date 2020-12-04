@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/ru/post/137861 />
+<include src=Links.ignore.md />
+
 # Приложение в честь Дня святого Валентина на libgdx
 
 Периодически появляются топики, посвященные дню Валентина.

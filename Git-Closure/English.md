@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/445680 />
+<include src=Links.ignore.md />
+
 # New feature in Git 3: closures
 
 Git is a popular version control system. In Git, an atomic change of one or

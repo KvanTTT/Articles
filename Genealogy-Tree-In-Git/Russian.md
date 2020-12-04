@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/ru/post/351158 />
+<include src=Links.ignore.md />
+
 # Генеалогическое древо внутри Git
 
 Поздравляю всех с днем программиста! Желаю больше ярких "коммитов",

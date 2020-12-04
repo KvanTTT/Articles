@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/440410 />
+<include src=Links.ignore.md />
+
 # Selecting, caching and displaying photos on the map
 
 In this article, I decided to describe how the functionality of selecting and

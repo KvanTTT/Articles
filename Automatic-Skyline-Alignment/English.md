@@ -1,7 +1,10 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/442420 />
+<include src=Links.ignore.md />
+
 # Algorithm for Automatic Skyline Alignment
 
 The implemented method works for both square and rectangular images.
-It is also capable of keeping the original proportions as well as stretching the image 
+It is also capable of keeping the original proportions as well as stretching the image
 to make it cover the entire area when rotated. A simple program was written to illustrate this article.
 If alignment is unsatisfactory, the angle can be manually changed by rotating the image
 or drawing the skyline. In 2013, this technique was implemented at an online photo service Gfranq.
@@ -12,7 +15,7 @@ or drawing the skyline. In 2013, this technique was implemented at an online pho
 
 ## Stages of the algorithm
 
-To ensure the automatic skyline alignment is performed properly for most images, the process was 
+To ensure the automatic skyline alignment is performed properly for most images, the process was
 divided into the following steps:
 
 1. Edge detection
@@ -27,13 +30,13 @@ These steps will be described in detail in the following sections.
 ### Edge detection
 
 It was decided to utilize the [Canny edge detector](https://en.wikipedia.org/wiki/Canny_edge_detector)
-on the basis of both subjective and objective considerations. The process of Canny edge detection 
+on the basis of both subjective and objective considerations. The process of Canny edge detection
 algorithm can be divided to the following steps:
 
 1. Converting the image to black and white
 2. Applying Gaussian filter to smooth the image in order to remove the noise
 3. Finding the intensity gradients of the image
-4. Applying non-maximum suppression to get rid of spurious response 
+4. Applying non-maximum suppression to get rid of spurious response
 to edge detection and double threshold to determine potential edges
 
 Since there is a detailed description on Wikipedia, we will not go into the specifics of above-mentioned steps.
@@ -41,13 +44,13 @@ Since there is a detailed description on Wikipedia, we will not go into the spec
 ### Detection of straight lines
 
 After the edges were detected (by identifying points at which image brightness changes sharply
-or has discontinuities), the algorithm for 
-selecting straight lines is applied because the skyline appears as 
+or has discontinuities), the algorithm for
+selecting straight lines is applied because the skyline appears as
 a straight or almost straight line, possibly affected by noise.
 It was decided to use [Hough transform technique](https://en.wikipedia.org/wiki/Hough_transform).
 
 Such a transformation returns an image (matrix) in which
-slope coefficients of lines are calculated on their horizontal projection, and the distance from 
+slope coefficients of lines are calculated on their horizontal projection, and the distance from
 the image center to these lines is calculated vertically.
 This creates inconvenience when performing further steps.
 
@@ -98,12 +101,12 @@ The discussed approach is based on selection of the line with maximum intensity.
 
 ### Calculation of an angle between the selected line and the center of the image
 
-At this step, the angle between the lines passing through the center of the image 
+At this step, the angle between the lines passing through the center of the image
 with the dimensions of `width` and` height` is calculated.
-The first line is exactly vertical, while the second line is perpendicular 
+The first line is exactly vertical, while the second line is perpendicular
 to the segment `x1`,` y1`, `x2`, `y2`.
 
-In other words, we calculate the angle by which the image needs to be 
+In other words, we calculate the angle by which the image needs to be
 rotated so that the segment `x1`,` y1`, `x2`,` y2` becomes horizontally aligned.
 
 ```CSharp
@@ -123,24 +126,24 @@ public static double CalculateAngle(int width, int height, double x1, double y1,
 }
 ```
 
-Also note that if the calculated angle exceeds a certain predetermined value 
+Also note that if the calculated angle exceeds a certain predetermined value
 (in our case, it is 45), then the automatic rotation will not be performed.
 
 ### Rotation of the image by a calculated angle
 
 There are various algorithms to rotate the image in a proper manner.
-Typically, they are all based on the use of [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) 
-and an algorithm for smoothing. Fortunately, there are already functions that work 
+Typically, they are all based on the use of [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix)
+and an algorithm for smoothing. Fortunately, there are already functions that work
 at the hardware level with both browsers and desktop applications.
 
 ### Calculation of the resulting inscribed rectangle
 
 After calculating the angle by which you want to rotate the image,
 calculate the dimensions of the maximum rectangle inscribed in the rotated image.
-This rectangle can be either proportional (in this case, the original image size is preserved, 
-i.e. part of the inscribed image is stretched to the original dimensions), and nonproportional, 
-covering the entire maximum area in the rotated image. To solve this problem, an appropriate 
-[stackoverflow question](http://stackoverflow.com/q/5789239/1046374) was found and one of the 
+This rectangle can be either proportional (in this case, the original image size is preserved,
+i.e. part of the inscribed image is stretched to the original dimensions), and nonproportional,
+covering the entire maximum area in the rotated image. To solve this problem, an appropriate
+[stackoverflow question](http://stackoverflow.com/q/5789239/1046374) was found and one of the
 answers was modified to the following code:
 
 ```JavaScript
@@ -155,8 +158,8 @@ calculateLargestRect = function(angle, origWidth, origHeight) {
         h0 = origWidth;
     }
     // Angle normalization in range [-PI..PI)
-    var ang = angle - Math.floor((angle + Math.PI) / (2*Math.PI)) * 2*Math.PI; 
-    ang = Math.abs(ang);      
+    var ang = angle - Math.floor((angle + Math.PI) / (2*Math.PI)) * 2*Math.PI;
+    ang = Math.abs(ang);
     if (ang > Math.PI / 2)
         ang = Math.PI - ang;
     var sina = Math.sin(ang);
@@ -190,13 +193,13 @@ To explain the technique for auto horizon alignment, I prepared a graphic illust
 ### Rotating images in Google Chrome
 
 This technique was implemented in JavaScript and works in browsers.
-However, there is a bug in Google Chrome related to the lack of smoothing of image edges 
+However, there is a bug in Google Chrome related to the lack of smoothing of image edges
 during transformations (for example, rotations), while the images themselves are
 interpolated correctly. The figure below shows an illustrative example.
 
 This bug does not affect other modern versions of browsers (IE, Firefox, Safari).
 
-An easy way to avoid this bug is drawing a transparent 
+An easy way to avoid this bug is drawing a transparent
 border near the image (the image size will be 2 pixels smaller) using the following code:
 
 ```JavaScript
@@ -209,8 +212,8 @@ Thus, we managed to achieve the correct smoothing effect in all browsers:
 
 ## Conclusion
 
-Varying the coefficients in the algorithm for detection of edges and 
-Hough transform technique allowed us to achieve acceptable quality and efficiency 
-of automatic alignment, which has been tested on a selection of images. 
+Varying the coefficients in the algorithm for detection of edges and
+Hough transform technique allowed us to achieve acceptable quality and efficiency
+of automatic alignment, which has been tested on a selection of images.
 If this technique for some reason does not work correctly with some images,
 the angle can be easily corrected manually by rotating the image or drawing the skyline.

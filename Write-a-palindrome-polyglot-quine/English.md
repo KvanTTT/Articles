@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/468711 />
+<include src=Links.ignore.md />
+
 # How to write Palindrome Polyglot Quines
 
 <img align="center" alt="PalidromePolyglotQuine" src="Title.png"/>

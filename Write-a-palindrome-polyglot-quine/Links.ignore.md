@@ -1,0 +1,1 @@
+<linkmap src=Title.png dst=https://habrastorage.org/files/b0e/458/9ec/b0e4589ec6494616b28f63c65843d896.png />

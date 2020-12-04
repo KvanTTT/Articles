@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/445062 />
+<include src=Links.ignore.md />
+
 # Modern Presentations Format?
 
 Nowadays, when VR helmets have become part of our reality and Tesla cars fly in

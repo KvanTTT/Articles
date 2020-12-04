@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/ru/post/164439 />
+<include src=Links.ignore.md />
+
 # Универсальный код под .NET и JavaScript
 
 В 2013 году, работая в GFRANQ, я участвовал в развитии одноименного веб-сервиса

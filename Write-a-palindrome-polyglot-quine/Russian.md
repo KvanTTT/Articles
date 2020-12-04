@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/ru/company/pt/blog/309702 />
+<include src=Links.ignore.md />
+
 # Как писать квайн-полиглот-палиндромы
 
 <img align="left" alt="PalidromePolyglotQuine" src="Title.png"/>
@@ -84,9 +87,9 @@ return 0;
 ```c
 # define x u    /*            v
 #    :::::::::::::::::::>>>>>>>$$$a"muroftih"#[>:#,_@]
-eval 'echo "hitforum";exit';sub echo { print    "@_\n"}               
-__END__>++++++++++>++++++++++[>+++++++++++>++++++++++    
-+<<-]>------.+.>++++++.<---.+++++++++.>--.+++                        
+eval 'echo "hitforum";exit';sub echo { print    "@_\n"}
+__END__>++++++++++>++++++++++[>+++++++++++>++++++++++
++<<-]>------.+.>++++++.<---.+++++++++.>--.+++
 .<--.<<.    */
 main() { printf ("hitforum\n"); }
 ```
@@ -109,24 +112,24 @@ elif [ -n "$BASH_VERSION" ]; then		    	\
 else	\
     echo exec	echo	I\'m	a sh	script.;		\
 fi`;	#!;#\
-BEGIN{print"I'm a ", 0 ? "Ruby"	:"Perl",	" program.\n";	exit; }  
+BEGIN{print"I'm a ", 0 ? "Ruby"	:"Perl",	" program.\n";	exit; }
 	#\
-%q~     		 	  	
-	
-set =dummy 0; puts [list "I'm"	"a"	"tcl"	"script."]; exit	  
-	
+%q~
+
+set =dummy 0; puts [list "I'm"	"a"	"tcl"	"script."]; exit
+
 all: ; @echo "I'm a Makefile."		  	 	\
 	#*/
 /*: */ enum {a, b}; 			  		\
 	\
-static int c99(void) {  			    
-	
- #ifndef __cplusplus /* bah */		    	
-	
+static int c99(void) {
+
+ #ifndef __cplusplus /* bah */
+
 unused1: if ((enum {b, a})0) 		   		\
 	(void)0;
- #endif    		  	 	
-	
+ #endif
+
 unused2:    return a;	     \
 }	\
 static int trigraphs(void) {  			    \

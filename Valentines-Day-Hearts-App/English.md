@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/440298 />
+<include src=Links.ignore.md />
+
 # Valentine's Day Application on Libgdx
 
 Every year there are a lot of articles dedicated to Valentine's Day. I also

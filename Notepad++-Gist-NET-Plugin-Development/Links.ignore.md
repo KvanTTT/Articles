@@ -1,0 +1,2 @@
+<linkmap src=Images/NPP-Love-GitHub.png dst=https://habrastorage.org/getpro/habr/post_images/caf/4c7/70f/caf4c770f441ae59a1bd7892d4093b11.png />
+<linkmap src=Images/Sample-Screen.png dst=https://habrastorage.org/getpro/habr/post_images/c08/e83/806/c08e838068030461eccbd5c9558654c3.png />

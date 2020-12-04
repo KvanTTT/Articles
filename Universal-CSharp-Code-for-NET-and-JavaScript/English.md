@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/440342 />
+<include src=Links.ignore.md />
+
 # Universal C# Code for .NET and JavaScript
 
 Greetings. This topic is aimed at highlighting the details of

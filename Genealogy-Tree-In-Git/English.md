@@ -1,3 +1,6 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/en/post/465959 />
+<include src=Links.ignore.md />
+
 # Family tree inside Git
 
 Happy programmer's day! I wish you more bright commits, merged pull requests,
