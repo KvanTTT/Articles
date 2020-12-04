@@ -9,7 +9,7 @@ before_build:
 
 build_script:
 - ps: |
-    markconv -f ./ -o Habr
+    markconv -f ./ -o Habr --checklinks
 
 after_test:
 - ps: |
