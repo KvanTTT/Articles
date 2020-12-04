@@ -1,5 +1,5 @@
 image:
-- Ubuntu
+- Visual Studio 2019
 version: "{build}"
 skip_branch_with_pr: true
 
