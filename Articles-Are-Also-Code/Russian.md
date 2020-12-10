@@ -1,3 +1,7 @@
+<linkmap src=HeaderImageLink dst=https://habr.com/ru/post/442368 />
+<linkmap src=VisualStudioCodeScreen.png dst=https://habrastorage.org/webt/tn/le/y_/tnley_qk-ulz8filf5ou2q67ck0.png />
+<linkmap src=Typora.png dst=https://habrastorage.org/webt/kv/cq/7z/kvcq7zzhvhszdppm0_vykzqbipg.png />
+
 # Статьи - это тоже исходный код {
 
 Наконец-то высвободилось время написать что-нибудь на хабр.
