@@ -1,8 +1,18 @@
 <linkmap src=HeaderImageLink dst=https://habr.com/ru/post/442368 />
-<linkmap src=VisualStudioCodeScreen.png dst=https://habrastorage.org/webt/tn/le/y_/tnley_qk-ulz8filf5ou2q67ck0.png />
+<linkmap src=Title.png dst=https://habrastorage.org/webt/kb/pg/vy/kbpgvydehjm8ih1p6cxvq5oujpa.png />
+<linkmap src=TextEditor.png dst=https://habrastorage.org/webt/jf/za/y8/jfzay8zzy7obtzbq6ebuy_kjgv4.png />
+<linkmap src=TableFormatter.gif dst=https://habrastorage.org/webt/6u/jv/sk/6ujvskmanixihuhuzv8oha5kf1o.gif />
+<linkmap src=MarkdownTOC.gif dst=https://habrastorage.org/webt/qb/sh/hd/qbshhd8at4jyxjh4aatyesenefy.gif />
 <linkmap src=Typora.png dst=https://habrastorage.org/webt/kv/cq/7z/kvcq7zzhvhszdppm0_vykzqbipg.png />
+<linkmap src=Markdown.png dst=https://habrastorage.org/webt/kk/oh/h_/kkohh_fcdlzf86dpjilyf5zkgrm.png />
+<linkmap src=Git.png dst=https://habrastorage.org/webt/up/fb/cc/upfbccnjegpdo3rcuxozxmc1k-g.png />
+<linkmap src=Proofreading.png dst=https://habrastorage.org/webt/hf/q_/sf/hfq_sfwlch0vnzt2trubq33py8s.png />
+<linkmap src=GitHubActions.png dst=https://habrastorage.org/webt/fi/ej/fv/fiejfv_uv0n-wurxfhygtzcykua.png />
+<linkmap src=Habr.png dst=https://habrastorage.org/webt/cf/ei/1k/cfei1ka04yu5e021ovuhsrlsr-s.png />
 
 # Статьи - это тоже исходный код {
+
+![Title](Title.png)
 
 Наконец-то высвободилось время написать что-нибудь на хабр.
 Открываю браузер, создаю новый черновик, приступаю.
@@ -46,7 +56,7 @@
     - [Typora](#typora)
     - [Microsoft Word и другие редакторы](#microsoft-word-и-другие-редакторы)
     - [Веб-интерфейс](#веб-интерфейс)
-- [Ковертируем {](#ковертируем-)
+- [Конвертируем {](#конвертируем-)
     - [Используем MarkConv](#используем-markconv)
     - [Дополнительные возможности MarkConv](#дополнительные-возможности-markconv)
         - [Проверка синтаксиса](#проверка-синтаксиса-1)
@@ -72,8 +82,10 @@
 
 ## Пишем {
 
+<img src="TextEditor.png" align=left width=80 >
+
 Написание статьи начинается с текстового редактора. Их большое количество,
-но я остановился на наиболее популярных и разнородных;
+но я остановился на наиболее популярных и разнородных;<br><br><br>
 
 ### Visual Studio Code
 
@@ -84,8 +96,6 @@
 При работе над статьей слева отображается ее исходник,
 а справа - то, во что она визуализируется, причем в реальном времени.
 Для файлов формата Markdown и многих других есть подсветка синтаксиса;
-
-![VisualStudioCodeScreen](VisualStudioCodeScreen.png)
 
 О VSCode написано много статей и мануалов, в том числе и [на хабре](https://habr.com/ru/post/442666/),
 поэтому не буду много расписывать о ее возможностях, а перечислю типы расширений,
@@ -115,12 +125,16 @@
 
 #### Форматирование таблиц
 
+![Table Formatter](https://raw.githubusercontent.com/shuGH/vscode-table-formatter/master/res/complex_demo.gif)
+
 В Markdown громоздкий и не особо удобный синтаксис для описания таблиц.
 К счастью, существуют различные расширения, которые позволяют улучшить их
 читабельность одним кликом. Например,
 [Table Formatter](https://marketplace.visualstudio.com/items?itemName=shuworks.vscode-table-formatter);
 
 #### Генерация оглавления
+
+![Markdown TOC](https://github.com/AlanWalk/Markdown-TOC/raw/master/img/insert-toc.gif)
 
 Иногда возникает необходимость сгенерировать оглавление (Table of Content, TOC)
 для всего документа на основе заголовков, причем чтобы оно
@@ -158,7 +172,9 @@ pandoc text.docx -o text.md
 
 <h2>}</h2>
 
-## Ковертируем {
+## Конвертируем {
+
+<img src="Markdown.png" align=left width=80 >
 
 После того как статья написана, ее нужно сконвертировать в формат
 Habr. Этого можно было бы избежать, если бы формат хабра
@@ -263,14 +279,16 @@ You need to insert <cut/> tag if the text contains more than 1000 characters
 
 ## Храним {
 
+<img src="Git.png" align=left width=80 >
+
 Исходники написаны, а публикуемые файлы получены с помощью конвертера.
 Теперь хотелось бы их сохранить в репозитории, но сначала нужно определиться
-с его структурой. Я разработал такую:
+с его структурой. Я разработал такую:<br><br><br>
 
 * Каждая статья хранится в определенной папке. Название этой папки -
   перевод заголовка статьи, в котором пробелы заменены на дефисы, а
   запрещенные в url символы игнорируются. Для этой статьи названием будет
-  `Article-is-also-code`;
+  `Articles-Are-Also-Code`;
 * Сам `md` файл внутри этой папки именуется языком, на котором эта статья написана.
   Например, `Russian.md` или `English.md`;
 * (Опционально) Локальные картинки и ресурсы хранятся либо в корневой
@@ -278,7 +296,7 @@ You need to insert <cut/> tag if the text contains more than 1000 characters
 
 Теперь по передаваемой ссылке можно понять о чем статья и на каком языке она написана.
 Например, для этой статьи ссылка такая:
-<https://gitlab.ptsecurity.com/writers/Articles/blob/master/Article-is-also-code/Russian.md>;
+<https://github.com/KvanTTT/Articles/blob/ArticlesAreAlsoCode/Articles-Are-Also-Code/Russian.md>;
 
 В качестве навигации по документам можно использовать файл README.md в корне
 репозитория, который содержит в себе список статей в хронологическом порядке,
@@ -292,6 +310,8 @@ You need to insert <cut/> tag if the text contains more than 1000 characters
 
 ## Вычитываем {
 
+<img src="Proofreading.png" align=left width=80 >
+
 После того, как исходники статьи написаны и запушены, редакторы могут
 сделать "ревью" статьи, т.е. вычитку. Можно использовать знакомые для
 программиста инструменты: создавать issue, предлагать pull request и
@@ -303,6 +323,8 @@ You need to insert <cut/> tag if the text contains more than 1000 characters
 <h2>}</h2>
 
 ## Автоматизируем {
+
+<img src="GitHubActions.png" align=left width=80 >
 
 Непрерывная интеграция - вишенка на торте любого более менее зрелого процесса разработки.
 Благодаря ей, сторонние сервисы после каждого коммита проверяют, конвертируют,
@@ -398,6 +420,8 @@ after_test:
 
 ## Публикуем {
 
+<img src="Habr.png" align=left width=80 >
+
 Артефакты получены, теперь можно копировать их на хабр и публиковать.
 К сожалению, этот шаг пока что невозможно автоматизировать, потому что
 ["API Хабра закрыт на реконструкцию"](https://habr.com/ru/docs/help/api/).
@@ -414,15 +438,17 @@ after_test:
 использую GitHub для разработки и автоматизирую с помощью GitHub Actions -
 неплохой набор для программиста;
 
-Описанные ворклфлоу и инструменты, возможно, не особо удобны для "одноразовых"
+Описанный процесс и инструменты, возможно, не особо удобны для "одноразовых"
 статей типа новостей, однако могут оказаться полезными для технических,
 которые время от времени исправляются и обновляются.
+Не обязательно использовать все этапы - достаточно определенных, которые
+найдете наиболее удобными и подходящими для себя.
 Чтобы понять, имеет ли смысл развивать эту тему, я подготовил несколько опросов -
-буду благодарен за любой выбор. Также пишите фидбек в комментах,
-а может даже в [issue](https://github.com/KvanTTT/Articles/issues) на гитхабе;
+буду благодарен за любой выбор. Также пишите фидбек в комментах или
+в [issue](https://github.com/KvanTTT/Articles/issues) на гитхабе;
 
-В следующей статье я хотел бы рассказать о том, как разрабатывалась утилита для конвератации
-MarkConv, о ее технических деталях, а также о возможном развитии.
+В следующей статье я хотел бы рассказать о том, как разрабатывалась утилита для конвертации
+MarkConv, о ее технических деталях, о возможном развитии.
 Если вам, конечно, интересно;
 
 <h2>}</h2>
@@ -441,7 +467,7 @@ MarkConv, о ее технических деталях, а также о воз
 ### Где храните статьи?
 
 * Черновики на хабре
-* Документы Google Docs, либо другой облачный сервис
+* Документы Google Docs, либо в другом облачном сервисе
 * Локально на диске
 * В Git репозитории
 
@@ -456,9 +482,9 @@ MarkConv, о ее технических деталях, а также о воз
 ### Что думайте о таком процессе разработки статей?
 
 1. Устраивает существующая функциональность
-2. Концепция интересная, но слишком много телодвижений
-3. Возможно буду использовать для фундаментальных статей, но не для новостных
-   и хайповых.
+2. Концепция интересная, но слишком много мороки. Попробовал бы, если было
+   бы проще для конечного пользователя.
+3. Попробую использовать для технических статей, но не для новостных
 4. Давно не хватало - буду пробовать использовать
 
 ### Интересно ли узнать о деталях разработки конвертера MarkConv?
