@@ -5,7 +5,7 @@ skip_branch_with_pr: true
 
 before_build:
 - ps: |
-    dotnet tool install -g MarkConv.Cli --version 1.2.0 --add-source https://www.myget.org/F/mark-conv/api/v3/index.json
+    dotnet tool install -g MarkConv.Cli --version 1.0.0 --add-source https://www.myget.org/F/mark-conv/api/v3/index.json
 
 build_script:
 - ps: |
