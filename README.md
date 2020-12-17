@@ -10,6 +10,10 @@
 
 ## Biography ([ru](Biography/Russian.md))
 
+### Articles Are Also Code ([ru](Articles-Are-Also-Code/Russian.md))
+
+* [habr.com (12/17/2020)](https://habr.com/ru/post/442368)
+
 ### [Family Tree inside Git](Genealogy-Tree-In-Git/English.md) ([ru](Genealogy-Tree-In-Git/Russian.md))
 
 * [habr.com (09/13/2018)](https://habr.com/post/351158/)
